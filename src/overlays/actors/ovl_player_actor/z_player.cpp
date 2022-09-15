@@ -3435,7 +3435,8 @@ s32 func_80836AB8(Player* pthis, s32 arg1)
 	return var;
 }
 
-void func_80836BEC(Player* pthis, GlobalContext* globalCtx)
+static TimerS16 zHoldTimer;
+void UpdateZTarget(Player* pthis, GlobalContext* globalCtx)
 {
 	s32 sp1C = 0;
 	s32 zTrigPressed = CHECK_BTN_ALL(sControlInput->cur.button, BTN_Z);
@@ -3510,6 +3511,7 @@ void func_80836BEC(Player* pthis, GlobalContext* globalCtx)
 						{
 							pthis->stateFlags2 |= PLAYER_STATE2_ZTARGET_CHANGED;
 						}
+						zHoldTimer = 50;
 						pthis->targetedActor = actorToTarget;
 						pthis->unk_66C = 15;
 						pthis->stateFlags2 &= ~(PLAYER_STATE2_1 | PLAYER_STATE2_21);
@@ -3531,6 +3533,22 @@ void func_80836BEC(Player* pthis, GlobalContext* globalCtx)
 						func_808355DC(pthis);
 					}
 				}
+			}
+			else if(CHECK_BTN_ALL(sControlInput->cur.button, BTN_Z))
+			{
+				if(zHoldTimer > 0)
+				{
+					zHoldTimer--;
+				}
+			}
+			else
+			{
+				zHoldTimer = 50;
+			}
+
+			if(zHoldTimer <= 0)
+			{
+				Player_ClearZTarget(pthis);
 			}
 
 			if(pthis->targetedActor != NULL)
@@ -3567,13 +3585,13 @@ void func_80836BEC(Player* pthis, GlobalContext* globalCtx)
 			}
 			else
 			{
-				func_8008EE08(pthis);
+				SetFlagsForClearZTarget(pthis);
 			}
 		}
 	}
 	else
 	{
-		func_8008EE08(pthis);
+		SetFlagsForClearZTarget(pthis);
 	}
 }
 
@@ -11904,7 +11922,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 	}
 
 	func_808473D4(globalCtx, pthis);
-	func_80836BEC(pthis, globalCtx);
+	UpdateZTarget(pthis, globalCtx);
 
 	if((pthis->heldItemActionParam == PLAYER_AP_STICK) && (pthis->unk_860 != 0))
 	{

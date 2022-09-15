@@ -434,11 +434,11 @@ struct Keep1Anim
 	/* 0x00 */ f32 unk_00;
 	/* 0x04 */ f32 unk_04;
 	/* 0x08 */ f32 unk_08;
-	/* 0x0C */ struct Actor* unk_0C;
+	/* 0x0C */ struct Actor* currentTarget;
 	/* 0x10 */ s16 unk_10;
 	/* 0x12 */ s16 unk_12;
 	/* 0x14 */ s16 unk_14;
-	/* 0x16 */ s16 unk_16;
+	/* 0x16 */ TimerS16 unk_16;
 }; // size = 0x18
 
 struct KeepOn1

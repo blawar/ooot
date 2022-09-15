@@ -489,7 +489,7 @@ void Player_ClearZTarget(Player* pthis)
 	pthis->stateFlags2 &= ~PLAYER_STATE2_ZTARGET_CHANGED;
 }
 
-void func_8008EE08(Player* pthis)
+void SetFlagsForClearZTarget(Player* pthis)
 {
 	if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->stateFlags1 & (PLAYER_STATE1_21 | PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING)) ||
 	   (!(pthis->stateFlags1 & (PLAYER_STATE1_18 | PLAYER_STATE1_19)) && ((pthis->actor.world.pos.y - pthis->actor.floorHeight) < 100.0f)))
@@ -508,7 +508,7 @@ void func_8008EEAC(GlobalContext* globalCtx, Actor* actor)
 {
 	Player* pthis = GET_PLAYER(globalCtx);
 
-	func_8008EE08(pthis);
+	SetFlagsForClearZTarget(pthis);
 	pthis->targetedActor = actor;
 	pthis->unk_684 = actor;
 	pthis->stateFlags1 |= PLAYER_STATE1_16;

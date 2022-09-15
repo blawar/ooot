@@ -1904,6 +1904,7 @@ s32 Camera_Normal1(Camera* camera)
 
 		if(oot::state.center_camera)
 		{
+			eyeAdjustment.pitch = atEyeNextGeo.pitch;
 			eyeAdjustment.yaw = Camera_LERPCeilS(BINANG_ROT180(camera->playerPosRot.rot.y), atEyeNextGeo.yaw, 3.0f / camera->yawUpdateRateInv, 0xA);
 		}
 		else if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
@@ -2389,7 +2390,7 @@ s32 Camera_Normal0(Camera* camera)
 	return Camera_Noop(camera);
 }
 
-// z target camera
+// z target camera with no target
 s32 Camera_Parallel1(Camera* camera)
 {
 	Vec3f* eye = &camera->eye;
@@ -2420,7 +2421,6 @@ s32 Camera_Parallel1(Camera* camera)
 		f32 yNormal = (1.0f + PCT(R_CAM_YOFFSET_NORM)) - (PCT(R_CAM_YOFFSET_NORM) * (68.0f / playerHeight));
 
 		para1->unk_00 = NEXTPCT * playerHeight * yNormal;
-		;
 		para1->distTarget = NEXTPCT * playerHeight * yNormal;
 		para1->pitchTarget = DEGF_TO_BINANG(NEXTSETTING);
 		para1->yawTarget = DEGF_TO_BINANG(NEXTSETTING);
@@ -3694,7 +3694,7 @@ s32 Camera_Battle0(Camera* camera)
 	return Camera_Noop(camera);
 }
 
-// Targeting non-enemy
+//z targeting non-enemy
 s32 Camera_KeepOn1(Camera* camera)
 {
 	Vec3f* eye = &camera->eye;
@@ -3776,7 +3776,7 @@ s32 Camera_KeepOn1(Camera* camera)
 		camera->animState++;
 		anim->unk_10 = 0;
 		anim->unk_04 = 0.0f;
-		anim->unk_0C = camera->target;
+		anim->currentTarget = camera->target;
 		anim->unk_16 = R_DEFA_CAM_ANIM_TIME + OREG(24);
 		anim->unk_12 = spC0.yaw;
 		anim->unk_14 = spC0.pitch;
@@ -3811,9 +3811,9 @@ s32 Camera_KeepOn1(Camera* camera)
 				Actor_GetFocus(&camera->targetPosRot, camera->target);
 			}
 			Actor_GetFocus(&camera->targetPosRot, camera->target);
-			if(anim->unk_0C != camera->target)
+			if(anim->currentTarget != camera->target)
 			{
-				anim->unk_0C = camera->target;
+				anim->currentTarget = camera->target;
 				camera->atLERPStepScale = 0.0f;
 			}
 			camera->xzOffsetUpdateRate = Camera_LERPCeilF(1.0f, camera->xzOffsetUpdateRate, PCT(OREG(25)) * camera->speedRatio, 0.1f);
@@ -3821,7 +3821,7 @@ s32 Camera_KeepOn1(Camera* camera)
 			camera->fovUpdateRate = Camera_LERPCeilF(PCT(OREG(4)), camera->fovUpdateRate, camera->speedRatio * 0.05f, 0.1f);
 			goto cont;
 		case 0x10:
-			anim->unk_0C = NULL;
+			anim->currentTarget = NULL;
 		cont:
 			if(camera->playerGroundY == camera->playerPosRot.pos.y || camera->player->actor.gravity > -0.1f || camera->player->stateFlags1 & PLAYER_STATE1_21)
 			{
@@ -3842,7 +3842,7 @@ s32 Camera_KeepOn1(Camera* camera)
 		default:
 			*at = playerPosRot->pos;
 			at->y += playerHeight;
-			anim->unk_0C = NULL;
+			anim->currentTarget = NULL;
 			break;
 	}
 	OLib_Vec3fDiffToVecSphGeo(&spD8, at, eyeNext);
