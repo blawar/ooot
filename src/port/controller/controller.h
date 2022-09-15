@@ -77,6 +77,8 @@ namespace oot::hid
 		s64 mouse_x;
 		s64 mouse_y;
 		bool has_mouse;
+		bool had_mouse;
+		bool skipFirstMouseClick;
 		bool m_walk;
 	};
 

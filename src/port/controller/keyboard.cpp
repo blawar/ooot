@@ -253,8 +253,12 @@ namespace oot::hid
 
 			bool hasMouse() const
 			{
-				return true;
 				return m_state.has_mouse;
+			}
+
+			bool hadMouse() const
+			{
+				return m_state.had_mouse;
 			}
 
 			int keyboard_buttons_down;
@@ -289,7 +293,7 @@ namespace oot::hid
 
 			void enableMouse()
 			{
-				this->state().has_mouse = true;
+				this->state().has_mouse = (SDL_GetRelativeMouseMode() == SDL_TRUE);
 			}
 
 			bool canRebind(SDL_Scancode scancode, hid::Button input)
@@ -421,26 +425,48 @@ namespace oot::hid
 				mouse_delta_y = mouseScaleY(mouse_delta_y);
 
 				this->enableMouse();
+
+				if(!hadMouse() && hasMouse())
+				{
+					this->state().skipFirstMouseClick = true;
+				}
+				else if(!buttons && this->state().skipFirstMouseClick)
+				{
+					this->state().skipFirstMouseClick = false;
+				}
+
 				expandMouseButtonBits(buttons, mouseState);
 
 				for(const auto& [btn, input] : m_mouseBindings)
 				{
-					if(mouseState[btn])
-					{
-						processKey(input);
-					}
-
-					if(m_lastMouseState[btn] ^ mouseState[btn])
+					if(!this->state().skipFirstMouseClick)
 					{
 						if(mouseState[btn])
 						{
-							processKeyDown(input);
+							processKey(input);
 						}
-						else
+
+						if(m_lastMouseState[btn] ^ mouseState[btn])
 						{
-							processKeyUp(input);
+							if(mouseState[btn])
+							{
+								processKeyDown(input);
+							}
+							else
+							{
+								processKeyUp(input);
+							}
 						}
 					}
+				}
+
+				if(this->state().skipFirstMouseClick && hasMouse() && !hadMouse())
+				{
+					this->state().had_mouse = true;
+				}
+				else if(!hasMouse())
+				{
+					this->state().had_mouse = false;
 				}
 
 				if(isFirstPerson())
@@ -448,16 +474,19 @@ namespace oot::hid
 					mouse_delta_y *= -1;
 				}
 
-				m_state.mouse_x += mouse_delta_x;
-				m_state.mouse_y += mouse_delta_y;
-				if(!config().camera().useClassicCamera() && (m_lastMouse_delta_x != mouse_delta_x || m_lastMouse_delta_y != mouse_delta_y))
+				if(hasMouse())
 				{
-					m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * FRAMERATE_SCALER_INV, 80), -80);
-					m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * FRAMERATE_SCALER_INV, 80), -80);
+					m_state.mouse_x += mouse_delta_x;
+					m_state.mouse_y += mouse_delta_y;
+					if(!config().camera().useClassicCamera() && (m_lastMouse_delta_x != mouse_delta_x || m_lastMouse_delta_y != mouse_delta_y))
+					{
+						m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * FRAMERATE_SCALER_INV, 80), -80);
+						m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * FRAMERATE_SCALER_INV, 80), -80);
+					}
+					memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
+					m_lastMouse_delta_x = mouse_delta_x;
+					m_lastMouse_delta_y = mouse_delta_y;
 				}
-				memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
-				m_lastMouse_delta_x = mouse_delta_x;
-				m_lastMouse_delta_y = mouse_delta_y;
 #endif
 
 				if(m_state.m_walk)
