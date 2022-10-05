@@ -57,7 +57,7 @@ s32 Player_IsTargetingAnActor(Player* player);
 void func_8008EC70(Player* player);
 void Player_ClearZTarget(Player* player);
 void SetFlagsForClearZTarget(Player* player);
-void func_8008EEAC(GlobalContext* globalCtx, Actor* actor);
+void StartInvolintaryZtarget(GlobalContext* globalCtx, Actor* actor);
 s32 func_8008EF44(GlobalContext* globalCtx, s32 ammo);
 s32 Player_HoldingHookshot(Player* player);
 s32 func_8008F2BC(Player* player, s32 actionParam);
