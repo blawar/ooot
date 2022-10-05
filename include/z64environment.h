@@ -45,7 +45,7 @@ struct LightningStrike
 	/* 0x02 */ u8 flashGreen;
 	/* 0x03 */ u8 flashBlue;
 	/* 0x04 */ u8 flashAlphaTarget;
-	/* 0x08 */ f32 delayTimer;
+	/* 0x08 */ TimerF32 delayTimer;
 }; // size = 0xC
 
 // describes what skybox files and blending modes to use depending on time of day
@@ -122,9 +122,9 @@ struct EnvironmentContext
 	/* 0xD8 */ f32 unk_D8; // indoor light blend weight?
 	/* 0xDC */ u8 unk_DC;
 	/* 0xDD */ u8 gloomySkyMode;
-	/* 0xDE */ u8 unk_DE; // gloomy sky state
+	/* 0xDE */ u8 skyState; // gloomy sky state
 	/* 0xDF */ u8 lightningMode;
-	/* 0xE0 */ u8 unk_E0; // env sounds state
+	/* 0xE0 */ u8 dayState; // env sounds state
 	/* 0xE1 */ u8 fillScreen;
 	/* 0xE2 */ u8 screenFillColor[4];
 	/* 0xE6 */ u8 sandstormState;
