@@ -288,9 +288,9 @@ void EffectSs_Update(GlobalContext* globalCtx, s32 index)
 		effectSs->velocity.y += effectSs->accel.y;
 		effectSs->velocity.z += effectSs->accel.z;
 
-		effectSs->accel.x += effectSs->velocity.x;
-		effectSs->accel.y += effectSs->velocity.y;
-		effectSs->accel.z += effectSs->velocity.z;
+		effectSs->pos.x += effectSs->velocity.x;
+		effectSs->pos.y += effectSs->velocity.y;
+		effectSs->pos.z += effectSs->velocity.z;
 
 		effectSs->update(globalCtx, index, effectSs);
 	}
