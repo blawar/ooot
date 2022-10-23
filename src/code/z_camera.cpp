@@ -2540,6 +2540,7 @@ s32 Camera_Parallel1(Camera* camera)
 	}
 	else
 	{
+		//somting to do with jumping off ledge
 		func_800458D4(camera, &atToEyeNextDir, para1->unk_18, &anim->yTarget, para1->interfaceFlags & 1);
 	}
 
