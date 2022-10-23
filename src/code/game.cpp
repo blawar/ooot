@@ -23,6 +23,7 @@
 #include "def/gamealloc.h"
 #include "def/gettime.h"
 #include "def/graph.h"
+#include "def/gfxprint.h"
 #include "def/idle.h"
 #include "def/logutils.h"
 #include "def/recvmesg.h"
@@ -405,6 +406,10 @@ void GameState_Update(GameState* gameState)
 		GameState_Draw(gameState, gfxCtx);
 		func_800C49F4(gfxCtx);
 	}
+
+	#ifdef DEBUG_PRINT
+	Debug_Draw(gfxCtx);
+	#endif
 
 	gameState->frames++;
 }
