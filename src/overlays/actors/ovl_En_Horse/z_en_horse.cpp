@@ -629,7 +629,7 @@ void EnHorse_UpdateIngoRaceInfo(EnHorse* pthis, GlobalContext* globalCtx, RaceIn
 
 void EnHorse_PlayWalkingSound(EnHorse* pthis)
 {
-	if(sAnimSoundFrames[pthis->soundTimer] < pthis->curFrame)
+	if(sAnimSoundFrames[pthis->soundTimer.toS32()] < pthis->curFrame)
 	{
 		if(pthis->soundTimer == 0 && (sAnimSoundFrames[1] < pthis->curFrame))
 		{
@@ -771,7 +771,6 @@ s32 EnHorse_PlayerCanMove(EnHorse* pthis, GlobalContext* globalCtx)
 
 void EnHorse_ResetHorsebackArchery(EnHorse* pthis, GlobalContext* globalCtx)
 {
-	pthis->unk_39C = 0;
 	pthis->hbaStarted = 0;
 	pthis->hbaFlags = 0;
 }
@@ -1102,7 +1101,7 @@ void EnHorse_UpdateSpeed(EnHorse* pthis, GlobalContext* globalCtx, f32 brakeDece
 	s16* stickAnglePtr; // probably fake
 	f32 stickMag;
 	s16 stickAngle;
-	f32 temp_f12;
+	TimerF32 temp_f12;
 	f32 traction;
 	s16 turn;
 
@@ -1165,8 +1164,7 @@ void EnHorse_UpdateSpeed(EnHorse* pthis, GlobalContext* globalCtx, f32 brakeDece
 	{
 		if(baseSpeed < pthis->actor.speedXZ)
 		{
-			temp_f12 = pthis->actor.speedXZ;
-			pthis->actor.speedXZ = temp_f12 - 0.06f;
+			pthis->actor.speedXZ -= 0.06f;
 		}
 		else if(pthis->actor.speedXZ < baseSpeed)
 		{
@@ -1531,7 +1529,6 @@ void EnHorse_StartGalloping(EnHorse* pthis)
 {
 	pthis->action = ENHORSE_ACT_MOUNTED_GALLOP;
 	pthis->animationIdx = ENHORSE_ANIM_GALLOP;
-	pthis->unk_234 = 0;
 	Animation_Change(&pthis->skin.skelAnime, sAnimationHeaders[pthis->type][pthis->animationIdx], 1.0f, 0.0f, Animation_GetLastFrame(sAnimationHeaders[pthis->type][pthis->animationIdx]), ANIMMODE_ONCE, -3.0f);
 }
 
@@ -1541,7 +1538,6 @@ void EnHorse_MountedGallopReset(EnHorse* pthis)
 	pthis->noInputTimer = 0;
 	pthis->action = ENHORSE_ACT_MOUNTED_GALLOP;
 	pthis->animationIdx = ENHORSE_ANIM_GALLOP;
-	pthis->unk_234 = 0;
 	Animation_PlayOnce(&pthis->skin.skelAnime, sAnimationHeaders[pthis->type][pthis->animationIdx]);
 }
 
