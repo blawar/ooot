@@ -1,9 +1,9 @@
 #define INTERNAL_SRC_LIBULTRA_GU_COSS_C
-#include "global.h"
+#include "ultra64.h"
 #include "def/coss.h"
-#include "def/sins.h"
+#include "macros.h"
 
-s16 coss(u16 angle)
+s16 coss(s16 x)
 {
-	return sins(angle + 0x4000);
+	return (s16)(cos(DEGTORAD(((x & 0xFFFC) / SHT_MAX) * 180.0f)) * SHT_MAX);
 }

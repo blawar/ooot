@@ -226,7 +226,6 @@
     <ClCompile Include="..\src\libultra\gu\scale.cpp" />
     <ClCompile Include="..\src\libultra\gu\sinf.cpp" />
     <ClCompile Include="..\src\libultra\gu\sins.cpp" />
-    <ClCompile Include="..\src\libultra\gu\sintable.cpp" />
     <ClCompile Include="..\src\libultra\gu\sqrtf.cpp" />
     <ClCompile Include="..\src\libultra\gu\translate.cpp" />
     <ClCompile Include="..\src\libultra\gu\us2dex.cpp" />

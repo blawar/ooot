@@ -87,13 +87,10 @@ Vec3f* OLib_Vec3fDistNormalize(Vec3f* dest, Vec3f* a, Vec3f* b)
 Vec3f* OLib_VecSphToVec3f(Vec3f* dest, VecSph* sph)
 {
 	Vec3f v;
-	f32 sinPitch;
+	f32 sinPitch = Math_SinS(sph->pitch);
 	f32 cosPitch = Math_CosS(sph->pitch);
-	f32 sinYaw;
+	f32 sinYaw = Math_SinS(sph->yaw);
 	f32 cosYaw = Math_CosS(sph->yaw);
-
-	sinPitch = Math_SinS(sph->pitch);
-	sinYaw = Math_SinS(sph->yaw);
 
 	v.x = sph->r * sinPitch * sinYaw;
 	v.y = sph->r * cosPitch;

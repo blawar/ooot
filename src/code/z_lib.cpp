@@ -8,9 +8,7 @@
 #include "z64game.h"
 #include "z64math.h"
 #include "def/audio_bank.h"
-#include "def/coss.h"
 #include "def/random.h"
-#include "def/sins.h"
 #include "def/sys_math_atan.h"
 #include "def/z_lib.h"
 
@@ -25,12 +23,12 @@ void Lib_MemSet(u8* dest, size_t size, u8 val)
 
 f32 Math_CosS(s16 angle)
 {
-	return coss(angle) * SHT_MINV;
+	return (f32)cos(DEGTORAD(((angle & 0xFFFC) / (f32)0x7FFF) * 180.0f));
 }
 
 f32 Math_SinS(s16 angle)
 {
-	return sins(angle) * SHT_MINV;
+	return (f32)sin(DEGTORAD(((angle & 0xFFFC) / (f32)0x7FFF) * 180.0f));
 }
 
 /**
