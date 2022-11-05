@@ -1535,33 +1535,35 @@ s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 acc
 #include "../port/controller/controller.h"
 #include "../port/player/players.h"
 
-s16 Camera_CalcControllerPitch(Camera* camera, s16 cur, s16 target, s16 arg3)
+s16 Camera_CalcControllerPitchDiff(Camera* camera)
 {
-	f32 pitchUpdRate;
+	f32 pitchUpdRate = 1.0f / 24.0f;//camera->pitchUpdateRateInv;
 
 	const oot::hid::Controller& controller = oot::player(0).controller();
-	s16 rStickY = (s16)controller.state().r_stick_y * (s16)-150;
+	s32 rStickY = -controller.state().r_stick_y;
 
 	if(rStickY != 0)
 	{
 		camera->startControlTimer = 250; //250 = 10s
 	}
 
-	pitchUpdRate = 1.0f / camera->pitchUpdateRateInv;
+	return CLAMP((s16)(rStickY * pitchUpdRate * oot::config().camera().scalerY() * FRAMERATE_SCALER), -0x7FFF, 0x7FFF);
 	return cur + (s16)(rStickY * pitchUpdRate * oot::config().camera().scalerY() * FRAMERATE_SCALER);
 }
 
-s16 Camera_CalcControllerYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 accel)
+s16 Camera_CalcControllerYawDiff(Camera* camera)
 {
-	f32 yawUpdRate;
+	f32 yawUpdRate = 1.0f / 24.0f;//camera->yawUpdateRateInv;
+
 	const oot::hid::Controller& controller = oot::player(0).controller();
-	s16 rStickX = (s16)controller.state().r_stick_x * (s16)-375;
+	s32 rStickX = -controller.state().r_stick_x;
+	
 	if(rStickX != 0)
 	{
 		camera->startControlTimer = 250; //250 = 10s
 	}
-	yawUpdRate = 1.0f / camera->yawUpdateRateInv;
-	return cur + (s16)(rStickX * yawUpdRate * oot::config().camera().scalerX() * FRAMERATE_SCALER);
+
+	return CLAMP((s16)(rStickX * yawUpdRate * oot::config().camera().scalerX() * FRAMERATE_SCALER), -0x7FFF, 0x7FFF);
 }
 
 void StepControlTimer(Camera* camera)
@@ -1909,8 +1911,9 @@ s32 Camera_Normal1(Camera* camera)
 		}
 		else if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
 		{
-			eyeAdjustment.yaw = Camera_CalcControllerYaw(camera, atEyeNextGeo.yaw, camera->playerPosRot.rot.y, norm1->unk_14, sp94);
-			eyeAdjustment.pitch = Camera_CalcControllerPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
+ 			eyeAdjustment.yaw = atEyeNextGeo.yaw + Camera_CalcControllerYawDiff(camera);
+			eyeAdjustment.pitch = atEyeNextGeo.pitch + Camera_CalcControllerPitchDiff(camera);
+			
 		}
 		else if(anim->swing.unk_18 != 0)
 		{
@@ -2346,8 +2349,8 @@ s32 Camera_Normal3(Camera* camera)
 		StepControlTimer(camera);
 		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
 		{
-			sp84.yaw = Camera_CalcControllerYaw(camera, sp74.yaw, playerPosRot->rot.y, norm3->yOffset, 0.0f);
-			sp84.pitch = Camera_CalcControllerPitch(camera, sp74.pitch, norm3->pitchTarget, 0);
+			sp84.yaw = sp74.yaw + Camera_CalcControllerYawDiff(camera);
+			sp84.pitch = sp74.pitch + Camera_CalcControllerPitchDiff(camera);
 		}
 		else if(camera->startControlTimer <= 0)
 		{
@@ -2763,8 +2766,8 @@ s32 Camera_Jump1(Camera* camera)
 		StepControlTimer(camera);
 		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
 		{
-			eyeDiffSph.yaw = Camera_CalcControllerYaw(camera, eyeNextAtOffset.yaw, playerPosRot->rot.y, 0, 0.0f);
-			eyeDiffSph.pitch = Camera_CalcControllerPitch(camera, eyeNextAtOffset.pitch, 0, 0);
+			eyeDiffSph.yaw = eyeNextAtOffset.yaw + Camera_CalcControllerYawDiff(camera);
+			eyeDiffSph.pitch = eyeNextAtOffset.pitch + Camera_CalcControllerPitchDiff(camera);
 		}
 		else if(anim->swing.unk_18)
 		{
@@ -3008,8 +3011,8 @@ s32 Camera_Jump2(Camera* camera)
 		StepControlTimer(camera);
 		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
 		{
-			adjAtToEyeDir.yaw = Camera_CalcControllerYaw(camera, atToEyeNextDir.yaw, playerPosRot->rot.y, 0, 0.0f);
-			adjAtToEyeDir.pitch = Camera_CalcControllerPitch(camera, atToEyeNextDir.pitch, 0, 0);
+			adjAtToEyeDir.yaw = atToEyeNextDir.yaw + Camera_CalcControllerYawDiff(camera);
+			adjAtToEyeDir.pitch = atToEyeNextDir.pitch + Camera_CalcControllerPitchDiff(camera);
 		}
 		else if(camera->startControlTimer <= 0)
 		{
@@ -3244,8 +3247,8 @@ s32 Camera_Jump3(Camera* camera)
 		StepControlTimer(camera);
 		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
 		{
-			eyeDiffSph.yaw = Camera_CalcControllerYaw(camera, eyeNextAtOffset.yaw, playerPosRot->rot.y, jump3->unk_14, 0.0f);
-			eyeDiffSph.pitch = Camera_CalcControllerPitch(camera, eyeNextAtOffset.pitch, jump3->pitchTarget, 0);
+			eyeDiffSph.yaw = eyeNextAtOffset.yaw + Camera_CalcControllerYawDiff(camera);
+			eyeDiffSph.pitch = eyeNextAtOffset.pitch + Camera_CalcControllerPitchDiff(camera);
 		}
 		else if(anim->swing.unk_18 != 0)
 		{

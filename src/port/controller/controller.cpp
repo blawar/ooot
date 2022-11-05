@@ -104,8 +104,8 @@ namespace oot::hid
 
 	State::State()
 	{
-		mouse_x = 0;
-		mouse_y = 0;
+		mouse_delta_x = 0;
+		mouse_delta_y = 0;
 		has_mouse = false;
 
 		memset(&gyro, 0, sizeof(gyro));
@@ -169,11 +169,13 @@ namespace oot::hid
 
 		if(controller.hasMouse())
 		{
-			m_state.mouse_x = controller.m_state.mouse_x;
-			m_state.mouse_y = controller.m_state.mouse_y;
+			m_state.mouse_delta_x = controller.m_state.mouse_delta_x;
+			m_state.mouse_delta_y = controller.m_state.mouse_delta_y;
 		}
 
 		m_state.has_mouse |= controller.m_state.has_mouse;
+				
+		//printf("%d,%d,%d,%d\n", m_state.stick_x, m_state.stick_y, m_state.r_stick_x, m_state.r_stick_y);
 	}
 
 	bool Controller::hasMouse() const
@@ -332,11 +334,11 @@ namespace oot::hid
 
 		// magnitude cannot exceed 64.0f: if it does, modify the values appropriately to
 		// flatten the values down to the allowed maximum value.
-		if(this->stickMag > 64)
+		if(this->stickMag > 64.0f)
 		{
-			this->stickX *= 64 / this->stickMag;
-			this->stickY *= 64 / this->stickMag;
-			this->stickMag = 64;
+			this->stickX *= 64.0f / this->stickMag;
+			this->stickY *= 64.0f / this->stickMag;
+			this->stickMag = 64.0f;
 		}
 
 		this->r_stickX = 0;
@@ -365,31 +367,7 @@ namespace oot::hid
 		// calculate f32 magnitude from the center by vector length.
 		this->r_stickMag = sqrtf(this->r_stickX * this->r_stickX + this->r_stickY * this->r_stickY);
 
-		// magnitude cannot exceed 64.0f: if it does, modify the values appropriately to
-		// flatten the values down to the allowed maximum value.
-		if(this->r_stickMag > 64)
-		{
-			this->r_stickX *= 64 / this->r_stickMag;
-			this->r_stickY *= 64 / this->r_stickMag;
-			this->r_stickMag = 64;
-		}
-
-		if(isFirstPerson() && !config().camera().useClassicCamera())
-		{
-			if(this->r_stickMag > 0)
-			{
-				this->stickMag = this->r_stickMag;
-				this->stickX = this->r_stickX;
-				this->stickY = this->r_stickY;
-
-				this->m_state.stick_x = this->m_state.r_stick_x;
-				this->m_state.stick_y = this->m_state.r_stick_y;
-
-				this->m_state.r_stick_y = this->m_state.r_stick_x = 0;
-				this->r_stickY = this->r_stickX = this->r_stickMag = 0;
-			}
-		}
-		else if(oot::state.center_camera)
+		if(oot::state.center_camera)
 		{
 			const float scaler = 0.1f;
 			this->stickX *= scaler;
@@ -421,14 +399,18 @@ namespace oot::hid
 		}
 	}
 
-	s64 Controller::mouseScaleX(s64 value)
+	f32 Controller::mouseXScaler()
 	{
-		return value * (oot::config().controls().mousexInvert() ? -1 : 1) * oot::config().controls().mousexScaler();
+		f32 value = oot::config().controls().mousexInvert() ? -1 : 1;
+		value *= oot::config().controls().mousexScaler() * 500.0f;
+		return value;
 	}
 
-	s64 Controller::mouseScaleY(s64 value)
+	f32 Controller::mouseYScaler()
 	{
-		return value * (oot::config().controls().mouseyInvert() ? -1 : 1) * oot::config().controls().mouseyScaler();
+		f32 value = oot::config().controls().mouseyInvert() ? -1 : 1;
+		value *= oot::config().controls().mouseyScaler() * 500.0f;
+		return value;
 	}
 
 	bool Controller::updateRebind(hid::Button input)
@@ -442,16 +424,16 @@ namespace oot::hid
 		{
 			switch(input)
 			{
-				case STICK_X_DOWN:
+				case LEFT_STICK_DOWN:
 					m_state.stick_y = -128;
 					break;
-				case STICK_X_UP:
+				case LEFT_STICK_UP:
 					m_state.stick_y = 127;
 					break;
-				case STICK_X_LEFT:
+				case LEFT_STICK_LEFT:
 					m_state.stick_x = -128;
 					break;
-				case STICK_X_RIGHT:
+				case LEFT_STICK_RIGHT:
 					m_state.stick_x = 127;
 					break;
 				case WALK_BUTTON:
@@ -576,13 +558,13 @@ namespace oot::hid
 		{
 			switch(input)
 			{
-				case Button::STICK_X_UP:
+				case Button::LEFT_STICK_UP:
 					return "STICK_X_UP";
-				case Button::STICK_X_LEFT:
+				case Button::LEFT_STICK_LEFT:
 					return "STICK_X_LEFT";
-				case Button::STICK_X_DOWN:
+				case Button::LEFT_STICK_DOWN:
 					return "STICK_X_DOWN";
-				case Button::STICK_X_RIGHT:
+				case Button::LEFT_STICK_RIGHT:
 					return "STICK_X_RIGHT";
 				case Button::A_BUTTON:
 					return "A_BUTTON";
@@ -644,13 +626,13 @@ namespace oot::hid
 		Button getInputValue(const std::string& input)
 		{
 			if(input == "STICK_X_UP")
-				return Button::STICK_X_UP;
+				return Button::LEFT_STICK_UP;
 			if(input == "STICK_X_LEFT")
-				return Button::STICK_X_LEFT;
+				return Button::LEFT_STICK_LEFT;
 			if(input == "STICK_X_DOWN")
-				return Button::STICK_X_DOWN;
+				return Button::LEFT_STICK_DOWN;
 			if(input == "STICK_X_RIGHT")
-				return Button::STICK_X_RIGHT;
+				return Button::LEFT_STICK_RIGHT;
 			if(input == "A_BUTTON")
 				return Button::A_BUTTON;
 			if(input == "B_BUTTON")

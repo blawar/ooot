@@ -81,10 +81,10 @@ namespace oot::hid
 			void resetBindingsImpl() // dont want to call virtual functions from constructor
 			{
 				m_keyBindings.clear();
-				m_keyBindings[SDL_SCANCODE_W] = Button::STICK_X_UP;
-				m_keyBindings[SDL_SCANCODE_A] = Button::STICK_X_LEFT;
-				m_keyBindings[SDL_SCANCODE_S] = Button::STICK_X_DOWN;
-				m_keyBindings[SDL_SCANCODE_D] = Button::STICK_X_RIGHT;
+				m_keyBindings[SDL_SCANCODE_W] = Button::LEFT_STICK_UP;
+				m_keyBindings[SDL_SCANCODE_A] = Button::LEFT_STICK_LEFT;
+				m_keyBindings[SDL_SCANCODE_S] = Button::LEFT_STICK_DOWN;
+				m_keyBindings[SDL_SCANCODE_D] = Button::LEFT_STICK_RIGHT;
 				m_keyBindings[SDL_SCANCODE_SPACE] = Button::A_BUTTON;
 				m_keyBindings[SDL_SCANCODE_F] = Button::B_BUTTON;
 				m_keyBindings[SDL_SCANCODE_O] = Button::A_BUTTON;
@@ -416,13 +416,11 @@ namespace oot::hid
 				}
 
 #ifdef ENABLE_MOUSE
-				int mouse_delta_x = 0;
-				int mouse_delta_y = 0;
+				s32 mouse_delta_x = 0;
+				s32 mouse_delta_y = 0;
 				u8 mouseState[MAX_BUTTONS];
 
 				auto buttons = SDL_GetRelativeMouseState(&mouse_delta_x, &mouse_delta_y);
-				mouse_delta_x = mouseScaleX(mouse_delta_x);
-				mouse_delta_y = mouseScaleY(mouse_delta_y);
 
 				this->enableMouse();
 
@@ -469,6 +467,9 @@ namespace oot::hid
 					this->state().had_mouse = false;
 				}
 
+				mouse_delta_x *= (s32)mouseXScaler();
+				mouse_delta_y *= (s32)mouseYScaler();
+
 				if(isFirstPerson())
 				{
 					mouse_delta_y *= -1;
@@ -476,12 +477,13 @@ namespace oot::hid
 
 				if(hasMouse())
 				{
-					m_state.mouse_x += mouse_delta_x;
-					m_state.mouse_y += mouse_delta_y;
+					m_state.mouse_delta_x = (mouse_delta_x * FRAMERATE_SCALER_INV);
+					m_state.mouse_delta_y = (mouse_delta_y * FRAMERATE_SCALER_INV);
+					
 					if(!config().camera().useClassicCamera() && (m_lastMouse_delta_x != mouse_delta_x || m_lastMouse_delta_y != mouse_delta_y))
 					{
-						m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * FRAMERATE_SCALER_INV, 80), -80);
-						m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * FRAMERATE_SCALER_INV, 80), -80);
+						m_state.r_stick_x += m_state.mouse_delta_x;
+						m_state.r_stick_y += m_state.mouse_delta_y;
 					}
 					memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
 					m_lastMouse_delta_x = mouse_delta_x;

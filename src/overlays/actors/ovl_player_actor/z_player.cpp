@@ -80,6 +80,7 @@ static bool g_updateEquipment = false;
 #include "def/z_std_dma.h"
 #include "objects/gameplay_keep/gameplay_keep.h"
 #include "objects/object_link_child/object_link_child.h"
+#include "port/player/players.h"
 
 #define GET_ITEM(itemId, objectId, drawId, textId, field, chestAnim)                                                                                                                                                                                           \
 	{                                                                                                                                                                                                                                                      \
@@ -9062,6 +9063,7 @@ s32 func_80842DF4(GlobalContext* globalCtx, Player* pthis)
 	return 0;
 }
 
+//shield reladed
 void Player_UpdateFunc_80843188(Player* pthis, GlobalContext* globalCtx)
 {
 	f32 sp54;
@@ -12073,7 +12075,7 @@ void Player_UpdateCommon(Player* pthis, GlobalContext* globalCtx, Input* input)
 			}
 
 			Actor_UpdateVelocityWithGravity(&pthis->actor);
-
+			//related to walking up a slope
 			if((pthis->windSpeed != 0.0f) && !Player_InCsMode(globalCtx) && !(pthis->stateFlags1 & (PLAYER_STATE1_13 | PLAYER_STATE1_14 | PLAYER_STATE1_21)) && (Player_UpdateFunc_80845668 != pthis->playerUpdateFunct) &&
 			   (Player_UpdateFunc_SomeCutsceneUpdate_808507F4 != pthis->playerUpdateFunct))
 			{
@@ -12644,33 +12646,44 @@ void Player_Destroy(Actor* pthisx, GlobalContext* globalCtx)
 	gSaveContext.linkAge = globalCtx->linkAgeOnLoad;
 }
 
-s16 func_8084ABD8(GlobalContext* globalCtx, Player* pthis, s32 arg2, s16 arg3)
+s16 FirstPerson_ManipulatePlayer(GlobalContext* globalCtx, Player* pthis, s32 arg2, s16 arg3)
 {
 	s32 temp1;
-	s16 temp2;
-	s16 temp3;
+	Rotation temp2;
+	s32 temp3;
 
-	if(!func_8002DD78(pthis) && !func_808334B4(pthis) && (arg2 == 0))
+	const oot::hid::Controller& controller = oot::player(0).controller();
+	s32 rStickX = -controller.state().r_stick_x;
+	s32 rStickY = -controller.state().r_stick_y;
+
+	if(!func_8002DD78(pthis) && !func_808334B4(pthis) && (arg2 == 0) && oot::config().camera().useClassicCamera())
 	{
+		//snap back to horizontal on default first person
 		temp2 = sControlInput->rel.stick_y * 240.0f;
 		Math_SmoothStepToS(&pthis->actor.focus.rot.x, temp2, 14, 4000, 30);
 
 		temp2 = sControlInput->rel.stick_x * -16.0f;
-		temp2 = CLAMP(temp2, -3000, 3000);
+		temp2 = CLAMP(temp2.toS16(), -3000, 3000);
 		pthis->actor.focus.rot.y += temp2;
 	}
 	else
 	{
 		temp1 = (pthis->stateFlags1 & PLAYER_STATE_HORSE_MOUNTED) ? 3500 : 14000; // Riding a horse?
-		temp3 = ((sControlInput->rel.stick_y >= 0) ? 1 : -1) * (s32)((1.0f - Math_CosS(sControlInput->rel.stick_y * 200)) * 1500.0f);
+		if(oot::config().camera().useClassicCamera())
+			temp3 = ((sControlInput->rel.stick_y >= 0) ? 1 : -1) * (s32)((1.0f - Math_CosS(sControlInput->rel.stick_y * 200)) * 1500.0f * oot::config().camera().scalerY());
+		else
+			temp3 = (rStickY >> 5) * -oot::config().camera().scalerY();
 		pthis->actor.focus.rot.x += temp3;
 		pthis->actor.focus.rot.x = CLAMP((float)pthis->actor.focus.rot.x, -temp1, temp1);
 
 		temp1 = 19114;
 		temp2 = pthis->actor.focus.rot.y - pthis->actor.shape.rot.y;
-		temp3 = ((sControlInput->rel.stick_x >= 0) ? 1 : -1) * (s32)((1.0f - Math_CosS(sControlInput->rel.stick_x * 200)) * -1500.0f);
+		if(oot::config().camera().useClassicCamera())
+			temp3 = ((sControlInput->rel.stick_x >= 0) ? 1 : -1) * (s32)((1.0f - Math_CosS(sControlInput->rel.stick_x * 200)) * -1500.0f * oot::config().camera().scalerY());
+		else
+			temp3 = (rStickX >> 5) * oot::config().camera().scalerY();
 		temp2 += temp3;
-		pthis->actor.focus.rot.y = CLAMP(temp2, -temp1, temp1) + pthis->actor.shape.rot.y;
+		pthis->actor.focus.rot.y = CLAMP(temp2.whole(), -temp1, temp1) + pthis->actor.shape.rot.y;
 	}
 
 	pthis->unk_6AE |= 2;
@@ -12824,7 +12837,7 @@ void Player_UpdateFunc_8084B1D8(Player* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			pthis->actor.shape.rot.y = func_8084ABD8(globalCtx, pthis, 0, 0);
+			pthis->actor.shape.rot.y = FirstPerson_ManipulatePlayer(globalCtx, pthis, 0, 0);
 		}
 	}
 
@@ -13224,6 +13237,7 @@ void func_8084BEE4(Player* pthis)
 	func_8002F7DC(&pthis->actor, (pthis->unk_84F != 0) ? NA_SE_PL_WALK_WALL : NA_SE_PL_WALK_LADDER);
 }
 
+//climbing related
 void Player_UpdateFunc_8084BF1C(Player* pthis, GlobalContext* globalCtx)
 {
 	static Vec3f D_8085488C = {0.0f, 0.0f, 26.0f};
@@ -13819,7 +13833,7 @@ void Player_UpdateFunc_8084CC98(Player* pthis, GlobalContext* globalCtx)
 			}
 			else
 			{
-				pthis->unk_6BE = func_8084ABD8(globalCtx, pthis, 1, -5000) - pthis->actor.shape.rot.y;
+				pthis->unk_6BE = FirstPerson_ManipulatePlayer(globalCtx, pthis, 1, -5000) - pthis->actor.shape.rot.y;
 				pthis->unk_6BE += 5000;
 				pthis->unk_6B0 = -5000;
 			}
@@ -13847,7 +13861,7 @@ void Player_UpdateFunc_8084CC98(Player* pthis, GlobalContext* globalCtx)
 			{
 				if(func_8002DD78(pthis) != 0)
 				{
-					pthis->unk_6BE = func_8084ABD8(globalCtx, pthis, 1, -5000) - pthis->actor.shape.rot.y;
+					pthis->unk_6BE = FirstPerson_ManipulatePlayer(globalCtx, pthis, 1, -5000) - pthis->actor.shape.rot.y;
 					pthis->unk_6BE += 5000;
 					pthis->unk_6B0 = -5000;
 				}
@@ -15089,7 +15103,7 @@ void Player_UpdateFunc_8084FA54(Player* pthis, GlobalContext* globalCtx)
 	LinkAnimation_Update(globalCtx, &pthis->skelAnime);
 	func_80836670(pthis, globalCtx);
 
-	pthis->unk_6BE = func_8084ABD8(globalCtx, pthis, 1, 0) - pthis->actor.shape.rot.y;
+	pthis->unk_6BE = FirstPerson_ManipulatePlayer(globalCtx, pthis, 1, 0) - pthis->actor.shape.rot.y;
 	pthis->unk_6AE |= 0x80;
 
 	if(globalCtx->shootingGalleryStatus < 0)

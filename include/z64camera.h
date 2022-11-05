@@ -216,7 +216,7 @@ struct Normal1Anim
 	/* 0x20 */ f32 unk_20;
 	/* 0x24 */ s16 slopePitchAdj;
 	/* 0x26 */ s16 swingYawTarget;
-	/* 0x28 */ s16 distTimer;
+	/* 0x28 */ TimerS16 distTimer;
 	/* 0x2A */ TimerS16 startSwingTimer;
 }; // size = 0x2C
 
