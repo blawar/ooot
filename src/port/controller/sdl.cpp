@@ -520,9 +520,12 @@ namespace oot::hid
 					     "rightshoulder:b7,rightstick:b5,righttrigger:b9,rightx:a2,righty:a3,"
 					     "start:b10,x:b2,y:b3");
 #endif
-
+		if(config().controls().useDInput())
+		{
+			SDL_GameControllerAddMapping("03000000D620000010A7000000000000,Mayflash N64 controller adapter 2p,a:b1,b:b1,x:b2,y:bb,start:b9,leftshoulder:b6,rightshoulder:b5,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,leftx:a0,lefty:a1,rightx:a2,righty:a3");
+		}
 		init_ok = true;
-
+		
 		if(m_controllers.size() > 0)
 		{
 			for(auto it = m_controllers.begin(); it != m_controllers.end(); it++)
