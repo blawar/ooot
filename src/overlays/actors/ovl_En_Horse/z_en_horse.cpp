@@ -629,7 +629,7 @@ void EnHorse_UpdateIngoRaceInfo(EnHorse* pthis, GlobalContext* globalCtx, RaceIn
 
 void EnHorse_PlayWalkingSound(EnHorse* pthis)
 {
-	if(sAnimSoundFrames[pthis->soundTimer.toS32()] < pthis->curFrame)
+	if(sAnimSoundFrames[pthis->soundTimer.whole()] < pthis->curFrame)
 	{
 		if(pthis->soundTimer == 0 && (sAnimSoundFrames[1] < pthis->curFrame))
 		{
