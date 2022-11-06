@@ -1522,14 +1522,9 @@ s16 Camera_CalcDefaultYaw(Camera* camera, s16 cur, s16 target, f32 arg3, f32 acc
 		velocity = 0.0f;
 	}
 
-	velFactor = Camera_InterpolateCurve(0.5f, camera->speedRatio);
-	if(UPDATE_SCALER <= 1.0f)
-		yawUpdRate = FRAMERATE_SCALER / camera->yawUpdateRateInv;
-	else
-		yawUpdRate = 1.0f / camera->yawUpdateRateInv;
-	velocity = velFactor * yawUpdRate;
-
-	return (s16)(cur + (angDelta * velocity));
+	velFactor = Camera_InterpolateCurve(0.5f, camera->speedRatio * FRAMERATE_SCALER_INV);
+	yawUpdRate = FRAMERATE_SCALER / camera->yawUpdateRateInv;
+	return cur + (s16)(angDelta * velocity * velFactor * yawUpdRate);
 }
 
 #include "../port/controller/controller.h"
@@ -1548,7 +1543,6 @@ s16 Camera_CalcControllerPitchDiff(Camera* camera)
 	}
 
 	return CLAMP((s16)(rStickY * pitchUpdRate * oot::config().camera().scalerY() * FRAMERATE_SCALER), -0x7FFF, 0x7FFF);
-	return cur + (s16)(rStickY * pitchUpdRate * oot::config().camera().scalerY() * FRAMERATE_SCALER);
 }
 
 s16 Camera_CalcControllerYawDiff(Camera* camera)
@@ -1569,17 +1563,13 @@ s16 Camera_CalcControllerYawDiff(Camera* camera)
 void StepControlTimer(Camera* camera)
 {
 	const oot::hid::Controller& controller = oot::player(0).controller();
-	if(camera->xzSpeed > 0.001f && (controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0))
-	{
-		camera->startControlTimer = 250; //250 = 10s
-	}
 	if(camera->startControlTimer > 0)
 	{
 		camera->startControlTimer--;
 	}
 }
 
-void func_80046E20(Camera* camera, VecSph* eyeAdjustment, f32 minDist, f32 arg3, f32* arg4, SwingAnimation* anim)
+void FollowPlayerWithCollision(Camera* camera, VecSph* eyeAdjustment, f32 minDist, f32 arg3, f32* arg4, SwingAnimation* anim)
 {
 	static CamColChk atEyeColChk;
 	static CamColChk eyeAtColChk;
@@ -1806,7 +1796,7 @@ s32 Camera_Normal1(Camera* camera)
 		else if(anim->startSwingTimer > 0)
 		{
 			if(anim->startSwingTimer > OREG(50))
-			{
+			{				
 				anim->swingYawTarget = atEyeGeo.yaw + (BINANG_SUB(BINANG_ROT180(camera->playerPosRot.rot.y), atEyeGeo.yaw) / anim->startSwingTimer);
 			}
 			anim->startSwingTimer--;
@@ -1880,7 +1870,23 @@ s32 Camera_Normal1(Camera* camera)
 
 	camera->dist = eyeAdjustment.r = Camera_ClampDist(camera, eyeAdjustment.r, norm1->distMin, norm1->distMax, anim->distTimer);
 
-	if(oot::config().camera().useClassicCamera())
+	if(!oot::config().camera().useClassicCamera())
+	{
+		const oot::hid::Controller& controller = oot::player(0).controller();
+		StepControlTimer(camera);
+
+		if(oot::state.center_camera)
+		{
+			eyeAdjustment.pitch = atEyeNextGeo.pitch;
+			eyeAdjustment.yaw = Camera_LERPCeilS(BINANG_ROT180(camera->playerPosRot.rot.y), atEyeNextGeo.yaw, 3.0f / camera->yawUpdateRateInv, 0xA);
+		}
+		else if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
+		{
+			eyeAdjustment.yaw = atEyeNextGeo.yaw + Camera_CalcControllerYawDiff(camera);
+			eyeAdjustment.pitch = atEyeNextGeo.pitch + Camera_CalcControllerPitchDiff(camera);
+		}
+	}
+	if(oot::config().camera().useClassicCamera() || camera->startControlTimer <= 0)
 	{
 		if(anim->startSwingTimer <= 0)
 		{
@@ -1895,33 +1901,6 @@ s32 Camera_Normal1(Camera* camera)
 		else
 		{
 			// rotate yaw to follow player.
-			eyeAdjustment.yaw = Camera_CalcDefaultYaw(camera, atEyeNextGeo.yaw, camera->playerPosRot.rot.y, norm1->unk_14, sp94);
-			eyeAdjustment.pitch = Camera_CalcDefaultPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
-		}
-	}
-	else
-	{
-		const oot::hid::Controller& controller = oot::player(0).controller();
-		StepControlTimer(camera);
-
-		if(oot::state.center_camera)
-		{
-			eyeAdjustment.pitch = atEyeNextGeo.pitch;
-			eyeAdjustment.yaw = Camera_LERPCeilS(BINANG_ROT180(camera->playerPosRot.rot.y), atEyeNextGeo.yaw, 3.0f / camera->yawUpdateRateInv, 0xA);
-		}
-		else if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
-		{
- 			eyeAdjustment.yaw = atEyeNextGeo.yaw + Camera_CalcControllerYawDiff(camera);
-			eyeAdjustment.pitch = atEyeNextGeo.pitch + Camera_CalcControllerPitchDiff(camera);
-			
-		}
-		else if(anim->swing.unk_18 != 0)
-		{
-			eyeAdjustment.yaw = Camera_LERPCeilS(anim->swing.unk_16, atEyeNextGeo.yaw, 1.0f / camera->yawUpdateRateInv, 0xA);
-			eyeAdjustment.pitch = Camera_LERPCeilS(anim->swing.unk_14, atEyeNextGeo.pitch, 1.0f / camera->yawUpdateRateInv, 0xA);
-		}
-		else if(anim->startSwingTimer <= 0 && camera->startControlTimer <= 0)
-		{
 			eyeAdjustment.yaw = Camera_CalcDefaultYaw(camera, atEyeNextGeo.yaw, camera->playerPosRot.rot.y, norm1->unk_14, sp94);
 			eyeAdjustment.pitch = Camera_CalcDefaultPitch(camera, atEyeNextGeo.pitch, norm1->pitchTarget, anim->slopePitchAdj);
 		}
@@ -1941,35 +1920,36 @@ s32 Camera_Normal1(Camera* camera)
 	if((camera->status == CAM_STAT_ACTIVE) && (!(norm1->interfaceFlags & 0x10)))
 	{
 		anim->swingYawTarget = BINANG_ROT180(camera->playerPosRot.rot.y);
-		if(anim->startSwingTimer > 0)
+
+		if(oot::config().camera().useClassicCamera())
 		{
-			if(!oot::config().camera().useClassicCamera())
+			if(anim->startSwingTimer > 0)
 			{
-				anim->swing.swingUpdateRate = camera->yawUpdateRateInv = norm1->unk_0C * 2.0f;
+				FollowPlayerWithCollision(camera, &eyeAdjustment, norm1->distMin, norm1->unk_0C, &sp98, &anim->swing);
 			}
-			func_80046E20(camera, &eyeAdjustment, norm1->distMin, norm1->unk_0C, &sp98, &anim->swing);
-		}
-		else
-		{
-			sp88 = *eyeNext;
-			anim->swing.swingUpdateRate = camera->yawUpdateRateInv = norm1->unk_0C * 2.0f;
-			if(Camera_BGCheck(camera, at, &sp88))
+			else
 			{
-				if(oot::config().camera().useClassicCamera())
+				sp88 = *eyeNext;
+				anim->swing.swingUpdateRate = camera->yawUpdateRateInv = norm1->unk_0C * 2.0f;
+				if(Camera_BGCheck(camera, at, &sp88))
 				{
 					anim->swingYawTarget = atEyeNextGeo.yaw;
 					anim->startSwingTimer = -1;
 				}
 				else
 				{
-					func_80046E20(camera, &eyeAdjustment, norm1->distMin, norm1->unk_0C, &sp98, &anim->swing);
+					*eye = *eyeNext;
 				}
+				anim->swing.unk_18 = 0;
 			}
-			else
+		}
+		else
+		{
+			if(anim->startSwingTimer <= 0)
 			{
-				*eye = *eyeNext;
+				anim->swing.swingUpdateRate = camera->yawUpdateRateInv = norm1->unk_0C * 2.0f;
 			}
-			anim->swing.unk_18 = 0;
+			FollowPlayerWithCollision(camera, &eyeAdjustment, norm1->distMin, norm1->unk_0C, &sp98, &anim->swing);
 		}
 
 		if(anim->swing.unk_18 != 0)
@@ -2368,7 +2348,7 @@ s32 Camera_Normal3(Camera* camera)
 
 	if(camera->status == CAM_STAT_ACTIVE)
 	{
-		func_80046E20(camera, &sp84, norm3->distMin, norm3->yawUpdateSpeed, &sp8C, &anim->swing);
+		FollowPlayerWithCollision(camera, &sp84, norm3->distMin, norm3->yawUpdateSpeed, &sp8C, &anim->swing);
 	}
 	else
 	{
@@ -2550,7 +2530,7 @@ s32 Camera_Parallel1(Camera* camera)
 	if(anim->animTimer != 0)
 	{
 		camera->unk_14C |= 0x20;
-		tangle = (((anim->animTimer + 1) * anim->animTimer) >> 1);
+		tangle = ((s16)((anim->animTimer + 1) * anim->animTimer) >> 1);
 		spA8.yaw = atToEyeDir.yaw + ((BINANG_SUB(anim->yawTarget, atToEyeDir.yaw) / tangle) * anim->animTimer);
 		spA8.pitch = atToEyeDir.pitch;
 		spA8.r = atToEyeDir.r;
@@ -2747,20 +2727,7 @@ s32 Camera_Jump1(Camera* camera)
 
 	eyeDiffSph.r = Camera_LERPCeilF(eyeDiffTarget.r, eyeAtOffset.r, PCT(OREG(29)), 1.0f);
 
-	if(oot::config().camera().useClassicCamera())
-	{
-		eyeDiffSph.pitch = Camera_LERPCeilS(eyeDiffTarget.pitch, eyeAtOffset.pitch, PCT(OREG(29)), 0xA);
-		if(anim->swing.unk_18)
-		{
-			eyeDiffSph.yaw = Camera_LERPCeilS(anim->swing.unk_16, eyeNextAtOffset.yaw, 1.0f / camera->yawUpdateRateInv, 0xA);
-			eyeDiffSph.pitch = Camera_LERPCeilS(anim->swing.unk_14, eyeNextAtOffset.pitch, 1.0f / camera->yawUpdateRateInv, 0xA);
-		}
-		else
-		{
-			eyeDiffSph.yaw = Camera_CalcDefaultYaw(camera, eyeNextAtOffset.yaw, camera->playerPosRot.rot.y, jump1->maxYawUpdate, 0.0f);
-		}
-	}
-	else
+	if(!oot::config().camera().useClassicCamera())
 	{
 		const oot::hid::Controller& controller = oot::player(0).controller();
 		StepControlTimer(camera);
@@ -2769,12 +2736,15 @@ s32 Camera_Jump1(Camera* camera)
 			eyeDiffSph.yaw = eyeNextAtOffset.yaw + Camera_CalcControllerYawDiff(camera);
 			eyeDiffSph.pitch = eyeNextAtOffset.pitch + Camera_CalcControllerPitchDiff(camera);
 		}
-		else if(anim->swing.unk_18)
+	}
+	if(oot::config().camera().useClassicCamera() || camera->startControlTimer <= 0)
+	{		
+		if(anim->swing.unk_18)
 		{
 			eyeDiffSph.yaw = Camera_LERPCeilS(anim->swing.unk_16, eyeNextAtOffset.yaw, 1.0f / camera->yawUpdateRateInv, 0xA);
 			eyeDiffSph.pitch = Camera_LERPCeilS(anim->swing.unk_14, eyeNextAtOffset.pitch, 1.0f / camera->yawUpdateRateInv, 0xA);
 		}
-		else if(camera->startControlTimer <= 0)
+		else
 		{
 			eyeDiffSph.yaw = Camera_CalcDefaultYaw(camera, eyeNextAtOffset.yaw, camera->playerPosRot.rot.y, jump1->maxYawUpdate, 0.0f);
 			eyeDiffSph.pitch = Camera_LERPCeilS(eyeDiffTarget.pitch, eyeAtOffset.pitch, PCT(OREG(29)), 0xA);
@@ -2807,7 +2777,7 @@ s32 Camera_Jump1(Camera* camera)
 	eyeNext->y += (newEye.y - eyeNext->y) * PCT(OREG(31));
 	if((camera->status == CAM_STAT_ACTIVE) && !(jump1->interfaceFlags & 0x10))
 	{
-		func_80046E20(camera, &eyeDiffSph, jump1->distMin, jump1->yawUpateRateTarget, &spA4, &anim->swing);
+		FollowPlayerWithCollision(camera, &eyeDiffSph, jump1->distMin, jump1->yawUpateRateTarget, &spA4, &anim->swing);
 		if(jump1->interfaceFlags & 4)
 		{
 			camera->inputDir.x = -eyeAtOffset.pitch;
@@ -2965,7 +2935,22 @@ s32 Camera_Jump2(Camera* camera)
 	bgChkPos.y = playerPosRot->pos.y + (playerHeight * 2.2f);
 	bgChkPos.z = playerPosRot->pos.z + (Math_CosS(playerPosRot->rot.y) * 25.0f);
 
-	if(oot::config().camera().useClassicCamera())
+	if(!oot::config().camera().useClassicCamera())
+	{
+		const oot::hid::Controller& controller = oot::player(0).controller();
+		StepControlTimer(camera);
+		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
+		{
+			adjAtToEyeDir.yaw = atToEyeNextDir.yaw + Camera_CalcControllerYawDiff(camera);
+			adjAtToEyeDir.pitch = atToEyeNextDir.pitch + Camera_CalcControllerPitchDiff(camera);
+		}
+		else if(camera->startControlTimer <= 0)
+		{
+			adjAtToEyeDir.yaw = Camera_CalcDefaultYaw(camera, atToEyeNextDir.yaw, playerPosRot->rot.y, 0, 0.0f);
+			adjAtToEyeDir.pitch = Camera_CalcDefaultPitch(camera, atToEyeNextDir.pitch, 0, 0);
+		}
+	}
+	if(oot::config().camera().useClassicCamera() || camera->startControlTimer <= 0)
 	{
 		sp90 = Camera_GetFloorYNorm(camera, &floorNorm, &bgChkPos, &bgId);
 		if((sp90 != BGCHECK_Y_MIN) && (playerPosRot->pos.y < sp90))
@@ -2993,7 +2978,7 @@ s32 Camera_Jump2(Camera* camera)
 		{
 			anim->yawTarget = BINANG_ROT180(playerPosRot->rot.y);
 			anim->animTimer--;
-			adjAtToEyeDir.yaw = Camera_LERPCeilS(anim->yawTarget, atToEyeNextDir.yaw, 0.5f, 0xA);
+			adjAtToEyeDir.yaw = Camera_LERPCeilS(anim->yawTarget, atToEyeNextDir.yaw, 0.1f, 0xA);
 		}
 		else if(anim->yawAdj < ABS(yawDiff))
 		{
@@ -3002,22 +2987,7 @@ s32 Camera_Jump2(Camera* camera)
 		}
 		else
 		{
-			adjAtToEyeDir.yaw = Camera_LERPCeilS(adjAtToEyeDir.yaw, atToEyeNextDir.yaw, 0.25f, 0xA);
-		}
-	}
-	else
-	{
-		const oot::hid::Controller& controller = oot::player(0).controller();
-		StepControlTimer(camera);
-		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
-		{
-			adjAtToEyeDir.yaw = atToEyeNextDir.yaw + Camera_CalcControllerYawDiff(camera);
-			adjAtToEyeDir.pitch = atToEyeNextDir.pitch + Camera_CalcControllerPitchDiff(camera);
-		}
-		else if(camera->startControlTimer <= 0)
-		{
-			adjAtToEyeDir.yaw = Camera_CalcDefaultYaw(camera, atToEyeNextDir.yaw, playerPosRot->rot.y, 0, 0.0f);
-			adjAtToEyeDir.pitch = Camera_CalcDefaultPitch(camera, atToEyeNextDir.pitch, 0, 0);
+			adjAtToEyeDir.yaw = Camera_LERPCeilS(adjAtToEyeDir.yaw, atToEyeNextDir.yaw, 0.05f, 0xA);
 		}
 	}
 
@@ -3228,20 +3198,7 @@ s32 Camera_Jump3(Camera* camera)
 		}
 	}
 
-	if(oot::config().camera().useClassicCamera())
-	{
-		if(anim->swing.unk_18 != 0)
-		{
-			eyeDiffSph.yaw = Camera_LERPCeilS(anim->swing.unk_16, eyeNextAtOffset.yaw, 1.0f / camera->yawUpdateRateInv, 0xA);
-			eyeDiffSph.pitch = Camera_LERPCeilS(anim->swing.unk_14, eyeNextAtOffset.pitch, 1.0f / camera->yawUpdateRateInv, 0xA);
-		}
-		else
-		{
-			eyeDiffSph.yaw = Camera_CalcDefaultYaw(camera, eyeNextAtOffset.yaw, playerPosRot->rot.y, jump3->unk_14, 0.0f);
-			eyeDiffSph.pitch = Camera_CalcDefaultPitch(camera, eyeNextAtOffset.pitch, jump3->pitchTarget, 0);
-		}
-	}
-	else
+	if(!oot::config().camera().useClassicCamera())
 	{
 		const oot::hid::Controller& controller = oot::player(0).controller();
 		StepControlTimer(camera);
@@ -3250,12 +3207,15 @@ s32 Camera_Jump3(Camera* camera)
 			eyeDiffSph.yaw = eyeNextAtOffset.yaw + Camera_CalcControllerYawDiff(camera);
 			eyeDiffSph.pitch = eyeNextAtOffset.pitch + Camera_CalcControllerPitchDiff(camera);
 		}
-		else if(anim->swing.unk_18 != 0)
+	}
+	if(oot::config().camera().useClassicCamera() || camera->startControlTimer <= 0)
+	{
+		if(anim->swing.unk_18 != 0)
 		{
 			eyeDiffSph.yaw = Camera_LERPCeilS(anim->swing.unk_16, eyeNextAtOffset.yaw, 1.0f / camera->yawUpdateRateInv, 0xA);
 			eyeDiffSph.pitch = Camera_LERPCeilS(anim->swing.unk_14, eyeNextAtOffset.pitch, 1.0f / camera->yawUpdateRateInv, 0xA);
 		}
-		else if(camera->startControlTimer <= 0)
+		else
 		{
 			eyeDiffSph.yaw = Camera_CalcDefaultYaw(camera, eyeNextAtOffset.yaw, playerPosRot->rot.y, jump3->unk_14, 0.0f);
 			eyeDiffSph.pitch = Camera_CalcDefaultPitch(camera, eyeNextAtOffset.pitch, jump3->pitchTarget, 0);
@@ -3275,7 +3235,7 @@ s32 Camera_Jump3(Camera* camera)
 	Camera_Vec3fVecSphGeoAdd(eyeNext, at, &eyeDiffSph);
 	if((camera->status == CAM_STAT_ACTIVE) && !(jump3->interfaceFlags & 0x10))
 	{
-		func_80046E20(camera, &eyeDiffSph, jump3->distMin, jump3->swingUpdateRate, &spBC, &anim->swing);
+		FollowPlayerWithCollision(camera, &eyeDiffSph, jump3->distMin, jump3->swingUpdateRate, &spBC, &anim->swing);
 		if(jump3->interfaceFlags & 4)
 		{
 			camera->inputDir.x = -eyeAtOffset.pitch;
@@ -3308,11 +3268,13 @@ s32 Camera_Jump3(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Jump4(Camera* camera)
 {
 	return Camera_Noop(camera);
 }
 
+//noop
 s32 Camera_Jump0(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -3602,11 +3564,13 @@ s32 Camera_Battle1(Camera* camera)
 	return 0;
 }
 
+//noop
 s32 Camera_Battle2(Camera* camera)
 {
 	return Camera_Noop(camera);
 }
 
+//noop
 s32 Camera_Battle3(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -3629,6 +3593,7 @@ s32 Camera_BattleChargeSpinAttack(Camera* camera)
 	Battle4Anim* anim = &batt4->anim;
 	s32 pad;
 	f32 playerHeight;
+	PosRot* playerPosRot = &camera->playerPosRot;
 
 	playerHeight = Player_GetHeight(camera->player);
 	if(RELOAD_PARAMS)
@@ -3671,18 +3636,34 @@ s32 Camera_BattleChargeSpinAttack(Camera* camera)
 	camera->yOffsetUpdateRate = Camera_LERPCeilF(PCT(OREG(3)), camera->yOffsetUpdateRate, PCT(OREG(26)) * camera->speedRatio, 0.1f);
 	camera->fovUpdateRate = 0.0001f;
 	Camera_CalcAtDefault(camera, &eyeNextAtOffset, batt4->yOffset, 1);
-	if(anim->animTimer != 0)
+	
+	if(!oot::config().camera().useClassicCamera())
 	{
-		eyeNextOffset.yaw = eyeAtOffset.yaw;
-		eyeNextOffset.pitch = eyeAtOffset.pitch;
-		eyeNextOffset.r = eyeAtOffset.r;
-		anim->animTimer--;
+		const oot::hid::Controller& controller = oot::player(0).controller();
+		StepControlTimer(camera);
+		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
+		{
+			eyeNextOffset.yaw = eyeAtOffset.yaw + Camera_CalcControllerYawDiff(camera);
+			eyeNextOffset.pitch = eyeAtOffset.pitch + Camera_CalcControllerPitchDiff(camera);
+			eyeNextOffset.r = eyeAtOffset.r;
+		}
 	}
-	else
+
+	if(oot::config().camera().useClassicCamera() || camera->startControlTimer <= 0)
 	{
-		eyeNextOffset.yaw = eyeAtOffset.yaw;
-		eyeNextOffset.pitch = Camera_LERPCeilS(batt4->pitchTarget, eyeAtOffset.pitch, batt4->lerpUpdateRate, 2);
-		eyeNextOffset.r = Camera_LERPCeilF(batt4->rTarget, eyeAtOffset.r, batt4->lerpUpdateRate, 0.001f);
+		if(anim->animTimer != 0)
+		{
+			eyeNextOffset.yaw = eyeAtOffset.yaw;
+			eyeNextOffset.pitch = eyeAtOffset.pitch;
+			eyeNextOffset.r = eyeAtOffset.r;
+			anim->animTimer--;
+		}
+		else
+		{
+			eyeNextOffset.yaw = eyeAtOffset.yaw;
+			eyeNextOffset.pitch = Camera_LERPCeilS(batt4->pitchTarget, eyeAtOffset.pitch, batt4->lerpUpdateRate, 2);
+			eyeNextOffset.r = Camera_LERPCeilF(batt4->rTarget, eyeAtOffset.r, batt4->lerpUpdateRate, 0.001f);
+		}
 	}
 	Camera_Vec3fVecSphGeoAdd(eyeNext, at, &eyeNextOffset);
 	*eye = *eyeNext;
@@ -3693,6 +3674,7 @@ s32 Camera_BattleChargeSpinAttack(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Battle0(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -4931,16 +4913,19 @@ s32 Camera_Fixed4(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Fixed0(Camera* camera)
 {
 	return Camera_Noop(camera);
 }
 
+//noop
 s32 Camera_Subj1(Camera* camera)
 {
 	return Camera_Noop(camera);
 }
 
+//noop
 s32 Camera_Subj2(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -5226,27 +5211,32 @@ s32 Camera_Subj4(Camera* camera)
 	return 1;
 }
 
+//noop
 s32 Camera_Subj0(Camera* camera)
 {
 	return Camera_Noop(camera);
 }
 
+//noop
 s32 Camera_Data0(Camera* camera)
 {
 	return Camera_Noop(camera);
 }
 
+//normal1 data?
 s32 Camera_Data1(Camera* camera)
 {
 	osSyncPrintf("chau!chau!\n");
 	return Camera_Normal1(camera);
 }
 
+//noop
 s32 Camera_Data2(Camera* camera)
 {
 	return Camera_Noop(camera);
 }
 
+//noop
 s32 Camera_Data3(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -5329,7 +5319,7 @@ s32 Camera_Data4(Camera* camera)
 }
 
 /**
- * Hanging off of a ledge
+ * Hanging off of a ledge/climbing ledge
  */
 s32 Camera_Unique1(Camera* camera)
 {
@@ -5337,11 +5327,10 @@ s32 Camera_Unique1(Camera* camera)
 	Vec3f* at = &camera->at;
 	Vec3f* eyeNext = &camera->eyeNext;
 	Vec3f playerBodyPart0;
-	s16 phiTarget;
-	VecSph sp8C;
-	VecSph unk908PlayerPosOffset;
+	VecSph eyeNextOffset;
+	VecSph PlayerPosOffset;
 	VecSph eyeAtOffset;
-	VecSph eyeNextAtOffset;
+	VecSph eyeAtNextOffset;
 	PosRot* playerPosRot = &camera->playerPosRot;
 	PosRot playerhead;
 	Unique1* uniq1 = (Unique1*)camera->paramData;
@@ -5372,19 +5361,19 @@ s32 Camera_Unique1(Camera* camera)
 	sUpdateCameraDirection = 1;
 
 	OLib_Vec3fDiffToVecSphGeo(&eyeAtOffset, at, eye);
-	OLib_Vec3fDiffToVecSphGeo(&eyeNextAtOffset, at, eyeNext);
+	OLib_Vec3fDiffToVecSphGeo(&eyeAtNextOffset, at, eyeNext);
 
 	sCameraInterfaceFlags = uniq1->interfaceFlags;
 
 	if(camera->animState == 0)
 	{
 		camera->posOffset.y = camera->posOffset.y - camera->playerPosDelta.y;
-		anim->yawTarget = eyeNextAtOffset.yaw;
+		anim->yawTarget = eyeAtNextOffset.yaw;
 		anim->unk_00 = 0.0f;
 		playerBodyPart0 = camera->player->bodyPartsPos[0];
-		OLib_Vec3fDiffToVecSphGeo(&unk908PlayerPosOffset, &playerPosRot->pos, &playerBodyPart0);
+		OLib_Vec3fDiffToVecSphGeo(&PlayerPosOffset, &playerPosRot->pos, &playerBodyPart0);
 		anim->timer = R_DEFA_CAM_ANIM_TIME;
-		anim->yawTargetAdj = ABS(BINANG_SUB(unk908PlayerPosOffset.yaw, eyeAtOffset.yaw)) < 0x3A98 ? 0 : ((BINANG_SUB(unk908PlayerPosOffset.yaw, eyeAtOffset.yaw) / anim->timer) / 4) * 3;
+		anim->yawTargetAdj = ABS(BINANG_SUB(PlayerPosOffset.yaw, eyeAtOffset.yaw)) < 0x3A98 ? 0 : ((BINANG_SUB(PlayerPosOffset.yaw, eyeAtOffset.yaw) / anim->timer) / 4) * 3;
 		camera->animState++;
 	}
 
@@ -5396,31 +5385,52 @@ s32 Camera_Unique1(Camera* camera)
 	camera->yOffsetUpdateRate = Camera_LERPCeilF(0.01f, camera->yOffsetUpdateRate, OREG(26) * 0.01f, 0.01f);
 	camera->fovUpdateRate = Camera_LERPCeilF(OREG(4) * 0.01f, camera->fovUpdateRate, 0.05f, 0.1f);
 
-	Camera_CalcAtDefault(camera, &eyeNextAtOffset, uniq1->yOffset, 1);
-	OLib_Vec3fDiffToVecSphGeo(&sp8C, at, eyeNext);
-
-	camera->dist = Camera_LERPClampDist(camera, sp8C.r, uniq1->distMin, uniq1->distMax);
-
-	phiTarget = uniq1->pitchTarget;
-	sp8C.pitch = Camera_LERPCeilS(phiTarget, eyeNextAtOffset.pitch, 1.0f / camera->pitchUpdateRateInv, 0xA);
-
-	if(sp8C.pitch > R_CAM_MAX_PHI)
+	Camera_CalcAtDefault(camera, &eyeAtNextOffset, uniq1->yOffset, 1);
+	OLib_Vec3fDiffToVecSphGeo(&eyeNextOffset, at, eye);	
+	
+	if(!oot::config().camera().useClassicCamera())
 	{
-		sp8C.pitch = R_CAM_MAX_PHI;
-	}
-	if(sp8C.pitch < -R_CAM_MAX_PHI)
-	{
-		sp8C.pitch = -R_CAM_MAX_PHI;
-	}
+		eyeNextOffset.r = Camera_LERPCeilF(184.0f, eyeAtNextOffset.r, camera->xzOffsetUpdateRate, 0xA);
 
-	if(anim->timer != 0)
-	{
-		anim->yawTarget += anim->yawTargetAdj;
-		anim->timer--;
+		const oot::hid::Controller& controller = oot::player(0).controller();
+		StepControlTimer(camera);
+		if(camera->startControlTimer > 0 || controller.state().r_stick_x != 0 || controller.state().r_stick_y != 0)
+		{
+			eyeNextOffset.yaw = eyeAtNextOffset.yaw + Camera_CalcControllerYawDiff(camera);
+			eyeNextOffset.pitch = eyeAtNextOffset.pitch + Camera_CalcControllerPitchDiff(camera);
+		}
+		if(eyeNextOffset.pitch > 0x2AF8)
+		{
+			eyeNextOffset.pitch = 0x2AF8;
+		}
+		if(eyeNextOffset.pitch < -0x2AF8)
+		{
+			eyeNextOffset.pitch = -0x2AF8;
+		}
 	}
+	if(oot::config().camera().useClassicCamera() || camera->startControlTimer <= 0)
+	{
+		camera->dist = Camera_LERPClampDist(camera, eyeNextOffset.r, uniq1->distMin, uniq1->distMax);
+		eyeNextOffset.pitch = Camera_LERPCeilS(uniq1->pitchTarget, eyeAtNextOffset.pitch, 1.0f / camera->pitchUpdateRateInv, 0xA);
 
-	sp8C.yaw = Camera_LERPFloorS(anim->yawTarget, eyeNextAtOffset.yaw, 0.5f, 0x2710);
-	Camera_Vec3fVecSphGeoAdd(eyeNext, at, &sp8C);
+		if(eyeNextOffset.pitch > R_CAM_MAX_PHI)
+		{
+			eyeNextOffset.pitch = R_CAM_MAX_PHI;
+		}
+		if(eyeNextOffset.pitch < -R_CAM_MAX_PHI)
+		{
+			eyeNextOffset.pitch = -R_CAM_MAX_PHI;
+		}
+
+		if(anim->timer != 0)
+		{
+			anim->yawTarget += anim->yawTargetAdj;
+			anim->timer--;
+		}
+		eyeNextOffset.yaw = Camera_LERPFloorS(anim->yawTarget, eyeAtNextOffset.yaw, 0.1f, 0xA);		
+	}
+	
+	Camera_Vec3fVecSphGeoAdd(eyeNext, at, &eyeNextOffset);
 	*eye = *eyeNext;
 	Camera_BGCheck(camera, at, eye);
 	camera->fov = Camera_LERPCeilF(uniq1->fovTarget, camera->fov, camera->fovUpdateRate, 1.0f);
@@ -5903,6 +5913,7 @@ s32 Camera_Unique7(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Unique8(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -6607,6 +6618,7 @@ s32 Camera_Demo1(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Demo2(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -6852,6 +6864,7 @@ s32 Camera_Demo3(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Demo4(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -7257,6 +7270,7 @@ s32 Camera_Demo7(Camera* camera)
 	return 0;
 }
 
+//noop
 s32 Camera_Demo8(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -7428,6 +7442,7 @@ s32 Camera_Demo9(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Demo0(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -7483,16 +7498,19 @@ s32 Camera_Special0(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Special1(Camera* camera)
 {
 	return Camera_Noop(camera);
 }
 
+//noop
 s32 Camera_Special2(Camera* camera)
 {
 	return Camera_Unique2(camera);
 }
 
+//noop
 s32 Camera_Special3(Camera* camera)
 {
 	return Camera_Noop(camera);
@@ -7814,6 +7832,7 @@ s32 Camera_Special6(Camera* camera)
 	return true;
 }
 
+//noop
 s32 Camera_Special8(Camera* camera)
 {
 	return Camera_Noop(camera);

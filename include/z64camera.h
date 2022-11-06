@@ -340,7 +340,7 @@ struct Jump2Anim
 	/* 0x6 */ s16 initYawDiff; // unused, set but not read.
 	/* 0x8 */ s16 yawAdj;
 	/* 0xA */ s16 onFloor; // unused, set but not read
-	/* 0xC */ s16 animTimer;
+	/* 0xC */ TimerS16 animTimer;
 }; // size = 0x10
 
 struct Jump2
@@ -413,7 +413,7 @@ struct Battle1
 
 struct Battle4Anim
 {
-	/* 0x0000 */ s16 animTimer;
+	/* 0x0000 */ TimerS16 animTimer;
 }; // size = 0x2
 
 struct Battle4
@@ -591,7 +591,7 @@ struct Subj3Anim
 	/* 0x0 */ f32 r;
 	/* 0x4 */ s16 yaw;
 	/* 0x6 */ s16 pitch;
-	/* 0x8 */ s16 animTimer;
+	/* 0x8 */ TimerS16 animTimer;
 }; // size = 0xC
 
 struct Subj3
@@ -645,9 +645,9 @@ struct Data4
 struct Unique1Anim
 {
 	/* 0x0 */ f32 unk_00; // unused
-	/* 0x4 */ s16 yawTarget;
+	/* 0x4 */ Rotation yawTarget;
 	/* 0x6 */ s16 yawTargetAdj;
-	/* 0x8 */ s16 timer;
+	/* 0x8 */ TimerS16 timer;
 }; // size = 0xC
 
 struct Unique1
