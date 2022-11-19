@@ -59,5 +59,11 @@
     <ClInclude Include="..\RaphnetAdapter\src\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\RaphnetAdapter\hidapi-win\include\hidapi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RaphnetAdapter\hidapi-win\include\hidapi_winapi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
