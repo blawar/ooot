@@ -63,7 +63,28 @@
     <IntDir>$(Configuration)\$(PlatformShortName)\</IntDir>
     <LocalDebuggerWorkingDirectory>$(SolutionDir)$(Configuration)\</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='Win32'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='x64'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>hidapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <RegisterOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</RegisterOutput>
+      <RegisterOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</RegisterOutput>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\boot\assert.cpp" />
     <ClCompile Include="..\src\boot\boot_main.cpp" />
@@ -891,6 +912,11 @@
   <ItemGroup>
     <None Include="..\include\macro.inc" />
     <None Include="..\include\z_collision_check.h.bak" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="RaphnetAdapter.vcxproj">
+      <Project>{70f3612f-d053-4559-b070-687e631e9bb6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

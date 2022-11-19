@@ -28,6 +28,9 @@ static int g_rstickY_peak = INITIAL_PEAK;
 #include <time.h>
 extern struct Object* gMarioObject;
 #endif
+#include <RaphnetAdapter/src/gcn64.h>
+#include <RaphnetAdapter/src/gcn64lib.h>
+#include <RaphnetAdapter/src/plugin_back.h>
 
 namespace oot::hid
 {
@@ -489,6 +492,42 @@ namespace oot::hid
 	} // namespace controller
 	SDL::SDL()
 	{
+#ifdef __SWITCH__
+		// swap A, B and X, Y to correct positions
+		SDL_GameControllerAddMapping("53776974636820436F6E74726F6C6C65,Switch Controller,"
+					     "a:b0,b:b1,back:b11,"
+					     "dpdown:b15,dpleft:b12,dpright:b14,dpup:b13,"
+					     "leftshoulder:b6,leftstick:b4,lefttrigger:b8,leftx:a0,lefty:a1,"
+					     "rightshoulder:b7,rightstick:b5,righttrigger:b9,rightx:a2,righty:a3,"
+					     "start:b10,x:b2,y:b3");
+#endif
+
+		SDL_GameControllerAddMapping("03000000D620000010A7000000000000,Mayflash N64 controller adapter 2p,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+
+#define RAPHNET_ID_v36_GCN64 "030000009b2800006000000000000000"
+#define RAPHNET_ID_v36_N64 "030000009b2800006100000000000000"
+#define RAPHNET_ID_v36_2GCN64 "030000009b2800006300000000000000"
+#define RAPHNET_ID_v36_2N64 "030000009b2800006400000000000000"
+
+		
+		SDL_GameControllerAddMapping(RAPHNET_ID_v36_GCN64 ",GC/N64 to USB v3.6,platform:Windows,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+
+		SDL_GameControllerAddMapping(RAPHNET_ID_v36_N64 ",GC/N64 to USB v3.6,platform:Windows,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+		
+		SDL_GameControllerAddMapping(RAPHNET_ID_v36_2GCN64 ",GC/N64 to USB v3.6,platform:Windows,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+
+		SDL_GameControllerAddMapping(RAPHNET_ID_v36_2N64 ",GC/N64 to USB v3.6,platform:Windows,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+
 		if(config().controls().useDInput())
 		{
 			SDL_SetHint(SDL_HINT_XINPUT_ENABLED, "0");
@@ -510,22 +549,9 @@ namespace oot::hid
 	}
 
 	void SDL::scan(class Controllers* controllers)
-	{
-#ifdef __SWITCH__
-		// swap A, B and X, Y to correct positions
-		SDL_GameControllerAddMapping("53776974636820436F6E74726F6C6C65,Switch Controller,"
-					     "a:b0,b:b1,back:b11,"
-					     "dpdown:b15,dpleft:b12,dpright:b14,dpup:b13,"
-					     "leftshoulder:b6,leftstick:b4,lefttrigger:b8,leftx:a0,lefty:a1,"
-					     "rightshoulder:b7,rightstick:b5,righttrigger:b9,rightx:a2,righty:a3,"
-					     "start:b10,x:b2,y:b3");
-#endif
-		if(config().controls().useDInput())
-		{
-			SDL_GameControllerAddMapping("03000000D620000010A7000000000000,Mayflash N64 controller adapter 2p,a:b1,b:b1,x:b2,y:bb,start:b9,leftshoulder:b6,rightshoulder:b5,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,leftx:a0,lefty:a1,rightx:a2,righty:a3");
-		}
+	{		
 		init_ok = true;
-		
+
 		if(m_controllers.size() > 0)
 		{
 			for(auto it = m_controllers.begin(); it != m_controllers.end(); it++)
@@ -541,7 +567,14 @@ namespace oot::hid
 			if(SDL_IsGameController(i))
 			{
 				auto context = SDL_GameControllerOpen(i);
+				std::string s = SDL_GameControllerMapping(context);
+				std::string delimiter = ",";
+				std::string token = s.substr(0, s.find(delimiter));
 
+				if(token == RAPHNET_ID_v36_GCN64 || token == RAPHNET_ID_v36_N64 || token == RAPHNET_ID_v36_2GCN64 || token == RAPHNET_ID_v36_2N64)
+				{
+					pb_scanControllers();
+				}
 				if(context)
 				{
 					auto controller = std::make_shared<controller::SDL>(context, i);

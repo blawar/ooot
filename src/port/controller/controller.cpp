@@ -8,6 +8,8 @@
 #include "state.h"
 #include "ultra64/types.h"
 #include "def/z_player_lib.h"
+#include <RaphnetAdapter/src/gcn64.h>
+#include <RaphnetAdapter/src/gcn64lib.h>
 
 #define ENABLE_30FPS
 
@@ -125,10 +127,17 @@ namespace oot::hid
 		has_mouse = false;
 	}
 
+	static gcn64_hdl_t m_gcn64handle;
 	Controller::Controller(bool isLocal) :
 	    rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0), buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0), m_isLocal(isLocal), m_state(), m_motorEnabled(false), m_rumbleTimer(0),
 	    m_rumbleStrengh(0), m_rumbleDecay(0), m_rumbleActive(0)
 	{
+		struct gcn64_list_ctx* lctx;
+		struct gcn64_info inf;
+
+		lctx = gcn64_allocListCtx();
+		gcn64_listDevices(&inf, lctx);
+		m_gcn64handle = gcn64_openDevice(&inf);
 	}
 
 	void Controller::ResetMotorPack()
@@ -514,15 +523,19 @@ namespace oot::hid
 
 	void Controller::rumble()
 	{
+		
+
 		if(m_rumbleTimer)
 		{
 			m_rumbleActive = true;
 			vibrate();
+			gcn64lib_forceVibration(m_gcn64handle, 0, 1);
 			m_rumbleTimer--;
 		}
 		else if(m_rumbleStrengh)
 		{
 			vibrate();
+			gcn64lib_forceVibration(m_gcn64handle, 0, 1);
 
 			if(m_rumbleStrengh < m_rumbleDecay)
 			{
@@ -536,6 +549,7 @@ namespace oot::hid
 		else if(m_rumbleActive) // send an empty rumble to turn it off
 		{
 			vibrate();
+			gcn64lib_forceVibration(m_gcn64handle, 0, 0);
 			m_rumbleActive = false;
 		}
 	}
