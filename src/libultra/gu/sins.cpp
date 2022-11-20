@@ -1,9 +1,29 @@
 #define INTERNAL_SRC_LIBULTRA_GU_SINS_C
+#include "sintable.cpp"
 #include "ultra64.h"
 #include "def/sins.h"
-#include "macros.h"
 
-s16 sins(s16 x)
+s16 sins(u16 x)
 {
-	return (s16)(sin(DEGTORAD(((x & 0xFFFC) / SHT_MAX) * 180.0f)) * SHT_MAX);
+	s16 value;
+
+	x >>= 4;
+
+	if(x & 0x400)
+	{
+		value = sintable[0x3FF - (x & 0x3FF)];
+	}
+	else
+	{
+		value = sintable[x & 0x3FF];
+	}
+
+	if(x & 0x800)
+	{
+		return -value;
+	}
+	else
+	{
+		return value;
+	}
 }

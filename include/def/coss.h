@@ -1,3 +1,3 @@
 #pragma once
 
-s16 coss(s16);
+s16 coss(u16);

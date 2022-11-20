@@ -1,3 +1,3 @@
 #pragma once
 
-s16 sins(s16);
+s16 sins(u16);
