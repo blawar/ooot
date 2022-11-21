@@ -82,6 +82,7 @@
     </PostBuildEvent>
     <PreBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/libusb/hidapi/releases/download/hidapi-0.12.0/hidapi-win.zip', '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip')"
+mkdir $(SolutionDir)..\$(ProjectName)\hidapi-win
 cd $(SolutionDir)..\$(ProjectName)\hidapi-win
 tar -xf $(SolutionDir)..\$(ProjectName)\hidapi-win.zip</Command>
     </PreBuildEvent>
@@ -92,6 +93,7 @@ tar -xf $(SolutionDir)..\$(ProjectName)\hidapi-win.zip</Command>
     </PreBuildEvent>
     <PreBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/libusb/hidapi/releases/download/hidapi-0.12.0/hidapi-win.zip', '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip')"
+mkdir $(SolutionDir)..\$(ProjectName)\hidapi-win
 cd $(SolutionDir)..\$(ProjectName)\hidapi-win
 tar -xf $(SolutionDir)..\$(ProjectName)\hidapi-win.zip</Command>
     </PreBuildEvent>
