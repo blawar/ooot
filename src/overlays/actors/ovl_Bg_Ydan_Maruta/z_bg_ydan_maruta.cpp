@@ -162,7 +162,7 @@ void func_808BF078(BgYdanMaruta* pthis, GlobalContext* globalCtx)
 {
 	if(pthis->collider.base.acFlags & AC_HIT)
 	{
-		pthis->unk_16A = 20;
+		pthis->timer = 20;
 		Flags_SetSwitch(globalCtx, pthis->switchFlag);
 		Common_PlaySfx(NA_SE_SY_CORRECT_CHIME);
 		pthis->actionFunc = func_808BF108;
@@ -178,11 +178,11 @@ void func_808BF108(BgYdanMaruta* pthis, GlobalContext* globalCtx)
 {
 	s16 temp;
 
-	if(pthis->unk_16A != 0)
+	if(pthis->timer != 0)
 	{
-		pthis->unk_16A--;
+		pthis->timer--;
 	}
-	if(pthis->unk_16A == 0)
+	if(pthis->timer == 0)
 	{
 		pthis->actionFunc = func_808BF1EC;
 	}
@@ -191,7 +191,7 @@ void func_808BF108(BgYdanMaruta* pthis, GlobalContext* globalCtx)
 	{
 	}
 
-	temp = (pthis->unk_16A % 4) - 2;
+	temp = (pthis->timer % 4) - 2;
 	if(temp == -2)
 	{
 		temp = 0;

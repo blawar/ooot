@@ -3,7 +3,7 @@
 /*
  * File: z_en_brob.c
  * Overlay: ovl_En_Brob
- * Description: Flobbery Muscle Block (Jabu-Jabu's Belly)
+ * Description: Flobbery Muscle Block (The Enimies prodomanently in jabujabu)
  */
 
 #include "z_en_brob.h"
@@ -121,7 +121,7 @@ void func_809CADDC(EnBrob* pthis, GlobalContext* globalCtx)
 {
 	func_8003EC50(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
 	pthis->timer = pthis->actionFunc == func_809CB2B8 ? 200 : 0;
-	pthis->unk_1AE = 0;
+	pthis->transitionTimer = 0;
 	pthis->actionFunc = func_809CB054;
 }
 
@@ -129,14 +129,14 @@ void func_809CAE44(EnBrob* pthis, GlobalContext* globalCtx)
 {
 	Animation_PlayOnce(&pthis->skelAnime, &object_brob_Anim_001750);
 	func_8003EBF8(globalCtx, &globalCtx->colCtx.dyna, pthis->dyna.bgId);
-	pthis->unk_1AE = 1000;
+	pthis->transitionTimer = 1000;
 	pthis->actionFunc = func_809CB114;
 }
 
 void func_809CAEA0(EnBrob* pthis)
 {
 	Animation_MorphToLoop(&pthis->skelAnime, &object_brob_Anim_001958, -5.0f);
-	pthis->unk_1AE = 8000;
+	pthis->transitionTimer = 8000;
 	pthis->timer = 1200;
 	pthis->actionFunc = func_809CB218;
 }
@@ -144,7 +144,7 @@ void func_809CAEA0(EnBrob* pthis)
 void func_809CAEF4(EnBrob* pthis)
 {
 	Animation_MorphToPlayOnce(&pthis->skelAnime, &object_brob_Anim_000290, -5.0f);
-	pthis->unk_1AE -= 125.0f;
+	pthis->transitionTimer -= 125.0f;
 	Actor_SetColorFilter(&pthis->dyna.actor, 0, 0xFF, 0, 0x50);
 	Audio_PlayActorSound2(&pthis->dyna.actor, NA_SE_EN_GOMA_JR_FREEZE);
 	pthis->actionFunc = func_809CB2B8;
@@ -153,7 +153,7 @@ void func_809CAEF4(EnBrob* pthis)
 void func_809CAF88(EnBrob* pthis)
 {
 	Animation_Change(&pthis->skelAnime, &object_brob_Anim_001750, -1.0f, Animation_GetLastFrame(&object_brob_Anim_001750), 0.0f, ANIMMODE_ONCE, -5.0f);
-	pthis->unk_1AE = 8250;
+	pthis->transitionTimer = 8250;
 	pthis->actionFunc = func_809CB354;
 }
 
@@ -201,15 +201,15 @@ void func_809CB114(EnBrob* pthis, GlobalContext* globalCtx)
 		curFrame = pthis->skelAnime.curFrame;
 		if(curFrame < 8.0f)
 		{
-			pthis->unk_1AE += 1000.0f;
+			pthis->transitionTimer += 1000.0f;
 		}
 		else if(curFrame < 12.0f)
 		{
-			pthis->unk_1AE += 250.0f;
+			pthis->transitionTimer += 250.0f;
 		}
 		else
 		{
-			pthis->unk_1AE -= 250.0f;
+			pthis->transitionTimer -= 250.0f;
 		}
 	}
 }
@@ -239,7 +239,7 @@ void func_809CB2B8(EnBrob* pthis, GlobalContext* globalCtx)
 	}
 	else if(pthis->skelAnime.curFrame < 8.0f)
 	{
-		pthis->unk_1AE -= 1250.0f;
+		pthis->transitionTimer -= 1250.0f;
 	}
 	pthis->dyna.actor.colorFilterTimer = 0x50;
 }
@@ -257,15 +257,15 @@ void func_809CB354(EnBrob* pthis, GlobalContext* globalCtx)
 		curFrame = pthis->skelAnime.curFrame;
 		if(curFrame < 8.0f)
 		{
-			pthis->unk_1AE -= 1000.0f;
+			pthis->transitionTimer -= 1000.0f;
 		}
 		else if(curFrame < 12.0f)
 		{
-			pthis->unk_1AE -= 250.0f;
+			pthis->transitionTimer -= 250.0f;
 		}
 		else
 		{
-			pthis->unk_1AE += 250.0f;
+			pthis->transitionTimer += 250.0f;
 		}
 	}
 }
@@ -391,7 +391,7 @@ void EnBrob_Draw(Actor* thisx, GlobalContext* globalCtx)
 	EnBrob* pthis = (EnBrob*)thisx;
 
 	func_80093D18(globalCtx->gfxCtx);
-	Matrix_Translate(0.0f, pthis->unk_1AE, 0.0f, MTXMODE_APPLY);
+	Matrix_Translate(0.0f, pthis->transitionTimer, 0.0f, MTXMODE_APPLY);
 	SkelAnime_DrawFlexOpa(globalCtx, pthis->skelAnime.skeleton, pthis->skelAnime.jointTable, pthis->skelAnime.dListCount, NULL, EnBrob_PostLimbDraw, pthis);
 }
 

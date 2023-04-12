@@ -166,10 +166,9 @@ struct EnHorse
 	/* 0x020C */ s32 playerControlled;
 	/* 0x0210 */ s32 animationIdx;
 	/* 0x0214 */ f32 curFrame;
-	/* 0x0218 */ s32 soundTimer;
+	/* 0x0218 */ TimerS32 soundTimer;
 	/* 0x021C */ Vec3f unk_21C;
 	/* 0x0228 */ Vec3f unk_228;
-	/* 0x0234 */ s32 unk_234;
 	/* 0x0238 */ u8 numBoosts;
 	/* 0x023C */ TimerS32 boostRegenTime;
 	/* 0x0240 */ TimerS32 boostTimer;
@@ -177,7 +176,6 @@ struct EnHorse
 	/* 0x0248 */ f32 yFront; // The y coordinate of the floor under the front feet
 	/* 0x024C */ f32 yBack;	 // The y coordinate of the floor under the back feet
 	/* 0x0250 */ Timer followTimer;
-	/* 0x0252 */ s16 unk_252;
 	/* 0x0254 */ EnHorseAction prevAction;
 	/* 0x0258 */ Vec3f riderPos;
 	/* 0x0264 */ Vec2f curStick;
@@ -188,22 +186,18 @@ struct EnHorse
 	/* 0x0310 */ ColliderJntSph jntSph;
 	/* 0x0330 */ ColliderJntSphElement jntSphList;
 	/* 0x0370 */ u32 playerDir;
-	/* 0x0374 */ s16 unk_374;
 	/* 0x0376 */ s16 angleToPlayer;
 	/* 0x0378 */ s16 followPlayerTurnSpeed;
 	/* 0x037A */ TimerU8 blinkTimer;
 	/* 0x037C */ Timer waitTimer;
-	/* 0x037E */ s16 unk_37E;
 	/* 0x0380 */ s32 cutsceneAction;
 	/* 0x0384 */ u16 cutsceneFlags;
 	// struct {
 	/* 0x0388 */ s32 inRace;
 	/* 0x038C */ Actor* rider;
-	/* 0x0390 */ u32 unk_390;
 	/* 0x0394 */ u16 ingoRaceFlags;
 	/* 0x0398 */ f32 ingoHorseMaxSpeed;
 	// } race; //?
-	/* 0x039C */ s32 unk_39C; // probably hbaAction
 	/* 0x03A0 */ s32 hbaStarted;
 	/* 0x03A4 */ s32 hbaFlags;
 	/* 0x03A8 */ TimerS32 hbaTimer;
@@ -212,7 +206,6 @@ struct EnHorse
 	/* 0x03BC */ TimerS32 bridgeJumpTimer;
 	/* 0x03C0 */ f32 bridgeJumpYVel;
 	/* 0x03C4 */ s16 bridgeJumpRelAngle;
-	/* 0x03C6 */ s16 unk_3C6; // pad
 				  // sub struct?
 	/* 0x03C8 */ Hoof dustFlags;
 	/* 0x03CC */ Vec3f frontRightHoof;

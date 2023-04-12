@@ -33,6 +33,14 @@ f32 Math_SinS(s16 angle)
 	return sins(angle) * SHT_MINV;
 }
 
+f32 Math_AccurateCosS(s16 angle)
+{
+	return cosf(DEG_TO_RAD((f32)(angle & 0xFFFC) / SHT_MAX) * 180.0f);
+}
+f32 Math_AccurateSinS(s16 angle)
+{
+	return sinf(DEG_TO_RAD((f32)(angle & 0xFFFC) / SHT_MAX) * 180.0f);
+}
 /**
  * Changes pValue by step (scaled by the update rate) towards target, setting it equal when the target is reached.
  * Returns true when target is reached, false otherwise.
@@ -434,6 +442,13 @@ void Math_Vec3f_Copy(Vec3f* dest, Vec3f* src)
 	dest->z = src->z;
 }
 
+void Math_VecPos_Copy(VecPos* dest, Vec3f* src)
+{
+	dest->x = src->x;
+	dest->y = src->y;
+	dest->z = src->z;
+}
+
 void Math_Vec3s_ToVec3f(Vec3f* dest, Vec3s* src)
 {
 	dest->x = src->x;
@@ -621,7 +636,9 @@ static inline f32 _Math_SmoothStepToF(T* pValue, f32 target, f32 fraction, const
 	float minStep = _minStep.value();
 	if(*pValue != target)
 	{
-		f32 stepSize = (target - *pValue) * (fraction);
+		if(fraction != 1.0f)
+			fraction = fraction * FRAMERATE_SCALER;
+		f32 stepSize = (target - *pValue) * fraction;
 
 		if((stepSize >= minStep) || (stepSize <= -minStep))
 		{
@@ -709,6 +726,11 @@ void Math_ApproachF(f32* pValue, f32 target, f32 fraction, const Step& _step)
 }
 
 void Math_ApproachF(CounterF* pValue, f32 target, f32 fraction, const Step& _step)
+{
+	_Math_ApproachF(pValue, target, fraction, _step);
+}
+
+void Math_ApproachF(Rotation* pValue, f32 target, f32 fraction, const Step& _step)
 {
 	_Math_ApproachF(pValue, target, fraction, _step);
 }

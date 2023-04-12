@@ -477,7 +477,7 @@ namespace oot::hid
 					value -= deadzone;
 				else
 					value = 0;
-				m_state.r_stick_x = convertToByte(value, 0x7FFF - deadzone);
+				m_state.r_stick_x = value;
 
 				value = xstate.Gamepad.sThumbRY;
 				if(value < -deadzone)
@@ -486,7 +486,7 @@ namespace oot::hid
 					value -= deadzone;
 				else
 					value = 0;
-				m_state.r_stick_y = convertToByte(value, 0x7FFF - deadzone);
+				m_state.r_stick_y = value;
 
 				u8 state[MAX_BUTTONS];
 				expandButtonBits(xstate.Gamepad.wButtons, state);

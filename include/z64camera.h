@@ -216,8 +216,8 @@ struct Normal1Anim
 	/* 0x20 */ f32 unk_20;
 	/* 0x24 */ s16 slopePitchAdj;
 	/* 0x26 */ s16 swingYawTarget;
-	/* 0x28 */ s16 distTimer;
-	/* 0x2A */ s16 startSwingTimer;
+	/* 0x28 */ TimerS16 distTimer;
+	/* 0x2A */ TimerS16 startSwingTimer;
 }; // size = 0x2C
 
 struct Normal1
@@ -340,7 +340,7 @@ struct Jump2Anim
 	/* 0x6 */ s16 initYawDiff; // unused, set but not read.
 	/* 0x8 */ s16 yawAdj;
 	/* 0xA */ s16 onFloor; // unused, set but not read
-	/* 0xC */ s16 animTimer;
+	/* 0xC */ TimerS16 animTimer;
 }; // size = 0x10
 
 struct Jump2
@@ -413,7 +413,7 @@ struct Battle1
 
 struct Battle4Anim
 {
-	/* 0x0000 */ s16 animTimer;
+	/* 0x0000 */ TimerS16 animTimer;
 }; // size = 0x2
 
 struct Battle4
@@ -434,11 +434,11 @@ struct Keep1Anim
 	/* 0x00 */ f32 unk_00;
 	/* 0x04 */ f32 unk_04;
 	/* 0x08 */ f32 unk_08;
-	/* 0x0C */ struct Actor* unk_0C;
+	/* 0x0C */ struct Actor* currentTarget;
 	/* 0x10 */ s16 unk_10;
 	/* 0x12 */ s16 unk_12;
 	/* 0x14 */ s16 unk_14;
-	/* 0x16 */ s16 unk_16;
+	/* 0x16 */ TimerS16 unk_16;
 }; // size = 0x18
 
 struct KeepOn1
@@ -591,7 +591,7 @@ struct Subj3Anim
 	/* 0x0 */ f32 r;
 	/* 0x4 */ s16 yaw;
 	/* 0x6 */ s16 pitch;
-	/* 0x8 */ s16 animTimer;
+	/* 0x8 */ TimerS16 animTimer;
 }; // size = 0xC
 
 struct Subj3
@@ -645,9 +645,9 @@ struct Data4
 struct Unique1Anim
 {
 	/* 0x0 */ f32 unk_00; // unused
-	/* 0x4 */ s16 yawTarget;
+	/* 0x4 */ Rotation yawTarget;
 	/* 0x6 */ s16 yawTargetAdj;
-	/* 0x8 */ s16 timer;
+	/* 0x8 */ TimerS16 timer;
 }; // size = 0xC
 
 struct Unique1
@@ -695,9 +695,9 @@ struct DoorParams
 {
 	/* 0x0 */ struct Actor* doorActor;
 	/* 0x4 */ s16 camDataIdx;
-	/* 0x6 */ s16 timer1;
-	/* 0x8 */ s16 timer2;
-	/* 0xA */ s16 timer3;
+	/* 0x6 */ TimerS16 timer1;
+	/* 0x8 */ TimerS16 timer2;
+	/* 0xA */ TimerS16 timer3;
 }; // size = 0xC
 
 struct Unique3
@@ -818,8 +818,8 @@ struct Demo1
 struct Demo3Anim
 {
 	/* 0x00 */ Vec3f initialAt;
-	/* 0x0C */ f32 unk_0C;
-	/* 0x10 */ s16 animFrame;
+	/* 0x0C */ TimerF32 stepScale;
+	/* 0x10 */ TimerS16 animFrame;
 	/* 0x12 */ s16 yawDir;
 }; // size = 0x14
 
@@ -850,7 +850,7 @@ struct Demo9Anim
 	/* 0x4 */ s16 keyframe;
 	/* 0x6 */ s16 doLERPAt;
 	/* 0x8 */ s16 finishAction;
-	/* 0xA */ s16 animTimer;
+	/* 0xA */ TimerS16 animTimer;
 }; // size = 0xC
 
 struct Demo9
@@ -1011,7 +1011,7 @@ struct Camera
 	/* 0x166 */ s16 prevCamDataIdx;
 	/* 0x168 */ s16 csId;
 	/* 0x16A */ s16 unk_16A;
-	/* 0x16C */ s16 startControlTimer;
+	/* 0x16C */ TimerS16 startControlTimer;
 }; // size = 0x16C
 
 /**

@@ -1,5 +1,10 @@
 #define INTERNAL_SRC_OVERLAYS_ACTORS_OVL_EN_BUBBLE_Z_EN_BUBBLE_C
 #include "actor_common.h"
+/*
+ * File: z_en_bubble.cpp
+ * Description: Bubble
+ */
+
 #include "z_en_bubble.h"
 #include "def/code_8006BA00.h"
 #include "def/random.h"
@@ -226,10 +231,10 @@ void EnBubble_Fly(EnBubble* pthis, GlobalContext* globalCtx)
 	CollisionPoly* sp94;
 	Actor* bumpActor;
 	Vec3f sp84;
-	Vec3f sp78;
-	Vec3f sp6C;
-	Vec3f sp60;
-	Vec3f sp54;
+	VecPos pos1;
+	VecPos pos2;
+	Vec3f normal;
+	Vec3f vel;
 	f32 bounceSpeed;
 	s32 bgId;
 	u8 bounceCount;
@@ -246,28 +251,31 @@ void EnBubble_Fly(EnBubble* pthis, GlobalContext* globalCtx)
 	pthis->sinkSpeed -= 0.1f;
 	if(pthis->sinkSpeed < pthis->actor.minVelocityY)
 	{
-		pthis->sinkSpeed = pthis->actor.minVelocityY;
+		pthis->sinkSpeed = pthis->actor.minVelocityY / FRAMERATE_SCALER_INV;
 	}
-	sp54.x = pthis->velocityFromBounce.x + pthis->velocityFromBump.x;
-	sp54.y = pthis->velocityFromBounce.y + pthis->velocityFromBump.y + pthis->sinkSpeed;
-	sp54.z = pthis->velocityFromBounce.z + pthis->velocityFromBump.z;
-	EnBubble_Vec3fNormalize(&sp54);
+	vel.x = pthis->velocityFromBounce.x + pthis->velocityFromBump.x;
+	vel.y = pthis->velocityFromBounce.y + pthis->velocityFromBump.y + pthis->sinkSpeed;
+	vel.z = pthis->velocityFromBounce.z + pthis->velocityFromBump.z;
+	EnBubble_Vec3fNormalize(&vel);
 
-	sp78.x = pthis->actor.world.pos.x;
-	sp78.y = pthis->actor.world.pos.y + pthis->actor.shape.yOffset;
-	sp78.z = pthis->actor.world.pos.z;
-	sp6C = sp78;
+	pos1.x = pthis->actor.world.pos.x;
+	pos1.y = pthis->actor.world.pos.y + pthis->actor.shape.yOffset;
+	pos1.z = pthis->actor.world.pos.z;
+	pos2 = pos1;
 
-	sp6C.x += (sp54.x * 24.0f);
-	sp6C.y += (sp54.y * 24.0f);
-	sp6C.z += (sp54.z * 24.0f);
-	if(BgCheck_EntityLineTest1(&globalCtx->colCtx, &sp78, &sp6C, &sp84, &sp94, true, true, true, false, &bgId))
+	pos2.x += (vel.x * 24.0f) / FRAMERATE_SCALER_INV;
+	pos2.y += (vel.y * 24.0f) / FRAMERATE_SCALER_INV;
+	pos2.z += (vel.z * 24.0f) / FRAMERATE_SCALER_INV;
+
+	Vec3f pos1Chk = pos1;
+	Vec3f pos2Chk = pos2;
+	if(BgCheck_EntityLineTest1(&globalCtx->colCtx, &pos1Chk, &pos2Chk, &sp84, &sp94, true, true, true, false, &bgId))
 	{
-		sp60.x = COLPOLY_GET_NORMAL(sp94->normal.x);
-		sp60.y = COLPOLY_GET_NORMAL(sp94->normal.y);
-		sp60.z = COLPOLY_GET_NORMAL(sp94->normal.z);
-		EnBubble_Vec3fNormalizedRelfect(&sp54, &sp60, &sp54);
-		pthis->bounceDirection = sp54;
+		normal.x = COLPOLY_GET_NORMAL(sp94->normal.x);
+		normal.y = COLPOLY_GET_NORMAL(sp94->normal.y);
+		normal.z = COLPOLY_GET_NORMAL(sp94->normal.z);
+		EnBubble_Vec3fNormalizedRelfect(&vel, &normal, &vel);
+		pthis->bounceDirection = vel;
 		bounceCount = pthis->bounceCount;
 		pthis->bounceCount = ++bounceCount;
 		if(bounceCount > (s16)(Rand_ZeroOne() * 10.0f))
@@ -281,15 +289,15 @@ void EnBubble_Fly(EnBubble* pthis, GlobalContext* globalCtx)
 		pthis->velocityFromBounce.z = (pthis->bounceDirection.z * bounceSpeed);
 		pthis->sinkSpeed = 0.0f;
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_AWA_BOUND);
-		pthis->graphicRotSpeed = 128.0f;
+		pthis->graphicRotSpeed = 128.0f / FRAMERATE_SCALER_INV;
 		pthis->graphicEccentricity = 0.48f;
 	}
-	else if(pthis->actor.bgCheckFlags & BG_STATE_5 && sp54.y < 0.0f)
+	else if(pthis->actor.bgCheckFlags & BG_STATE_5 && vel.y < 0.0f)
 	{
-		sp60.x = sp60.z = 0.0f;
-		sp60.y = 1.0f;
-		EnBubble_Vec3fNormalizedRelfect(&sp54, &sp60, &sp54);
-		pthis->bounceDirection = sp54;
+		normal.x = normal.z = 0.0f;
+		normal.y = 1.0f;
+		EnBubble_Vec3fNormalizedRelfect(&vel, &normal, &vel);
+		pthis->bounceDirection = vel;
 		bounceCount = pthis->bounceCount;
 		pthis->bounceCount = ++bounceCount;
 		if(bounceCount > (s16)(Rand_ZeroOne() * 10.0f))
@@ -303,7 +311,7 @@ void EnBubble_Fly(EnBubble* pthis, GlobalContext* globalCtx)
 		pthis->velocityFromBounce.z = (pthis->bounceDirection.z * bounceSpeed);
 		pthis->sinkSpeed = 0.0f;
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_AWA_BOUND);
-		pthis->graphicRotSpeed = 128.0f;
+		pthis->graphicRotSpeed = 128.0f / FRAMERATE_SCALER_INV;
 		pthis->graphicEccentricity = 0.48f;
 	}
 	pthis->actor.velocity.x = pthis->velocityFromBounce.x + pthis->velocityFromBump.x;

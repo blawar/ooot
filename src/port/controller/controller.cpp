@@ -8,6 +8,8 @@
 #include "state.h"
 #include "ultra64/types.h"
 #include "def/z_player_lib.h"
+#include <RaphnetAdapter/src/gcn64.h>
+#include <RaphnetAdapter/src/gcn64lib.h>
 
 #define ENABLE_30FPS
 
@@ -30,7 +32,7 @@ namespace oot::hid
 {
 	static bool g_firstPersonEnabled = false;
 #ifdef ENABLE_30FPS
-	static float f_framerates[] = {20, 30, 60, 120, 240};
+	static float f_framerates[] = {20, 30, 40, 60, 120, 240};
 #else
 	static float f_framerates[] = {20, 60, 120, 240};
 #endif
@@ -104,8 +106,8 @@ namespace oot::hid
 
 	State::State()
 	{
-		mouse_x = 0;
-		mouse_y = 0;
+		mouse_delta_x = 0;
+		mouse_delta_y = 0;
 		has_mouse = false;
 
 		memset(&gyro, 0, sizeof(gyro));
@@ -125,10 +127,17 @@ namespace oot::hid
 		has_mouse = false;
 	}
 
+	static gcn64_hdl_t m_gcn64handle;
 	Controller::Controller(bool isLocal) :
 	    rawStickX(0), rawStickY(0), stickX(0), stickY(0), stickMag(0), buttonDown(0), buttonPressed(0), r_rawStickX(0), r_rawStickY(0), r_stickX(0), r_stickY(0), r_stickMag(0), m_isLocal(isLocal), m_state(), m_motorEnabled(false), m_rumbleTimer(0),
 	    m_rumbleStrengh(0), m_rumbleDecay(0), m_rumbleActive(0)
 	{
+		struct gcn64_list_ctx* lctx;
+		struct gcn64_info inf;
+
+		lctx = gcn64_allocListCtx();
+		gcn64_listDevices(&inf, lctx);
+		m_gcn64handle = gcn64_openDevice(&inf);
 	}
 
 	void Controller::ResetMotorPack()
@@ -169,11 +178,13 @@ namespace oot::hid
 
 		if(controller.hasMouse())
 		{
-			m_state.mouse_x = controller.m_state.mouse_x;
-			m_state.mouse_y = controller.m_state.mouse_y;
+			m_state.mouse_delta_x = controller.m_state.mouse_delta_x;
+			m_state.mouse_delta_y = controller.m_state.mouse_delta_y;
 		}
 
 		m_state.has_mouse |= controller.m_state.has_mouse;
+				
+		//printf("%d,%d,%d,%d\n", m_state.stick_x, m_state.stick_y, m_state.r_stick_x, m_state.r_stick_y);
 	}
 
 	bool Controller::hasMouse() const
@@ -332,11 +343,11 @@ namespace oot::hid
 
 		// magnitude cannot exceed 64.0f: if it does, modify the values appropriately to
 		// flatten the values down to the allowed maximum value.
-		if(this->stickMag > 64)
+		if(this->stickMag > 64.0f)
 		{
-			this->stickX *= 64 / this->stickMag;
-			this->stickY *= 64 / this->stickMag;
-			this->stickMag = 64;
+			this->stickX *= 64.0f / this->stickMag;
+			this->stickY *= 64.0f / this->stickMag;
+			this->stickMag = 64.0f;
 		}
 
 		this->r_stickX = 0;
@@ -365,31 +376,7 @@ namespace oot::hid
 		// calculate f32 magnitude from the center by vector length.
 		this->r_stickMag = sqrtf(this->r_stickX * this->r_stickX + this->r_stickY * this->r_stickY);
 
-		// magnitude cannot exceed 64.0f: if it does, modify the values appropriately to
-		// flatten the values down to the allowed maximum value.
-		if(this->r_stickMag > 64)
-		{
-			this->r_stickX *= 64 / this->r_stickMag;
-			this->r_stickY *= 64 / this->r_stickMag;
-			this->r_stickMag = 64;
-		}
-
-		if(isFirstPerson() && !config().camera().useClassicCamera())
-		{
-			if(this->r_stickMag > 0)
-			{
-				this->stickMag = this->r_stickMag;
-				this->stickX = this->r_stickX;
-				this->stickY = this->r_stickY;
-
-				this->m_state.stick_x = this->m_state.r_stick_x;
-				this->m_state.stick_y = this->m_state.r_stick_y;
-
-				this->m_state.r_stick_y = this->m_state.r_stick_x = 0;
-				this->r_stickY = this->r_stickX = this->r_stickMag = 0;
-			}
-		}
-		else if(oot::state.center_camera)
+		if(oot::state.center_camera)
 		{
 			const float scaler = 0.1f;
 			this->stickX *= scaler;
@@ -421,14 +408,18 @@ namespace oot::hid
 		}
 	}
 
-	s64 Controller::mouseScaleX(s64 value)
+	f32 Controller::mouseXScaler()
 	{
-		return value * (oot::config().controls().mousexInvert() ? -1 : 1) * oot::config().controls().mousexScaler();
+		f32 value = oot::config().controls().mousexInvert() ? -1 : 1;
+		value *= oot::config().controls().mousexScaler() * 500.0f;
+		return value;
 	}
 
-	s64 Controller::mouseScaleY(s64 value)
+	f32 Controller::mouseYScaler()
 	{
-		return value * (oot::config().controls().mouseyInvert() ? -1 : 1) * oot::config().controls().mouseyScaler();
+		f32 value = oot::config().controls().mouseyInvert() ? -1 : 1;
+		value *= oot::config().controls().mouseyScaler() * 500.0f;
+		return value;
 	}
 
 	bool Controller::updateRebind(hid::Button input)
@@ -442,16 +433,16 @@ namespace oot::hid
 		{
 			switch(input)
 			{
-				case STICK_X_DOWN:
+				case LEFT_STICK_DOWN:
 					m_state.stick_y = -128;
 					break;
-				case STICK_X_UP:
+				case LEFT_STICK_UP:
 					m_state.stick_y = 127;
 					break;
-				case STICK_X_LEFT:
+				case LEFT_STICK_LEFT:
 					m_state.stick_x = -128;
 					break;
-				case STICK_X_RIGHT:
+				case LEFT_STICK_RIGHT:
 					m_state.stick_x = 127;
 					break;
 				case WALK_BUTTON:
@@ -532,15 +523,19 @@ namespace oot::hid
 
 	void Controller::rumble()
 	{
+		
+
 		if(m_rumbleTimer)
 		{
 			m_rumbleActive = true;
 			vibrate();
+			gcn64lib_forceVibration(m_gcn64handle, 0, 1);
 			m_rumbleTimer--;
 		}
 		else if(m_rumbleStrengh)
 		{
 			vibrate();
+			gcn64lib_forceVibration(m_gcn64handle, 0, 1);
 
 			if(m_rumbleStrengh < m_rumbleDecay)
 			{
@@ -554,6 +549,7 @@ namespace oot::hid
 		else if(m_rumbleActive) // send an empty rumble to turn it off
 		{
 			vibrate();
+			gcn64lib_forceVibration(m_gcn64handle, 0, 0);
 			m_rumbleActive = false;
 		}
 	}
@@ -576,13 +572,13 @@ namespace oot::hid
 		{
 			switch(input)
 			{
-				case Button::STICK_X_UP:
+				case Button::LEFT_STICK_UP:
 					return "STICK_X_UP";
-				case Button::STICK_X_LEFT:
+				case Button::LEFT_STICK_LEFT:
 					return "STICK_X_LEFT";
-				case Button::STICK_X_DOWN:
+				case Button::LEFT_STICK_DOWN:
 					return "STICK_X_DOWN";
-				case Button::STICK_X_RIGHT:
+				case Button::LEFT_STICK_RIGHT:
 					return "STICK_X_RIGHT";
 				case Button::A_BUTTON:
 					return "A_BUTTON";
@@ -644,13 +640,13 @@ namespace oot::hid
 		Button getInputValue(const std::string& input)
 		{
 			if(input == "STICK_X_UP")
-				return Button::STICK_X_UP;
+				return Button::LEFT_STICK_UP;
 			if(input == "STICK_X_LEFT")
-				return Button::STICK_X_LEFT;
+				return Button::LEFT_STICK_LEFT;
 			if(input == "STICK_X_DOWN")
-				return Button::STICK_X_DOWN;
+				return Button::LEFT_STICK_DOWN;
 			if(input == "STICK_X_RIGHT")
-				return Button::STICK_X_RIGHT;
+				return Button::LEFT_STICK_RIGHT;
 			if(input == "A_BUTTON")
 				return Button::A_BUTTON;
 			if(input == "B_BUTTON")

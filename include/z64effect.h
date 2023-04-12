@@ -23,10 +23,10 @@ struct EffectStatus
 
 struct EffectSparkElement
 {
-	/* 0x00 */ Vec3f velocity;
-	/* 0x0C */ Vec3f position;
-	/* 0x18 */ Vec3s unkVelocity;
-	/* 0x1E */ Vec3s unkPosition;
+	/* 0x00 */ VecPosF velocity;
+	/* 0x0C */ VecPosF position;
+	/* 0x18 */ VecPos unkVelocity;
+	/* 0x1E */ VecPos unkPosition;
 }; // size = 0x24
 
 struct EffectSparkInit
@@ -40,7 +40,7 @@ struct EffectSparkInit
 	/* 0x498 */ u32 vDiv; // "v_div"
 	/* 0x49C */ Color_RGBA8 colorStart[4];
 	/* 0x4AC */ Color_RGBA8 colorEnd[4];
-	/* 0x4BC */ s32 timer;
+	/* 0x4BC */ TimerS32 timer;
 	/* 0x4C0 */ s32 duration;
 }; // size = 0x4C4
 
@@ -55,14 +55,14 @@ struct EffectSpark
 	/* 0x498 */ u32 vDiv; // "v_div"
 	/* 0x49C */ Color_RGBA8 colorStart[4];
 	/* 0x4AC */ Color_RGBA8 colorEnd[4];
-	/* 0x4BC */ s32 timer;
+	/* 0x4BC */ TimerS32 timer;
 	/* 0x4C0 */ s32 duration;
 }; // size = 0x4C4
 
 struct EffectBlureElement
 {
 	/* 0x00 */ s32 state;
-	/* 0x04 */ s32 timer;
+	/* 0x04 */ TimerS32 timer;
 	/* 0x08 */ Vec3s p1;
 	/* 0x0E */ Vec3s p2;
 	/* 0x14 */ u16 flags;
@@ -162,7 +162,7 @@ struct EffectShieldParticle
 	/* 0x1A8 */ f32 maxInitialSpeed;
 	/* 0x1AC */ f32 lengthCutoff;
 	/* 0x1B0 */ u8 duration;
-	/* 0x1B1 */ u8 timer;
+	/* 0x1B1 */ TimerU8 timer;
 	/* 0x1B2 */ LightInfo lightInfo;
 	/* 0x1C0 */ LightNode* lightNode;
 	/* 0x1C4 */ s32 lightDecay; // halves light radius every frame when set to 1
@@ -242,7 +242,7 @@ struct EffectSs
 	/* 0x3C */ struct Actor* actor; // interfacing actor, usually the actor that spawned the effect
 	/* 0x40 */ s32 regs[13];	// specific per effect
 	/* 0x74 */ u16 flags;
-	/* 0x76 */ s16 life;	// -1 means this entry is free
+	/* 0x76 */ s16 life;//TimerS16 but causing some to last longer then normal	// -1 means this entry is free
 	/* 0x78 */ u8 priority; // Lower value means higher priority
 	/* 0x79 */ u8 type;
 }; // size = 0x7A

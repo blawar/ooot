@@ -31,7 +31,7 @@ jobs:
       run: Remove-Item roms -Recurse -Force -ErrorAction SilentlyContinue ; cp -r ../roms .
 
     - name: Extract Assets
-      run: python setup.py -b EUR_MQD
+      run: python3 setup.py -b EUR_MQD
       
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}

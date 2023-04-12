@@ -18,6 +18,7 @@
 #include "port/debug.h"
 #include "port/controller/controllers.h"
 #include "port/controller/sdl.h"
+#include "def/audioMgr.h"
 
 void quit();
 void Set_Language(u8 language_id);
@@ -392,7 +393,36 @@ namespace platform::window
 						{
 							resize(event.window.data1, event.window.data2);
 						}
+						if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST || event.window.event == SDL_WINDOWEVENT_MINIMIZED)
+						{
+							SDL_SetRelativeMouseMode(SDL_FALSE);
+							AudioMgr_Pause(true);
+							do
+							{
+								SDL_PollEvent(&event);
+								_sleep(100);
+							}while(event.window.event != SDL_WINDOWEVENT_FOCUS_GAINED);
+							AudioMgr_Pause(false);
+						}
+						
+#ifdef ENABLE_MOUSE
+						if(event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
+						{
+							SDL_SetRelativeMouseMode(SDL_TRUE);
+						}
+#endif
 						break;
+					case SDL_KEYDOWN:
+						if(event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+						{
+							SDL_SetRelativeMouseMode(SDL_FALSE);
+						}
+						break;
+#ifdef ENABLE_MOUSE
+					case SDL_MOUSEBUTTONDOWN:
+						SDL_SetRelativeMouseMode(SDL_TRUE);
+						break;
+#endif
 					// Whenever a device is added or removed, call this function to ensure that they are detected
 					case SDL_JOYDEVICEADDED:
 					case SDL_JOYDEVICEREMOVED:

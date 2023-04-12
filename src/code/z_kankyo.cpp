@@ -255,7 +255,7 @@ f32 gLensFlareColorIntensity;
 s16 gLensFlareScreenFillAlpha;
 LightningBolt sLightningBolts[3];
 LightningStrike gLightningStrike;
-s16 sLightningFlashAlpha;
+TimerS16 sLightningFlashAlpha;
 s16 gSunScreenPosX;
 s16 gSunScreenPosY;
 LightNode* sNGameOverLightNode;
@@ -263,7 +263,7 @@ LightInfo sNGameOverLightInfo;
 LightNode* sSGameOverLightNode;
 LightInfo sSGameOverLightInfo;
 u8 sGameOverLightsIntensity;
-u16 D_8015FDB0;
+TimerU16 ScrollingMulitplier;
 
 s32 func_8006F0A0(s32 a0)
 {
@@ -328,9 +328,9 @@ void Environment_Init(GlobalContext* globalCtx2, EnvironmentContext* envCtx, s32
 	envCtx->unk_D8 = 1.0f;
 	envCtx->unk_DC = 0;
 	envCtx->gloomySkyMode = 0;
-	envCtx->unk_DE = 0;
+	envCtx->skyState = 0;
 	envCtx->lightningMode = LIGHTNING_MODE_OFF;
-	envCtx->unk_E0 = 0;
+	envCtx->dayState = 0;
 	envCtx->fillScreen = false;
 	envCtx->screenFillColor[0] = 0;
 	envCtx->screenFillColor[1] = 0;
@@ -613,7 +613,7 @@ f32 Environment_LerpWeightAccelDecel(u16 endFrame, u16 startFrame, u16 curFrame,
 	f32 totalFrames;
 	f32 temp;
 	f32 framesElapsed;
-	f32 ret;
+	TimerF32 ret;
 
 	if(curFrame <= startFrame)
 	{
@@ -681,7 +681,7 @@ void func_8006FB94(EnvironmentContext* envCtx, u8 unused)
 {
 	if(envCtx->gloomySkyMode != 0)
 	{
-		switch(envCtx->unk_DE)
+		switch(envCtx->skyState)
 		{
 			case 0:
 				if((envCtx->gloomySkyMode == 1) && !gSkyboxBlendingEnabled)
@@ -695,7 +695,7 @@ void func_8006FB94(EnvironmentContext* envCtx, u8 unused)
 					envCtx->unk_20 = 2;
 					D_8011FB34 = 2;
 					envCtx->unk_22 = envCtx->unk_24 = 100;
-					envCtx->unk_DE++;
+					envCtx->skyState++;
 				}
 				break;
 			case 1:
@@ -713,7 +713,7 @@ void func_8006FB94(EnvironmentContext* envCtx, u8 unused)
 					envCtx->unk_22 = envCtx->unk_24 = 100;
 					envCtx->unk_EE[0] = 0;
 					envCtx->gloomySkyMode = 0;
-					envCtx->unk_DE = 0;
+					envCtx->skyState = 0;
 				}
 				break;
 		}
@@ -2137,7 +2137,7 @@ void Environment_DrawLightning(GlobalContext* globalCtx, s32 unused)
 
 void func_800758AC(GlobalContext* globalCtx)
 {
-	globalCtx->envCtx.unk_E0 = 0xFF;
+	globalCtx->envCtx.dayState = 0xFF;
 
 	// both lost woods exits on the bridge from kokiri to hyrule field
 	if(((void)0, gSaveContext.entranceIndex) == 0x4DE || ((void)0, gSaveContext.entranceIndex) == 0x5E0)
@@ -2179,7 +2179,7 @@ void func_800758AC(GlobalContext* globalCtx)
 			Audio_PlaySequence(globalCtx->sequenceCtx.seqId);
 		}
 
-		globalCtx->envCtx.unk_E0 = 1;
+		globalCtx->envCtx.dayState = 1;
 	}
 	else
 	{
@@ -2190,15 +2190,15 @@ void func_800758AC(GlobalContext* globalCtx)
 
 		if(((void)0, gSaveContext.dayTime) > 0xB71C && ((void)0, gSaveContext.dayTime) < 0xCAAC)
 		{
-			globalCtx->envCtx.unk_E0 = 3;
+			globalCtx->envCtx.dayState = 3;
 		}
 		else if(((void)0, gSaveContext.dayTime) > 0xCAAC || ((void)0, gSaveContext.dayTime) < 0x4555)
 		{
-			globalCtx->envCtx.unk_E0 = 5;
+			globalCtx->envCtx.dayState = 5;
 		}
 		else
 		{
-			globalCtx->envCtx.unk_E0 = 7;
+			globalCtx->envCtx.dayState = 7;
 		}
 	}
 
@@ -2206,7 +2206,7 @@ void func_800758AC(GlobalContext* globalCtx)
 	osSyncPrintf("\n Forced BGM=[%d]", ((void)0, gSaveContext.forcedSeqId)); // "Forced BGM"
 	osSyncPrintf("\n     BGM=[%d]", globalCtx->sequenceCtx.seqId);
 	osSyncPrintf("\n     Ambience=[%d]", globalCtx->sequenceCtx.natureAmbienceId);
-	osSyncPrintf("\n     status=[%d]", globalCtx->envCtx.unk_E0);
+	osSyncPrintf("\n     status=[%d]", globalCtx->envCtx.dayState);
 
 	Audio_SetEnvReverb(globalCtx->roomCtx.curRoom.echo);
 }
@@ -2214,7 +2214,7 @@ void func_800758AC(GlobalContext* globalCtx)
 // updates bgm/sfx and other things as the day progresses
 void func_80075B44(GlobalContext* globalCtx)
 {
-	switch(globalCtx->envCtx.unk_E0)
+	switch(globalCtx->envCtx.dayState)
 	{
 		case 0:
 			func_800F6D58(86, 1, 0);
@@ -2223,7 +2223,7 @@ void func_80075B44(GlobalContext* globalCtx)
 				osSyncPrintf("\n\n\nNa_StartMorinigBgm\n\n");
 				Audio_PlaySequence2(globalCtx->sequenceCtx.seqId);
 			}
-			globalCtx->envCtx.unk_E0++;
+			globalCtx->envCtx.dayState++;
 			break;
 		case 1:
 			if(gSaveContext.dayTime > 0xB71C)
@@ -2232,14 +2232,14 @@ void func_80075B44(GlobalContext* globalCtx)
 				{
 					Audio_QueueSeqCmd(0x1 << 28 | SEQ_PLAYER_BGM_MAIN << 24 | 0xF000FF);
 				}
-				globalCtx->envCtx.unk_E0++;
+				globalCtx->envCtx.dayState++;
 			}
 			break;
 		case 2:
 			if(gSaveContext.dayTime > 0xC000)
 			{
 				Common_PlaySfx2(NA_SE_EV_DOG_CRY_EVENING);
-				globalCtx->envCtx.unk_E0++;
+				globalCtx->envCtx.dayState++;
 			}
 			break;
 		case 3:
@@ -2248,12 +2248,12 @@ void func_80075B44(GlobalContext* globalCtx)
 				func_800F6FB4(globalCtx->sequenceCtx.natureAmbienceId);
 				func_800F6D58(1, 1, 1);
 			}
-			globalCtx->envCtx.unk_E0++;
+			globalCtx->envCtx.dayState++;
 			break;
 		case 4:
 			if(gSaveContext.dayTime > 0xCAAB)
 			{
-				globalCtx->envCtx.unk_E0++;
+				globalCtx->envCtx.dayState++;
 			}
 			break;
 		case 5:
@@ -2262,7 +2262,7 @@ void func_80075B44(GlobalContext* globalCtx)
 			{
 				func_800F6D58(36, 1, 1);
 			}
-			globalCtx->envCtx.unk_E0++;
+			globalCtx->envCtx.dayState++;
 			break;
 		case 6:
 			if((gSaveContext.dayTime < 0xCAAC) && (gSaveContext.dayTime > 0x4555))
@@ -2275,7 +2275,7 @@ void func_80075B44(GlobalContext* globalCtx)
 				{
 					Message_StartTextbox(globalCtx, 0x3066, NULL);
 				}
-				globalCtx->envCtx.unk_E0++;
+				globalCtx->envCtx.dayState++;
 			}
 			break;
 		case 7:
@@ -2284,12 +2284,12 @@ void func_80075B44(GlobalContext* globalCtx)
 			{
 				func_800F6D58(86, 1, 1);
 			}
-			globalCtx->envCtx.unk_E0++;
+			globalCtx->envCtx.dayState++;
 			break;
 		case 8:
 			if(gSaveContext.dayTime > 0x4AAB)
 			{
-				globalCtx->envCtx.unk_E0 = 0;
+				globalCtx->envCtx.dayState = 0;
 			}
 			break;
 	}
@@ -2619,10 +2619,11 @@ void Environment_DrawSandstorm(GlobalContext* globalCtx, u8 sandstormState)
 	envColor.g = ((envColor.g * sp98) + ((6.0f - sp98) * primColor.g)) * (1.0f / 6.0f);
 	envColor.b = ((envColor.b * sp98) + ((6.0f - sp98) * primColor.b)) * (1.0f / 6.0f);
 
-	sp96 = (s32)(D_8015FDB0 * (11.0f / 6.0f));
-	sp94 = (s32)(D_8015FDB0 * (9.0f / 6.0f));
-	sp92 = (s32)(D_8015FDB0 * (6.0f / 6.0f));
+	sp96 = (s32)(ScrollingMulitplier * (11.0f / 6.0f));
+	sp94 = (s32)(ScrollingMulitplier * (9.0f / 6.0f));
+	sp92 = (s32)(ScrollingMulitplier * (6.0f / 6.0f));
 
+	//onscreen sand storm texture
 	OPEN_DISPS(globalCtx->gfxCtx, "../z_kankyo.c", 4044);
 
 	POLY_XLU_DISP = func_80093F34(POLY_XLU_DISP);
@@ -2636,7 +2637,7 @@ void Environment_DrawSandstorm(GlobalContext* globalCtx, u8 sandstormState)
 
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_kankyo.c", 4068);
 
-	D_8015FDB0 += (s32)sp98;
+	ScrollingMulitplier += (s32)sp98;
 }
 
 void Environment_AdjustLights(GlobalContext* globalCtx, f32 arg1, f32 arg2, f32 arg3, f32 arg4)

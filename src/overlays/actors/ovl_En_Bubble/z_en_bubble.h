@@ -29,6 +29,6 @@ struct EnBubble
 	/* 0x022C */ Vec3f bounceDirection;
 	/* 0x0238 */ Vec3f velocityFromBounce;
 	/* 0x0244 */ Vec3f normalizedBumpVelocity;
-	/* 0x0250 */ Vec3f velocityFromBump;
-	/* 0x025C */ f32 sinkSpeed;
+	/* 0x0250 */ VecPos velocityFromBump;
+	/* 0x025C */ TimerF32 sinkSpeed;
 };

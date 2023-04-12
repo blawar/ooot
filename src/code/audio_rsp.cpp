@@ -217,25 +217,25 @@ void Audio_ProcessLoadCmd(AudioCmd* cmd)
 	switch(cmd->op)
 	{
 		case CHAN_LOAD_UKN_81:
-			AudioLoad_SyncLoadSeqParts(cmd->arg1, cmd->arg2);
+			AudioLoad_SyncLoadSeqParts(cmd->seqPlayerChannelIndex, cmd->scriptIndex);
 			return;
 		case CHAN_LOAD_UKN_82:
-			AudioLoad_SyncInitSeqPlayer(cmd->arg0, cmd->arg1, cmd->arg2);
-			Audio_LoadSetFadeInTimer(cmd->arg0, (s32)cmd->data);
+			AudioLoad_SyncInitSeqPlayer(cmd->seqPlayerIndex, cmd->seqPlayerChannelIndex, cmd->scriptIndex);
+			Audio_LoadSetFadeInTimer(cmd->seqPlayerIndex, (s32)cmd->data);
 			return;
 		case CHAN_LOAD_UKN_85:
-			AudioLoad_SyncInitSeqPlayerSkipTicks(cmd->arg0, cmd->arg1, (s32)cmd->data);
+			AudioLoad_SyncInitSeqPlayerSkipTicks(cmd->seqPlayerIndex, cmd->seqPlayerChannelIndex, (s32)cmd->data);
 			return;
 		case CHAN_LOAD_DISABLE_SEQUENCE:
-			if(gAudioContext.seqPlayers[cmd->arg0].enabled)
+			if(gAudioContext.seqPlayers[cmd->seqPlayerIndex].enabled)
 			{
 				if(cmd->asInt == 0)
 				{
-					AudioSeq_SequencePlayerDisableAsFinished(&gAudioContext.seqPlayers[cmd->arg0]);
+					AudioSeq_SequencePlayerDisableAsFinished(&gAudioContext.seqPlayers[cmd->seqPlayerIndex]);
 				}
 				else
 				{
-					Audio_LoadSetFadeOutTimer(cmd->arg0, cmd->asInt);
+					Audio_LoadSetFadeOutTimer(cmd->seqPlayerIndex, cmd->asInt);
 				}
 			}
 			return;
@@ -276,22 +276,22 @@ void Audio_ProcessLoadCmd(AudioCmd* cmd)
 
 			return;
 		case CHAN_LOAD_INSTRUMENT_ASYNC:
-			AudioLoad_SyncLoadInstrument(cmd->arg0, cmd->arg1, cmd->arg2);
+			AudioLoad_SyncLoadInstrument(cmd->seqPlayerIndex, cmd->seqPlayerChannelIndex, cmd->scriptIndex);
 			return;
 		case CHAN_LOAD_BANK_ASYNC:
-			AudioLoad_AsyncLoadSampleBank(cmd->arg0, cmd->arg1, cmd->arg2, nullptr);
+			AudioLoad_AsyncLoadSampleBank(cmd->seqPlayerIndex, cmd->seqPlayerChannelIndex, cmd->scriptIndex, nullptr);
 			return;
 		case CHAN_LOAD_FONT_ASYNC:
-			AudioLoad_AsyncLoadFont(cmd->arg0, cmd->arg1, cmd->arg2, nullptr);
+			AudioLoad_AsyncLoadFont(cmd->seqPlayerIndex, cmd->seqPlayerChannelIndex, cmd->scriptIndex, nullptr);
 			return;
 		case CHAN_LOAD_UKN_FC:
-			AudioLoad_AsyncLoadSeq(cmd->arg0, cmd->arg1, cmd->arg2, nullptr);
+			AudioLoad_AsyncLoadSeq(cmd->seqPlayerIndex, cmd->seqPlayerChannelIndex, cmd->scriptIndex, nullptr);
 			return;
 		case CHAN_LOAD_DISCARD_SEQ_FONTS:
-			AudioLoad_DiscardSeqFonts(cmd->arg1);
+			AudioLoad_DiscardSeqFonts(cmd->seqPlayerChannelIndex);
 			return;
 		case CHAN_LOAD_UKN_90:
-			gAudioContext.unk_5BDC[cmd->arg0] = cmd->asUShort;
+			gAudioContext.unk_5BDC[cmd->seqPlayerIndex] = cmd->asUShort;
 			return;
 		case CHAN_LOAD_RESET_LOAD_SPECID:
 			gAudioContext.resetStatus = 5;
@@ -303,7 +303,7 @@ void Audio_ProcessLoadCmd(AudioCmd* cmd)
 		case CHAN_LOAD_SET_FONT_INSTRUMENT0:
 		case CHAN_LOAD_SET_FONT_INSTRUMENT1:
 		case CHAN_LOAD_SET_FONT_INSTRUMENT:
-			Audio_SetFontInstrument(cmd->op - 0xE0, cmd->arg0, cmd->arg1, cmd->data);
+			Audio_SetFontInstrument(cmd->op - 0xE0, cmd->seqPlayerIndex, cmd->seqPlayerChannelIndex, cmd->data);
 			return;
 		case CHAN_LOAD_UKN_FE:
 			temp_t7 = cmd->asUInt;
@@ -444,9 +444,9 @@ void Audio_ProcessCmd(AudioCmd* cmd)
 		return;
 	}
 
-	if(cmd->arg0 < gAudioContext.audioBufferParameters.numSequencePlayers)
+	if(cmd->seqPlayerIndex < gAudioContext.audioBufferParameters.numSequencePlayers)
 	{
-		seqPlayer = &gAudioContext.seqPlayers[cmd->arg0];
+		seqPlayer = &gAudioContext.seqPlayers[cmd->seqPlayerIndex];
 		if(cmd->op & 0x80)
 		{
 			Audio_ProcessLoadCmd(cmd);
@@ -458,14 +458,14 @@ void Audio_ProcessCmd(AudioCmd* cmd)
 			return;
 		}
 
-		if(cmd->arg1 < 0x10)
+		if(cmd->seqPlayerChannelIndex < 0x10)
 		{
-			Audio_ProcessChannelCmd(seqPlayer->channels[cmd->arg1], cmd);
+			Audio_ProcessChannelCmd(seqPlayer->channels[cmd->seqPlayerChannelIndex], cmd);
 			return;
 		}
-		if(cmd->arg1 == 0xFF)
+		if(cmd->seqPlayerChannelIndex == 0xFF)
 		{
-			phi_v0 = gAudioContext.unk_5BDC[cmd->arg0];
+			phi_v0 = gAudioContext.unk_5BDC[cmd->seqPlayerIndex];
 			for(i = 0; i < 0x10; i++)
 			{
 				if(phi_v0 & 1)
@@ -654,13 +654,13 @@ void Audio_ProcessSequenceCmd(SequencePlayer* seqPlayer, AudioCmd* cmd)
 			seqPlayer->transposition = cmd->asSbyte;
 			return;
 		case SEQ_CMD_UKN_46:
-			seqPlayer->soundScriptIO[cmd->arg2] = cmd->asSbyte;
+			seqPlayer->soundScriptIO[cmd->scriptIndex] = cmd->asSbyte;
 			return;
 		case SEQ_CMD_UKN_4A:
-			fadeVolume = (s32)cmd->arg1 / 127.0f;
+			fadeVolume = (s32)cmd->seqPlayerChannelIndex / 127.0f;
 			goto block_11;
 		case SEQ_CMD_UKN_4B:
-			fadeVolume = ((s32)cmd->arg1 / 100.0f) * seqPlayer->fadeVolume;
+			fadeVolume = ((s32)cmd->seqPlayerChannelIndex / 100.0f) * seqPlayer->fadeVolume;
 		block_11:
 			if(seqPlayer->state != 2)
 			{
@@ -753,9 +753,13 @@ void Audio_ProcessChannelCmd(SequenceChannel* channel, AudioCmd* cmd)
 			}
 			return;
 		case CHAN_UPD_SCRIPT_IO:
-			if(cmd->arg2 < 8)
+			if(cmd->seqPlayerChannelIndex==0x0b)
 			{
-				channel->soundScriptIO[cmd->arg2] = cmd->asSbyte;
+				cmd->seqPlayerChannelIndex = 0x0b;
+			}
+			if(cmd->scriptIndex < 8)
+			{
+				channel->soundScriptIO[cmd->scriptIndex] = cmd->asSbyte;
 			}
 			return;
 		case CHAN_UPD_STOP_SOMETHING2:

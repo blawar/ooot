@@ -242,7 +242,7 @@ void EnDh_Wait(EnDh* pthis, GlobalContext* globalCtx)
 		SkelAnime_Update(&pthis->skelAnime);
 		if(pthis->actor.params != ENDH_START_ATTACK_BOMB)
 		{
-			func_8008EEAC(globalCtx, &pthis->actor);
+			StartInvolintaryZtarget(globalCtx, &pthis->actor);
 		}
 	}
 }

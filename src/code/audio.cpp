@@ -2699,7 +2699,7 @@ void Audio_UpdateAll(void)
 		Audio_ProcessSeqCmds();
 		Audio_UpdateActiveSounds();
 		func_800FA3DC();
-		AudioDebug_SetInput();
+		//AudioDebug_SetInput();
 		AudioDebug_ProcessInput();
 		Audio_ScheduleProcessCmds();
 		sAudioUpdateTaskEnd = gAudioContext.totalTaskCnt;
@@ -2707,6 +2707,7 @@ void Audio_UpdateAll(void)
 	}
 }
 
+//unused
 void func_800F314C(s8 arg0)
 {
 	Audio_QueueCmdS32(CHAN_LOAD_UKN_82 << 24 | SEQ_PLAYER_BGM_MAIN << 16 | (((u8)arg0 & 0xFF) << 8), 1);
@@ -2936,6 +2937,7 @@ f32 Audio_ComputeSoundFreqScale(u8 bankId, u8 entryIdx)
 	return freq;
 }
 
+//filter related?
 u8 func_800F37B8(f32 behindScreenZ, SoundBankEntry* arg1, s8 arg2)
 {
 	s8 phi_v0;

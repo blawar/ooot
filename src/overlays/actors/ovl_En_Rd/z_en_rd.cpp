@@ -356,7 +356,7 @@ void func_80AE2A10(EnRd* pthis, GlobalContext* globalCtx)
 	}
 }
 
-void func_80AE2B90(EnRd* pthis, GlobalContext* globalCtx)
+void StartPursuingTarget(EnRd* pthis, GlobalContext* globalCtx)
 {
 	Animation_Change(&pthis->skelAnime, &object_rd_Anim_00EFDC, 1.0f, 4.0f, Animation_GetLastFrame(&object_rd_Anim_00EFDC), ANIMMODE_LOOP_INTERP, -4.0f);
 	pthis->actor.speedXZ = 0.4f;
@@ -394,7 +394,7 @@ void func_80AE2C1C(EnRd* pthis, GlobalContext* globalCtx)
 				if(!(pthis->unk_312 & 0x80))
 				{
 					player->actor.freezeTimer = 40;
-					func_8008EEAC(globalCtx, &pthis->actor);
+					StartInvolintaryZtarget(globalCtx, &pthis->actor);
 					GET_PLAYER(globalCtx)->unk_684 = &pthis->actor;
 					Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
 				}
@@ -486,7 +486,7 @@ void func_80AE2FD0(EnRd* pthis, GlobalContext* globalCtx)
 	   (Actor_WorldDistXYZToPoint(&player->actor, &pthis->actor.home.pos) < 150.0f))
 	{
 		pthis->actor.targetMode = 0;
-		func_80AE2B90(pthis, globalCtx);
+		StartPursuingTarget(pthis, globalCtx);
 	}
 	else if(pthis->actor.params > 0)
 	{
@@ -553,7 +553,7 @@ void func_80AE3260(EnRd* pthis, GlobalContext* globalCtx)
 	}
 	else
 	{
-		func_80AE2B90(pthis, globalCtx);
+		StartPursuingTarget(pthis, globalCtx);
 	}
 
 	pthis->actor.world.rot.y = pthis->actor.shape.rot.y;
@@ -650,7 +650,7 @@ void func_80AE3454(EnRd* pthis, GlobalContext* globalCtx)
 				pthis->actor.flags |= ACTOR_FLAG_VISIBLE;
 				pthis->unk_306 = 0xA;
 				pthis->unk_307 = 0xF;
-				func_80AE2B90(pthis, globalCtx);
+				StartPursuingTarget(pthis, globalCtx);
 				break;
 		}
 	}
@@ -677,10 +677,10 @@ void func_80AE3834(EnRd* pthis, GlobalContext* globalCtx)
 		{
 			player->actor.freezeTimer = 60;
 			Rumble_Shake(pthis->actor.xzDistToPlayer, 0xFF, 0x14, 0x96);
-			func_8008EEAC(globalCtx, &pthis->actor);
+			StartInvolintaryZtarget(globalCtx, &pthis->actor);
 		}
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_REDEAD_AIM);
-		func_80AE2B90(pthis, globalCtx);
+		StartPursuingTarget(pthis, globalCtx);
 	}
 }
 
@@ -762,7 +762,7 @@ void func_80AE3B18(EnRd* pthis, GlobalContext* globalCtx)
 		}
 		else
 		{
-			func_80AE2B90(pthis, globalCtx);
+			StartPursuingTarget(pthis, globalCtx);
 		}
 
 		pthis->unk_31D = 0xFF;

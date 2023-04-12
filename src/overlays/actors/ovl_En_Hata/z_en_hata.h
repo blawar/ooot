@@ -39,5 +39,5 @@ struct EnHata
 	/* 0x0272 */ s16 invScale;
 	/* 0x0274 */ s16 maxStep;
 	/* 0x0276 */ s16 minStep;
-	/* 0x0278 */ s16 unk_278;
+	/* 0x0278 */ TimerS16 animTimer;
 };

@@ -96,6 +96,7 @@ void audio_int()
 
 static AudioTask* g_currentAudioTask = nullptr;
 static bool g_aziInit = false;
+static bool g_aziPause = false;
 
 void audio_thread()
 {
@@ -107,7 +108,7 @@ void audio_thread()
 	auto targetTime = std::chrono::high_resolution_clock::now() + interval;
 	while(g_aziInit)
 	{
-		if(std::chrono::high_resolution_clock::now() > targetTime)
+		if(std::chrono::high_resolution_clock::now() > targetTime && !g_aziPause)
 		{
 			auto task = getAudioTask();
 
@@ -189,4 +190,9 @@ void AudioMgr_Shutdown()
 
 	if(t1.joinable())
 		t1.join();
+}
+
+void AudioMgr_Pause(bool pauseOn)
+{
+	g_aziPause = pauseOn;
 }

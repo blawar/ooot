@@ -269,8 +269,8 @@ namespace oot
 			protected:
 			bool m_mousexInvert = false;
 			bool m_mouseyInvert = true;
-			float m_mousexScaler = 4.0f;
-			float m_mouseyScaler = 4.0f;
+			float m_mousexScaler = 1.0f;
+			float m_mouseyScaler = 1.0f;
 			hid::Button m_actionOverrideButton = hid::Button::B_BUTTON;
 			bool m_enableActionButtonOverride = true;
 			u64 m_stickLeftDeadzone = 20;

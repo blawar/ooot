@@ -22,9 +22,9 @@ void EnSkb_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnSkb_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_80AFCD60(EnSkb* pthis);
-void func_80AFCDF8(EnSkb* pthis);
+void SawnOutOfGround(EnSkb* pthis);
 void func_80AFCE5C(EnSkb* pthis, GlobalContext* globalCtx);
-void func_80AFCF48(EnSkb* pthis);
+void DespawnToGrund(EnSkb* pthis);
 void func_80AFCFF0(EnSkb* pthis, GlobalContext* globalCtx);
 void func_80AFD0A4(EnSkb* pthis);
 void EnSkb_Advance(EnSkb* pthis, GlobalContext* globalCtx);
@@ -169,15 +169,13 @@ void EnSkb_Init(Actor* thisx, GlobalContext* globalCtx)
 	paramOffsetBody = pthis->actor.params + 0xA;
 	pthis->collider.elements[0].dim.worldSphere.radius = paramOffsetBody;
 	pthis->collider.elements[0].dim.modelSphere.radius = paramOffsetBody;
-	if(1)
-	{
-	};
+
 	paramOffsetArm = (pthis->actor.params * 2) + 0x14;
 	pthis->collider.elements[1].dim.worldSphere.radius = paramOffsetArm;
 	pthis->collider.elements[1].dim.modelSphere.radius = paramOffsetArm;
 	pthis->actor.home.pos = pthis->actor.world.pos;
 	pthis->actor.floorHeight = pthis->actor.world.pos.y;
-	func_80AFCDF8(pthis);
+	SawnOutOfGround(pthis);
 }
 
 void EnSkb_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -203,7 +201,7 @@ void func_80AFCD60(EnSkb* pthis)
 {
 	if(IS_DAY)
 	{
-		func_80AFCF48(pthis);
+		DespawnToGrund(pthis);
 	}
 	else if(Actor_IsFacingPlayer(&pthis->actor, 0x11C7) && (pthis->actor.xzDistToPlayer < (60.0f + (pthis->actor.params * 6.0f))))
 	{
@@ -215,7 +213,8 @@ void func_80AFCD60(EnSkb* pthis)
 	}
 }
 
-void func_80AFCDF8(EnSkb* pthis)
+//spawn
+void SawnOutOfGround(EnSkb* pthis)
 {
 	Animation_PlayOnceSetSpeed(&pthis->skelAnime, &gStalchildUncurlingAnim, 1.0f);
 	pthis->unk_280 = 0;
@@ -241,13 +240,13 @@ void func_80AFCE5C(EnSkb* pthis, GlobalContext* globalCtx)
 	{
 		EnSkb_SpawnDebris(globalCtx, pthis, &pthis->actor.world.pos);
 	}
-	if((SkelAnime_Update(&pthis->skelAnime) != 0) && (0.0f == pthis->actor.shape.yOffset))
+	if((SkelAnime_Update(&pthis->skelAnime) != 0) && (pthis->actor.shape.yOffset == 0.0f))
 	{
 		func_80AFCD60(pthis);
 	}
 }
 
-void func_80AFCF48(EnSkb* pthis)
+void DespawnToGrund(EnSkb* pthis)
 {
 	Animation_Change(&pthis->skelAnime, &gStalchildUncurlingAnim, -1.0f, Animation_GetLastFrame(&gStalchildUncurlingAnim), 0.0f, ANIMMODE_ONCE, -4.0f);
 	pthis->unk_280 = 0;
@@ -271,6 +270,7 @@ void func_80AFCFF0(EnSkb* pthis, GlobalContext* globalCtx)
 	}
 }
 
+//no head animation
 void func_80AFD0A4(EnSkb* pthis)
 {
 	Animation_Change(&pthis->skelAnime, &gStalchildWalkingAnim, 0.96000004f, 0.0f, Animation_GetLastFrame(&gStalchildWalkingAnim), ANIMMODE_LOOP, -4.0f);
@@ -321,7 +321,7 @@ void EnSkb_Advance(EnSkb* pthis, GlobalContext* globalCtx)
 	}
 	if(Math_Vec3f_DistXZ(&pthis->actor.home.pos, &player->actor.world.pos) > 800.0f || IS_DAY)
 	{
-		func_80AFCF48(pthis);
+		DespawnToGrund(pthis);
 	}
 	else if(Actor_IsFacingPlayer(&pthis->actor, 0x11C7) && (pthis->actor.xzDistToPlayer < (60.0f + (pthis->actor.params * 6.0f))))
 	{
@@ -329,6 +329,7 @@ void EnSkb_Advance(EnSkb* pthis, GlobalContext* globalCtx)
 	}
 }
 
+//normal animation
 void func_80AFD33C(EnSkb* pthis)
 {
 	Animation_Change(&pthis->skelAnime, &gStalchildAttackingAnim, 0.6f, 0.0f, Animation_GetLastFrame(&gStalchildAttackingAnim), ANIMMODE_ONCE_INTERP, 4.0f);

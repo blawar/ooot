@@ -235,6 +235,7 @@ void main_func(void)
 
 #if(defined(_WIN32) || defined(_WIN64)) && defined(_MSC_VER)
 #include <windows.h>
+#include <AziAudio/AziAudio/SoundDriver.h>
 //#include "engine/script.h"
 
 typedef enum PROCESS_DPI_AWARENESS
@@ -404,4 +405,5 @@ bool isRunning()
 void quit()
 {
 	g_isRunning = false;
+	AudioMgr_Shutdown();
 }

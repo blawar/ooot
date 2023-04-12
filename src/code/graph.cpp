@@ -424,6 +424,9 @@ void Graph_ThreadEntry(void* arg0)
 
 		gfx_wait_ready();
 
+		if(!isRunning())
+			break;
+
 		if(gNextGameState)
 		{
 			gCurrentGameState = std::move(gNextGameState);

@@ -2,6 +2,8 @@
 #include "global.h"
 #include "gfx.h"
 #include "gfxprint.h"
+#include "def/z_rcp.h"
+#include "def/graph.h"
 #include "def/gfxprint.h"
 #include "def/printutils.h"
 #include "def/xprintf.h"
@@ -363,13 +365,6 @@ s32 GfxPrint_Printf(GfxPrint* pthis, const char* fmt, ...)
 
 // Debug printf
 #ifdef DEBUG_PRINT
-
-Gfx* func_8009411C(Gfx* gfx);
-void Graph_OpenDisps(Gfx** dispRefs, GraphicsContext* gfxCtx, const char* file, s32 line);
-void Graph_CloseDisps(Gfx** dispRefs, GraphicsContext* gfxCtx, const char* file, s32 line);
-#include <stdio.h>
-#include <stdlib.h>
-
 char gDebugLines[20][512];
 int gDebugCurrentLine = 0;
 
@@ -405,7 +400,7 @@ void Debug_Draw(GraphicsContext* gfxCtx)
 	for(int i = 0; i < gDebugCurrentLine; i++)
 	{
 		GfxPrint_SetColor(printer, 255, 255, 255, 255);
-		GfxPrint_SetPos(printer, -5, i);
+		GfxPrint_SetPos(printer, 0, i);
 
 		GfxPrint_Printf(printer, gDebugLines[i]);
 	}

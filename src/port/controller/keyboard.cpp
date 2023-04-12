@@ -81,10 +81,10 @@ namespace oot::hid
 			void resetBindingsImpl() // dont want to call virtual functions from constructor
 			{
 				m_keyBindings.clear();
-				m_keyBindings[SDL_SCANCODE_W] = Button::STICK_X_UP;
-				m_keyBindings[SDL_SCANCODE_A] = Button::STICK_X_LEFT;
-				m_keyBindings[SDL_SCANCODE_S] = Button::STICK_X_DOWN;
-				m_keyBindings[SDL_SCANCODE_D] = Button::STICK_X_RIGHT;
+				m_keyBindings[SDL_SCANCODE_W] = Button::LEFT_STICK_UP;
+				m_keyBindings[SDL_SCANCODE_A] = Button::LEFT_STICK_LEFT;
+				m_keyBindings[SDL_SCANCODE_S] = Button::LEFT_STICK_DOWN;
+				m_keyBindings[SDL_SCANCODE_D] = Button::LEFT_STICK_RIGHT;
 				m_keyBindings[SDL_SCANCODE_SPACE] = Button::A_BUTTON;
 				m_keyBindings[SDL_SCANCODE_F] = Button::B_BUTTON;
 				m_keyBindings[SDL_SCANCODE_O] = Button::A_BUTTON;
@@ -253,8 +253,12 @@ namespace oot::hid
 
 			bool hasMouse() const
 			{
-				return true;
 				return m_state.has_mouse;
+			}
+
+			bool hadMouse() const
+			{
+				return m_state.had_mouse;
 			}
 
 			int keyboard_buttons_down;
@@ -289,7 +293,7 @@ namespace oot::hid
 
 			void enableMouse()
 			{
-				this->state().has_mouse = true;
+				this->state().has_mouse = (SDL_GetRelativeMouseMode() == SDL_TRUE);
 			}
 
 			bool canRebind(SDL_Scancode scancode, hid::Button input)
@@ -412,49 +416,79 @@ namespace oot::hid
 				}
 
 #ifdef ENABLE_MOUSE
-				int mouse_delta_x = 0;
-				int mouse_delta_y = 0;
+				s32 mouse_delta_x = 0;
+				s32 mouse_delta_y = 0;
 				u8 mouseState[MAX_BUTTONS];
 
 				auto buttons = SDL_GetRelativeMouseState(&mouse_delta_x, &mouse_delta_y);
-				mouse_delta_x = mouseScaleX(mouse_delta_x);
-				mouse_delta_y = mouseScaleY(mouse_delta_y);
 
 				this->enableMouse();
+
+				if(!hadMouse() && hasMouse())
+				{
+					this->state().skipFirstMouseClick = true;
+				}
+				else if(!buttons && this->state().skipFirstMouseClick)
+				{
+					this->state().skipFirstMouseClick = false;
+				}
+
 				expandMouseButtonBits(buttons, mouseState);
 
 				for(const auto& [btn, input] : m_mouseBindings)
 				{
-					if(mouseState[btn])
-					{
-						processKey(input);
-					}
-
-					if(m_lastMouseState[btn] ^ mouseState[btn])
+					if(!this->state().skipFirstMouseClick)
 					{
 						if(mouseState[btn])
 						{
-							processKeyDown(input);
+							processKey(input);
 						}
-						else
+
+						if(m_lastMouseState[btn] ^ mouseState[btn])
 						{
-							processKeyUp(input);
+							if(mouseState[btn])
+							{
+								processKeyDown(input);
+							}
+							else
+							{
+								processKeyUp(input);
+							}
 						}
 					}
 				}
+
+				if(this->state().skipFirstMouseClick && hasMouse() && !hadMouse())
+				{
+					this->state().had_mouse = true;
+				}
+				else if(!hasMouse())
+				{
+					this->state().had_mouse = false;
+				}
+
+				mouse_delta_x *= (s32)mouseXScaler();
+				mouse_delta_y *= (s32)mouseYScaler();
 
 				if(isFirstPerson())
 				{
 					mouse_delta_y *= -1;
 				}
 
-				m_state.mouse_x += mouse_delta_x;
-				m_state.mouse_y += mouse_delta_y;
-				if(!config().camera().useClassicCamera()){
-					m_state.r_stick_x = MAX(MIN(m_state.r_stick_x + mouse_delta_x * FRAMERATE_SCALER_INV, 0x7F), -0x7F);
-					m_state.r_stick_y = MAX(MIN(m_state.r_stick_y + mouse_delta_y * FRAMERATE_SCALER_INV, 0x7F), -0x7F);
+				if(hasMouse())
+				{
+					m_state.mouse_delta_x = (mouse_delta_x * FRAMERATE_SCALER_INV);
+					m_state.mouse_delta_y = (mouse_delta_y * FRAMERATE_SCALER_INV);
+					
+					if(!config().camera().useClassicCamera() && (m_lastMouse_delta_x != mouse_delta_x || m_lastMouse_delta_y != mouse_delta_y))
+					{
+						m_state.r_stick_x += m_state.mouse_delta_x;
+						m_state.r_stick_y += m_state.mouse_delta_y;
+					}
+					memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
+					m_lastMouse_delta_x = mouse_delta_x;
+					m_lastMouse_delta_y = mouse_delta_y;
 				}
-				memcpy(m_lastMouseState, mouseState, sizeof(mouseState));
 #endif
 
 				if(m_state.m_walk)
@@ -471,6 +505,8 @@ namespace oot::hid
 			std::unordered_map<u8, Button> m_mouseBindings;
 			u8 m_lastKeyState[MAX_KEY_STATE];
 			u8 m_lastMouseState[MAX_BUTTONS];
+			int m_lastMouse_delta_x;
+			int m_lastMouse_delta_y;
 		};
 	} // namespace controller
 

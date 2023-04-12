@@ -384,7 +384,7 @@ void func_8002C124(TargetContext* targetCtx, GlobalContext* globalCtx)
 	{
 		TargetContextEntry* entry;
 		Player* player;
-		s16 spCE;
+		TimerS16 spCE;
 		f32 temp1;
 		Vec3f spBC;
 		s32 spB8;
@@ -601,6 +601,7 @@ void func_8002C7BC(TargetContext* targetCtx, Player* player, Actor* actorArg, Gl
 				targetCtx->unk_48 = 0;
 			}
 
+			//switching between targets sound
 			lockOnSfxId = CHECK_FLAG_ALL(actorArg->flags, ACTOR_FLAG_VISIBLE | ACTOR_FLAG_2) ? NA_SE_SY_LOCK_ON : NA_SE_SY_LOCK_ON_HUMAN;
 			Common_PlaySfx(lockOnSfxId);
 		}
@@ -1270,6 +1271,7 @@ void func_8002DF90(DynaPolyActor* dynaActor)
 	dynaActor->unk_150 = 0.0f;
 }
 
+//related to moving a block
 void func_8002DFA4(DynaPolyActor* dynaActor, f32 arg1, s16 arg2)
 {
 	dynaActor->unk_150 += arg1;

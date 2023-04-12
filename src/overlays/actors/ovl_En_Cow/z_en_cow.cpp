@@ -138,8 +138,8 @@ void EnCow_Init(Actor* thisx, GlobalContext* globalCtx)
 				}
 			}
 			Actor_SpawnAsChild(&globalCtx->actorCtx, &pthis->actor, globalCtx, ACTOR_EN_COW, pthis->actor.world.pos.x, pthis->actor.world.pos.y, pthis->actor.world.pos.z, 0, pthis->actor.shape.rot.y, 0, 1);
-			pthis->unk_278 = Rand_ZeroFloat(1000.0f) + 40.0f;
-			pthis->unk_27A = 0;
+			pthis->mooTimer = Rand_ZeroFloat(1000.0f) + 40.0f;
+			pthis->breathingTimer = 0;
 			pthis->actor.targetMode = 6;
 			DREG(53) = 0;
 			break;
@@ -151,7 +151,7 @@ void EnCow_Init(Actor* thisx, GlobalContext* globalCtx)
 			pthis->actionFunc = func_809DFA84;
 			func_809DEF94(pthis);
 			pthis->actor.flags &= ~ACTOR_FLAG_VISIBLE;
-			pthis->unk_278 = ((u32)(Rand_ZeroFloat(1000.0f)) & 0xFFFF) + 40.0f;
+			pthis->mooTimer = ((u32)(Rand_ZeroFloat(1000.0f)) & 0xFFFF) + 40.0f;
 			break;
 	}
 	pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
@@ -172,13 +172,13 @@ void EnCow_Destroy(Actor* thisx, GlobalContext* globalCtx)
 
 void func_809DF494(EnCow* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->unk_278 > 0)
+	if(pthis->mooTimer > 0)
 	{
-		pthis->unk_278 -= 1;
+		pthis->mooTimer -= 1;
 	}
 	else
 	{
-		pthis->unk_278 = Rand_ZeroFloat(500.0f) + 40.0f;
+		pthis->mooTimer = Rand_ZeroFloat(500.0f) + 40.0f;
 		Animation_Change(&pthis->skelAnime, &gCowBodyChewAnim, 1.0f, pthis->skelAnime.curFrame, Animation_GetLastFrame(&gCowBodyChewAnim), ANIMMODE_ONCE, 1.0f);
 	}
 
@@ -187,29 +187,29 @@ void func_809DF494(EnCow* pthis, GlobalContext* globalCtx)
 		pthis->unk_276 |= 2;
 		if(pthis->skelAnime.animation == &gCowBodyChewAnim)
 		{
-			pthis->unk_278 = 0;
+			pthis->mooTimer = 0;
 		}
 	}
 
-	pthis->unk_27A += 1;
-	if(pthis->unk_27A >= 0x31)
+	pthis->breathingTimer += 1;
+	if(pthis->breathingTimer >= 0x31)
 	{
-		pthis->unk_27A = 0;
+		pthis->breathingTimer = 0;
 	}
 
 	// (1.0f / 100.0f) instead of 0.01f below is necessary so 0.01f doesn't get reused mistakenly
-	if(pthis->unk_27A < 0x20)
+	if(pthis->breathingTimer < 0x20)
 	{
-		pthis->actor.scale.x = ((Math_SinS(pthis->unk_27A << 0xA) * (1.0f / 100.0f)) + 1.0f) * 0.01f;
+		pthis->actor.scale.x = ((Math_SinS(pthis->breathingTimer << 0xA) * (1.0f / 100.0f)) + 1.0f) * 0.01f;
 	}
 	else
 	{
 		pthis->actor.scale.x = 0.01f;
 	}
 
-	if(pthis->unk_27A >= 0x11)
+	if(pthis->breathingTimer >= 0x11)
 	{
-		pthis->actor.scale.y = ((Math_SinS((pthis->unk_27A << 0xA) - 0x4000) * (1.0f / 100.0f)) + 1.0f) * 0.01f;
+		pthis->actor.scale.y = ((Math_SinS((pthis->breathingTimer << 0xA) - 0x4000) * (1.0f / 100.0f)) + 1.0f) * 0.01f;
 	}
 	else
 	{
@@ -329,13 +329,13 @@ void func_809DF96C(EnCow* pthis, GlobalContext* globalCtx)
 
 void func_809DFA84(EnCow* pthis, GlobalContext* globalCtx)
 {
-	if(pthis->unk_278 > 0)
+	if(pthis->mooTimer > 0)
 	{
-		pthis->unk_278--;
+		pthis->mooTimer--;
 	}
 	else
 	{
-		pthis->unk_278 = Rand_ZeroFloat(200.0f) + 40.0f;
+		pthis->mooTimer = Rand_ZeroFloat(200.0f) + 40.0f;
 		Animation_Change(&pthis->skelAnime, &gCowTailIdleAnim, 1.0f, pthis->skelAnime.curFrame, Animation_GetLastFrame(&gCowTailIdleAnim), ANIMMODE_ONCE, 1.0f);
 	}
 
@@ -344,7 +344,7 @@ void func_809DFA84(EnCow* pthis, GlobalContext* globalCtx)
 		pthis->unk_276 |= 2;
 		if(pthis->skelAnime.animation == &gCowTailIdleAnim)
 		{
-			pthis->unk_278 = 0;
+			pthis->mooTimer = 0;
 		}
 	}
 }
