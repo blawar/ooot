@@ -69,38 +69,13 @@
       <LinkTimeCodeGeneration Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x86\ $(SolutionDir)$(Configuration)\</Command>
+      <Command Condition="'$(Platform)'=='Win32'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x86\* $(SolutionDir)$(Configuration)\</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x86\ $(SolutionDir)$(Configuration)\</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x64\ $(SolutionDir)$(Configuration)\</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x64\ $(SolutionDir)$(Configuration)\</Command>
+      <Command Condition="'$(Platform)'=='x64'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x64\* $(SolutionDir)$(Configuration)\</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/libusb/hidapi/releases/download/hidapi-0.12.0/hidapi-win.zip', '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip')"
-mkdir $(SolutionDir)..\$(ProjectName)\hidapi-win
-cd $(SolutionDir)..\$(ProjectName)\hidapi-win
-tar -xf $(SolutionDir)..\$(ProjectName)\hidapi-win.zip</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/libusb/hidapi/releases/download/hidapi-0.12.0/hidapi-win.zip', '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip')"
-cd $(SolutionDir)..\$(ProjectName)\hidapi-win
-tar -xf $(SolutionDir)..\$(ProjectName)\hidapi-win.zip</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/libusb/hidapi/releases/download/hidapi-0.12.0/hidapi-win.zip', '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip')"
-mkdir $(SolutionDir)..\$(ProjectName)\hidapi-win
-cd $(SolutionDir)..\$(ProjectName)\hidapi-win
-tar -xf $(SolutionDir)..\$(ProjectName)\hidapi-win.zip</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/libusb/hidapi/releases/download/hidapi-0.12.0/hidapi-win.zip', '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip')"
-cd $(SolutionDir)..\$(ProjectName)\hidapi-win
-tar -xf $(SolutionDir)..\$(ProjectName)\hidapi-win.zip</Command>
+      <Command>powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/libusb/hidapi/releases/download/hidapi-0.13.1/hidapi-win.zip', '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip'); Expand-Archive -Path '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip' -DestinationPath '$(SolutionDir)..\$(ProjectName)\hidapi-win' -Force"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

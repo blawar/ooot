@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 #define PAGE_COUNT 6
 #if PAGE_COUNT == 6
