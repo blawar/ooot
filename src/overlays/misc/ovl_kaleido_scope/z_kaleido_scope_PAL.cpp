@@ -1915,6 +1915,10 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx)
 
 			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sPromptChoiceTexs[gSaveContext.language][1], 48, 16, 16);
 		}
+		else if(((pauseCtx->state == 7 && pauseCtx->unk_1EC >= 4) || pauseCtx->state == 0xF) && oot::config().game().restoreSaveConfirmation())
+		{
+			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sSaveConfirmationTexs[gSaveContext.language], 152, 16, 0);
+		}
 		else if((pauseCtx->state != 7) || (pauseCtx->unk_1EC < 4))
 		{
 			if((pauseCtx->state != 0xF) && ((pauseCtx->state == 0x10) || (pauseCtx->state == 0x11)))
@@ -3163,7 +3167,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 	void KaleidoScope_Update(GlobalContext * globalCtx)
 	{
 		static s16 D_8082B258 = 0;
-		static s16 D_8082B25C = 10;
+		static s16 timeLeft = 10; // D_8082B25C
 		static s16 D_8082B260 = 0;
 		PauseContext* pauseCtx = &globalCtx->pauseCtx;
 		InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
@@ -3720,21 +3724,21 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 						{
 							Audio_PlaySoundGeneral(NA_SE_SY_TRE_BOX_APPEAR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 							D_8082B258 = 0;
-							D_8082B25C = 30;
+							timeLeft = 30;
 							pauseCtx->unk_1E4 = 6;
 						}
 						else if(pauseCtx->ocarinaStaff->state == 0xFF)
 						{
 							Audio_PlaySoundGeneral(NA_SE_SY_OCARINA_ERROR, &gAudioDefaultPos, 4, &D_801333E0, &D_801333E0, &gReverbAdd2);
 							D_8082B258 = 4;
-							D_8082B25C = 20;
+							timeLeft = 20;
 							pauseCtx->unk_1E4 = 6;
 						}
 						break;
 
 					case 6:
-						D_8082B25C--;
-						if(D_8082B25C == 0)
+						timeLeft--;
+						if(timeLeft == 0)
 						{
 							pauseCtx->unk_1E4 = D_8082B258;
 							if(pauseCtx->unk_1E4 == 0)
@@ -3817,7 +3821,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 								gSaveContext.savedSceneNum = globalCtx->sceneNum;
 								gSaveContext.save();
 								pauseCtx->unk_1EC = 4;
-								D_8082B25C = 3;
+								timeLeft = oot::config().game().restoreSaveConfirmation() ? 90 /* 3 s */ : 3 /* 0.1 s */;
 							}
 						}
 						else if(CHECK_BTN_ALL(input->press.button, BTN_START) || CHECK_BTN_ALL(input->press.button, BTN_B))
@@ -3834,7 +3838,7 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 						break;
 
 					case 4:
-						if(CHECK_BTN_ALL(input->press.button, BTN_B) || CHECK_BTN_ALL(input->press.button, BTN_A) || CHECK_BTN_ALL(input->press.button, BTN_START) || (--D_8082B25C == 0))
+						if(CHECK_BTN_ALL(input->press.button, BTN_B) || CHECK_BTN_ALL(input->press.button, BTN_A) || CHECK_BTN_ALL(input->press.button, BTN_START) || (--timeLeft == 0))
 						{
 							Interface_SetDoAction(globalCtx, DO_ACTION_NONE);
 							gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] = gSaveContext.buttonStatus[3] = BTN_ENABLED;
@@ -4067,19 +4071,19 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 						gSaveContext.savedSceneNum = globalCtx->sceneNum;
 						gSaveContext.save();
 						pauseCtx->state = 0xF;
-						D_8082B25C = 3;
+						timeLeft = oot::config().game().restoreSaveConfirmation() ? 90 /* 3 s */ : 3 /* 0.1 s */;
 					}
 				}
 				break;
 
 			case 0xF:
-				D_8082B25C--;
-				if(D_8082B25C == 0)
+				timeLeft--;
+				if(timeLeft == 0)
 				{
 					pauseCtx->state = 0x10;
 					gameOverCtx->state++;
 				}
-				else if((D_8082B25C <= 80) && (CHECK_BTN_ALL(input->press.button, BTN_A) || CHECK_BTN_ALL(input->press.button, BTN_START)))
+				else if((timeLeft <= 80) && (CHECK_BTN_ALL(input->press.button, BTN_A) || CHECK_BTN_ALL(input->press.button, BTN_START)))
 				{
 					pauseCtx->state = 0x10;
 					gameOverCtx->state++;

@@ -395,14 +395,17 @@ namespace platform::window
 						}
 						if(event.window.event == SDL_WINDOWEVENT_FOCUS_LOST || event.window.event == SDL_WINDOWEVENT_MINIMIZED)
 						{
-							SDL_SetRelativeMouseMode(SDL_FALSE);
-							AudioMgr_Pause(true);
-							do
+							if(oot::config().game().pauseOnLostFocus())
 							{
-								SDL_PollEvent(&event);
-								_sleep(100);
-							}while(event.window.event != SDL_WINDOWEVENT_FOCUS_GAINED);
-							AudioMgr_Pause(false);
+								SDL_SetRelativeMouseMode(SDL_FALSE);
+								AudioMgr_Pause(true);
+								do
+								{
+									SDL_PollEvent(&event);
+									_sleep(100);
+								}while(event.window.event != SDL_WINDOWEVENT_FOCUS_GAINED);
+								AudioMgr_Pause(false);
+							}
 						}
 						
 #ifdef ENABLE_MOUSE
