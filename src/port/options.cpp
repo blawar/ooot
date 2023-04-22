@@ -46,6 +46,8 @@ std::string languageGetString(Language id)
 			return "fr";
 		case LANGUAGE_GER:
 			return "de";
+		case LANGUAGE_PT:
+			return "pt";
 	}
 	return "en";
 }
@@ -71,6 +73,10 @@ Language languageGetId(const std::string& s)
 	else if(s == "de")
 	{
 		return LANGUAGE_GER;
+	}
+	else if(s == "pt")
+	{
+		return LANGUAGE_PT;
 	}
 	return LANGUAGE_ENG;
 }
@@ -331,6 +337,9 @@ namespace oot
 					setLanguage(LANGUAGE_SPA);
 					break;
 				case LANGUAGE_SPA:
+					setLanguage(LANGUAGE_PT);
+					break;
+				case LANGUAGE_PT:
 					setLanguage(LANGUAGE_ENG);
 					break;
 				case LANGUAGE_GER:
@@ -347,6 +356,9 @@ namespace oot
 			switch(m_language)
 			{
 				case LANGUAGE_ENG:
+					setLanguage(LANGUAGE_PT);
+					break;
+				case LANGUAGE_PT:
 					setLanguage(LANGUAGE_SPA);
 					break;
 				case LANGUAGE_SPA:
