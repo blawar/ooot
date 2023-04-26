@@ -1,0 +1,31 @@
+[
+  {
+    "pause_botw_title": "Fundo do Poço",
+    "pause_current_position": "POSIÇÃO ATUAL",
+    "pause_deku_title": "Dentro da Árvore Deku",
+    "pause_dodongo_title": "Caverna Dodongo",
+    "pause_equipment": "EQUIPAMENTO",
+    "pause_fire_title": "Templo do Fogo",
+    "pause_forest_title": "Templo da Floresta",
+    "pause_ice_cavern_title": "Caverna do Gelo",
+    "pause_inside_jabu_title": "Na Barriga de Jabu-Jabu",
+    "pause_map": "MAPA",
+    "pause_no": "Não",
+    "pause_quest_status": "ESTADO DA MISSÃO",
+    "pause_save": "SALVAR",
+    "pause_save_confirmation": "Jogo salvo.",
+    "pause_save_prompt": "Gostarias de salvar?",
+    "pause_select_item": "ESCOLHER ITEM",
+    "pause_shadow_title": "Templo das Sombras",
+    "pause_spirit_title": "Templo do Espírito",
+    "pause_to_decide": "para Escolher",
+    "pause_to_equip": "para Equipar",
+    "pause_to_equipment": "Equipamento",
+    "pause_to_map": "Mapa",
+    "pause_to_play_melody": "Ouvir Canção",
+    "pause_to_quest_status": "Estado da Missão",
+    "pause_to_select_item": "Escolher Item",
+    "pause_water_title": "Templo da Água",
+    "pause_yes": "Sim"
+  }
+]
