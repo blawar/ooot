@@ -207,6 +207,7 @@ void ObjectKankyo_Snow(ObjectKankyo* pthis, GlobalContext* globalCtx)
 {
 }
 
+static u8 counterFaries[32];
 void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx)
 {
 	Player* player;
@@ -459,10 +460,15 @@ void ObjectKankyo_Fairies(ObjectKankyo* pthis, GlobalContext* globalCtx)
 						Math_SmoothStepToF(&pthis->effects[i].size, 0.1f, 0.10f, 0.001f, 0.00001f);
 						Math_SmoothStepToF(&pthis->effects[i].speed, 1.5f, 0.5f, 0.1f, 0.0002f);
 
-						// follow previous fairy, translate their position to be relative to our home
-						pthis->effects[i].pos.x = pthis->effects[i - 1].prevPos.x + (pthis->effects[i - 1].base.x - pthis->effects[i].base.x);
-						pthis->effects[i].pos.y = pthis->effects[i - 1].prevPos.y + (pthis->effects[i - 1].base.y - pthis->effects[i].base.y);
-						pthis->effects[i].pos.z = pthis->effects[i - 1].prevPos.z + (pthis->effects[i - 1].base.z - pthis->effects[i].base.z);
+						counterFaries[i]++;
+						if(counterFaries[i] >= FRAMERATE_SCALER_INV)
+						{
+							counterFaries[i] = 0;
+							// follow previous fairy, translate their position to be relative to our home
+							pthis->effects[i].pos.x = pthis->effects[i - 1].prevPos.x + (pthis->effects[i - 1].base.x - pthis->effects[i].base.x);
+							pthis->effects[i].pos.y = pthis->effects[i - 1].prevPos.y + (pthis->effects[i - 1].base.y - pthis->effects[i].base.y);
+							pthis->effects[i].pos.z = pthis->effects[i - 1].prevPos.z + (pthis->effects[i - 1].base.z - pthis->effects[i].base.z);
+						}
 					}
 				}
 

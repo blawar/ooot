@@ -873,11 +873,11 @@ s32 AudioSeq_SeqLayerProcessScriptStep4(SequenceLayer* layer, s32 cmd)
 						freqScale2 = temp_f14;
 						break;
 					default:
+						freqScale = temp_f2;
 						freqScale2 = temp_f2;
 						break;
 				}
 
-				freqScale = temp_f2;
 				portamento->extent = (freqScale2 / freqScale) - 1.0f;
 
 				if(PORTAMENTO_IS_SPECIAL(*portamento))
@@ -1332,7 +1332,7 @@ void AudioSeq_SequenceChannelProcessScript(SequenceChannel* channel)
 						break;
 					case 0xDB:
 						signedParam = (s8)parameters[0];
-						channel->transposition = signedParam;
+  						channel->transposition = signedParam;
 						break;
 					case 0xDA:
 						offset = (u16)parameters[0];

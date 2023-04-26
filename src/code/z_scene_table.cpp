@@ -2051,12 +2051,12 @@ void func_8009FC90(GlobalContext* globalCtx)
 	CLOSE_DISPS(globalCtx->gfxCtx, "../z_scene_table.c", 7653);
 }
 
-f32 D_8012A398 = 0.0f;
+TimerF32 dynamicWallTimer = 0.0f;
 
-void func_8009FE58(GlobalContext* globalCtx)
+void sceneDrawHandlerBDAN(GlobalContext* globalCtx)
 {
-	static s16 D_8012A39C = 538;
-	static s16 D_8012A3A0 = 4272;
+	static TimerS16 zoomingFrameTimer = 538;
+	static TimerS16 stretchingFrameTimer = 4272;
 	u32 gameplayFrames;
 	f32 temp;
 
@@ -2081,17 +2081,17 @@ void func_8009FE58(GlobalContext* globalCtx)
 
 	if(FrameAdvance_IsEnabled(globalCtx) != true)
 	{
-		D_8012A39C += 1820;
-		D_8012A3A0 += 1820;
+		zoomingFrameTimer += 1820;
+		stretchingFrameTimer += 1820;
 
 		temp = 0.020000001f;
 		func_800AA76C(
-		    &globalCtx->view, ((360.00018f / 65535.0f) * (M_PI / 180.0f)) * temp * Math_CosS(D_8012A39C), ((360.00018f / 65535.0f) * (M_PI / 180.0f)) * temp * Math_SinS(D_8012A39C),
-		    ((360.00018f / 65535.0f) * (M_PI / 180.0f)) * temp * Math_SinS(D_8012A3A0));
-		func_800AA78C(&globalCtx->view, 1.f + (0.79999995f * temp * Math_SinS(D_8012A3A0)), 1.f + (0.39999998f * temp * Math_CosS(D_8012A3A0)), 1.f + (1 * temp * Math_CosS(D_8012A39C)));
+		    &globalCtx->view, ((360.00018f / 65535.0f) * (M_PI / 180.0f)) * temp * Math_CosS(zoomingFrameTimer), ((360.00018f / 65535.0f) * (M_PI / 180.0f)) * temp * Math_SinS(zoomingFrameTimer),
+		    ((360.00018f / 65535.0f) * (M_PI / 180.0f)) * temp * Math_SinS(stretchingFrameTimer));
+		func_800AA78C(&globalCtx->view, 1.0f + (0.79999995f * temp * Math_SinS(stretchingFrameTimer)), 1.0f + (0.39999998f * temp * Math_CosS(stretchingFrameTimer)), 1.0f + (1 * temp * Math_CosS(zoomingFrameTimer)));
 		func_800AA7AC(&globalCtx->view, 0.95f);
 
-		switch(globalCtx->roomCtx.unk_74[0])
+		switch(globalCtx->roomCtx.unk_74[0].toS16())
 		{
 			case 0:
 				break;
@@ -2118,16 +2118,16 @@ void func_8009FE58(GlobalContext* globalCtx)
 				break;
 		}
 
-		D_8012A398 += 0.15f + (globalCtx->roomCtx.unk_74[1] * 0.001f);
+		dynamicWallTimer += 0.15f + (globalCtx->roomCtx.unk_74[1] * 0.001f);
 	}
 
 	if(globalCtx->roomCtx.curRoom.num == 2)
 	{
-		Matrix_Scale(1.0f, sinf(D_8012A398) * 0.8f, 1.0f, MTXMODE_NEW);
+		Matrix_Scale(1.0f, sinf(dynamicWallTimer / FRAMERATE_SCALER_INV) * 0.8f, 1.0f, MTXMODE_NEW);
 	}
 	else
 	{
-		Matrix_Scale(1.005f, sinf(D_8012A398) * 0.8f, 1.005f, MTXMODE_NEW);
+		Matrix_Scale(1.005f, sinf(dynamicWallTimer / FRAMERATE_SCALER_INV) * 0.8f, 1.005f, MTXMODE_NEW);
 	}
 
 	gSPSegment(POLY_OPA_DISP++, 0x0D, Matrix_NewMtx(globalCtx->gfxCtx, "../z_scene_table.c", 7809));
@@ -2190,7 +2190,7 @@ void func_800A059C(GlobalContext* globalCtx)
 
 void (*sSceneDrawHandlers[])(GlobalContext*) = {
     func_80099550, func_8009DA30, func_8009DD5C, func_8009DE78, func_8009E0B8, func_8009E54C, func_8009E730, func_8009E8C0, func_8009EAD8, func_8009EE44, func_8009F074, func_8009F1B4, func_8009F270, func_8009F40C,
-    func_8009F5D4, func_8009F7D4, func_8009F9D0, func_8009FB74, func_8009FC90, func_800995DC, func_80099878, func_8009FE58, func_8009D758, func_8009B0FC, func_8009AE30, func_8009D974, func_800A0334, func_8009CC00,
+    func_8009F5D4, func_8009F7D4, func_8009F9D0, func_8009FB74, func_8009FC90, func_800995DC, func_80099878, sceneDrawHandlerBDAN, func_8009D758, func_8009B0FC, func_8009AE30, func_8009D974, func_800A0334, func_8009CC00,
     func_80099760, func_8009B86C, func_80099BD8, func_8009A45C, func_8009A798, func_8009A9DC, func_8009B9BC, func_8009BAA4, func_8009BC44, func_8009C3EC, func_8009C0AC, func_8009ACA8, func_8009AFE0, func_8009D0E8,
     func_8009C608, func_8009C8B8, func_8009D31C, func_8009D438, func_8009D5B4, func_8009CAC0, func_8009AB98, func_800A059C, func_8009CF84, func_800A057C, func_800A055C,
 };

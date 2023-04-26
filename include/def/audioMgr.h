@@ -1,4 +1,6 @@
 #pragma once
+#include "ultra64/thread.h"
+
 struct AudioMgr;
 struct SchedContext;
 struct IrqMgr;
@@ -9,3 +11,4 @@ void AudioMgr_Init(AudioMgr* audioMgr, void* stack, OSPri pri, OSId id, SchedCon
 void AudioMgr_ThreadEntry(void* arg0);
 void AudioMgr_Unlock(AudioMgr* audioMgr);
 void AudioMgr_Shutdown();
+void AudioMgr_Pause(bool pauseOn);

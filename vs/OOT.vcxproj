@@ -63,7 +63,29 @@
     <IntDir>$(Configuration)\$(PlatformShortName)\</IntDir>
     <LocalDebuggerWorkingDirectory>$(SolutionDir)$(Configuration)\</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
-  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='Win32'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='x64'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>hidapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <RegisterOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</RegisterOutput>
+      <RegisterOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</RegisterOutput>
+      <GenerateDebugInformation Condition="'$(Configuration)'=='Release'">false</GenerateDebugInformation>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\boot\assert.cpp" />
     <ClCompile Include="..\src\boot\boot_main.cpp" />
@@ -770,23 +792,69 @@
     <ClCompile Include="..\src\port\window\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\actor_common.h" />
     <ClInclude Include="..\include\asset_common.h" />
     <ClInclude Include="..\include\audiomgr.h" />
     <ClInclude Include="..\include\code_800ACE70.h" />
+    <ClInclude Include="..\include\color.h" />
+    <ClInclude Include="..\include\command_macros_base.h" />
+    <ClInclude Include="..\include\fp.h" />
+    <ClInclude Include="..\include\framerate.h" />
     <ClInclude Include="..\include\functions.h" />
+    <ClInclude Include="..\include\gamestate.h" />
     <ClInclude Include="..\include\gfx.h" />
+    <ClInclude Include="..\include\gfxapi.h" />
+    <ClInclude Include="..\include\gfxprint.h" />
+    <ClInclude Include="..\include\gfx_align.h" />
     <ClInclude Include="..\include\global.h" />
+    <ClInclude Include="..\include\globalctx.h" />
+    <ClInclude Include="..\include\hack.h" />
+    <ClInclude Include="..\include\ichain.h" />
     <ClInclude Include="..\include\interface.h" />
+    <ClInclude Include="..\include\json.h" />
+    <ClInclude Include="..\include\kaleido_macros.h" />
     <ClInclude Include="..\include\listalloc.h" />
     <ClInclude Include="..\include\macros.h" />
+    <ClInclude Include="..\include\message_data_fmt.h" />
+    <ClInclude Include="..\include\message_data_static.h" />
+    <ClInclude Include="..\include\mixer.h" />
+    <ClInclude Include="..\include\player_state.h" />
+    <ClInclude Include="..\include\porting_defs.h" />
     <ClInclude Include="..\include\quake.h" />
+    <ClInclude Include="..\include\redef_msgqueue.h" />
+    <ClInclude Include="..\include\regs.h" />
+    <ClInclude Include="..\include\rsp.h" />
+    <ClInclude Include="..\include\sequence.h" />
+    <ClInclude Include="..\include\sfx.h" />
+    <ClInclude Include="..\include\shrink_window.h" />
     <ClInclude Include="..\include\speedmeter.h" />
+    <ClInclude Include="..\include\state.h" />
+    <ClInclude Include="..\include\twoheadarena.h" />
+    <ClInclude Include="..\include\ultra64.h" />
+    <ClInclude Include="..\include\unk.h" />
+    <ClInclude Include="..\include\vt.h" />
+    <ClInclude Include="..\include\z64.h" />
     <ClInclude Include="..\include\z64actor.h" />
+    <ClInclude Include="..\include\z64alloca.h" />
+    <ClInclude Include="..\include\z64animation.h" />
+    <ClInclude Include="..\include\z64audio.h" />
+    <ClInclude Include="..\include\z64bgcheck.h" />
     <ClInclude Include="..\include\z64camera.h" />
+    <ClInclude Include="..\include\z64cutscene_commands.h" />
+    <ClInclude Include="..\include\z64dma.h" />
+    <ClInclude Include="..\include\z64effect.h" />
+    <ClInclude Include="..\include\z64elf_message.h" />
+    <ClInclude Include="..\include\z64environment.h" />
     <ClInclude Include="..\include\z64file.h" />
+    <ClInclude Include="..\include\z64gu.h" />
+    <ClInclude Include="..\include\z64interface.h" />
+    <ClInclude Include="..\include\z64item.h" />
     <ClInclude Include="..\include\z64jpeg.h" />
     <ClInclude Include="..\include\kaleido.h" />
+    <ClInclude Include="..\include\z64light.h" />
+    <ClInclude Include="..\include\z64map_mark.h" />
     <ClInclude Include="..\include\z64math.h" />
+    <ClInclude Include="..\include\z64memory.h" />
     <ClInclude Include="..\include\z64message.h" />
     <ClInclude Include="..\include\n64fault.h" />
     <ClInclude Include="..\include\n64mapdata.h" />
@@ -801,14 +869,29 @@
     <ClInclude Include="..\include\z64game.h" />
     <ClInclude Include="..\include\z64global.h" />
     <ClInclude Include="..\include\z64object.h" />
+    <ClInclude Include="..\include\z64player.h" />
     <ClInclude Include="..\include\z64render.h" />
     <ClInclude Include="..\include\z64save.h" />
     <ClInclude Include="..\include\z64scene.h" />
     <ClInclude Include="..\include\z64scene_asserts.h" />
+    <ClInclude Include="..\include\z64skinmatrix.h" />
+    <ClInclude Include="..\include\z64sram.h" />
+    <ClInclude Include="..\include\z64transition.h" />
+    <ClInclude Include="..\include\z_debug_display.h" />
+    <ClInclude Include="..\include\z_demo.h" />
     <ClInclude Include="..\include\z_fbdemo_circle.h" />
     <ClInclude Include="..\include\z_file_choose.h" />
+    <ClInclude Include="..\include\z_frame_advance.h" />
+    <ClInclude Include="..\include\z_kankyo.h" />
+    <ClInclude Include="..\include\z_onepointdemo.h" />
     <ClInclude Include="..\include\z_opening.h" />
-    <ClInclude Include="..\include\z_player.h" />
+    <ClInclude Include="..\include\z_parameter.h" />
+    <ClInclude Include="..\include\z_play.h" />
+    <ClInclude Include="..\include\z_rcp.h" />
+    <ClInclude Include="..\include\z_scene_table.h" />
+    <ClInclude Include="..\include\z_skelanime.h" />
+    <ClInclude Include="..\include\z_view.h" />
+    <ClInclude Include="..\src\overlays\actors\ovl_player_actor\z_player.h" />
     <ClInclude Include="..\include\z_vismono.h" />
     <ClInclude Include="..\src\code\z_prenmi_buff.h" />
     <ClInclude Include="..\src\overlays\gamestates\ovl_opening\z_opening.h" />
@@ -827,6 +910,15 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="OOT.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\include\macro.inc" />
+    <None Include="..\include\z_collision_check.h.bak" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="RaphnetAdapter.vcxproj">
+      <Project>{70f3612f-d053-4559-b070-687e631e9bb6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

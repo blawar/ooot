@@ -1,0 +1,7 @@
+*.dll
+*.so
+*.o
+*.swp
+/projects/unix/_obj*/
+/hidapi-win
+/hidapi-win.zip

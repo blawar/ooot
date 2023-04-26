@@ -143,7 +143,7 @@ void EnBa_Destroy(Actor* thisx, GlobalContext* globalCtx)
 
 void EnBa_SetupIdle(EnBa* pthis)
 {
-	pthis->unk14C = 2;
+	pthis->state = 2;
 	pthis->unk31C = 1500;
 	pthis->actor.speedXZ = 10.0f;
 	EnBa_SetupAction(pthis, EnBa_Idle);
@@ -211,7 +211,7 @@ void EnBa_Idle(EnBa* pthis, GlobalContext* globalCtx)
 
 void EnBa_SetupFallAsBlob(EnBa* pthis)
 {
-	pthis->unk14C = 0;
+	pthis->state = 0;
 	pthis->actor.speedXZ = Rand_CenteredFloat(8.0f);
 	pthis->actor.world.rot.y = Rand_CenteredFloat(65535.0f);
 	pthis->unk318 = 20;
@@ -244,7 +244,7 @@ void EnBa_FallAsBlob(EnBa* pthis, GlobalContext* globalCtx)
 
 void EnBa_SetupSwingAtPlayer(EnBa* pthis)
 {
-	pthis->unk14C = 3;
+	pthis->state = 3;
 	pthis->unk318 = 20;
 	pthis->unk31A = 0;
 	pthis->unk31C = 1500;
@@ -367,7 +367,7 @@ void EnBa_SwingAtPlayer(EnBa* pthis, GlobalContext* globalCtx)
 
 void func_809B7174(EnBa* pthis)
 {
-	pthis->unk14C = 1;
+	pthis->state = 1;
 	pthis->unk31C = 1500;
 	pthis->unk318 = 20;
 	pthis->actor.colChkInfo.mass = MASS_IMMOVABLE;
@@ -437,7 +437,7 @@ void func_809B75A0(EnBa* pthis, GlobalContext* globalCtx2)
 
 	pthis->unk31C = 2500;
 	EffectSsDeadSound_SpawnStationary(globalCtx, &pthis->actor.projectedPos, NA_SE_EN_BALINADE_HAND_DEAD, 1, 1, 40);
-	pthis->unk14C = 0;
+	pthis->state = 0;
 
 	for(i = 7; i < 14; i++)
 	{
@@ -527,7 +527,7 @@ void EnBa_Update(Actor* thisx, GlobalContext* globalCtx)
 	{
 		pthis->actor.focus.pos = pthis->unk158[6];
 	}
-	if(pthis->unk14C >= 2)
+	if(pthis->state >= 2)
 	{
 		CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &pthis->collider.base);
 	}

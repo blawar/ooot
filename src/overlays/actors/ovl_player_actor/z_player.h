@@ -213,7 +213,7 @@ struct Player
 	/* 0x06BE */ s16 unk_6BE;
 	/* 0x06C0 */ s16 unk_rot_z_6C0;
 	/* 0x06C2 */ s16 rotationX;
-	/* 0x06C4 */ f32 unk_6C4;
+	/* 0x06C4 */ TimerF32 sinkTimer;
 	/* 0x06C8 */ SkelAnime skelAnime2;
 	/* 0x070C */ Vec3s jointTable2[PLAYER_LIMB_BUF_COUNT];
 	/* 0x079C */ Vec3s morphTable2[PLAYER_LIMB_BUF_COUNT];
@@ -235,7 +235,7 @@ struct Player
 	/* 0x084B */ s8 unk_84B[4];
 	/* 0x084F */ s8 unk_84F;
 	/* 0x0850 */ Timer unk_850; // multipurpose timer
-	/* 0x0854 */ f32 unk_854;
+	/* 0x0854 */ TimerF32 spawnTimerRipple;
 	/* 0x0858 */ f32 unk_858;
 	/* 0x085C */ f32 unk_85C;   // stick length among other things
 	/* 0x0860 */ Timer unk_860; // stick flame timer among other things

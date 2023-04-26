@@ -76,7 +76,7 @@ struct BossDoorInfo
 struct DoorShutter
 {
 	/* 0x0000 */ DynaPolyActor dyna;
-	/* 0x0164 */ s16 unk_164;
+	/* 0x0164 */ TimerS16 unk_164;
 	/* 0x0166 */ s16 unk_166;
 	/* 0x0168 */ s16 unk_168;
 	/* 0x016A */ u8 doorType;
@@ -84,7 +84,7 @@ struct DoorShutter
 	/* 0x016C */ u8 unk_16C;
 	/* 0x016D */ s32 requiredObjBankIndex;
 	/* 0x016E */ Timer unk_16E;
-	/* 0x016F */ s8 unk_16F;
+	/* 0x016F */ TimerS8 unk_16F;
 	/* 0x0170 */ f32 unk_170;
 	/* 0x0174 */ DoorShutterActionFunc actionFunc;
 };

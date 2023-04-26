@@ -71,7 +71,7 @@ void EnHata_Init(Actor* thisx, GlobalContext* globalCtx)
 	pthis->invScale = 6;
 	pthis->maxStep = 1000;
 	pthis->minStep = 1;
-	pthis->unk_278 = Rand_ZeroOne() * 0xFFFF;
+	pthis->animTimer = Rand_ZeroOne() * 0xFFFF;
 }
 
 void EnHata_Destroy(Actor* thisx, GlobalContext* globalCtx)
@@ -110,15 +110,15 @@ void EnHata_Update(Actor* thisx, GlobalContext* globalCtx2)
 
 	if(Rand_ZeroOne() > 0.5f)
 	{
-		pthis->unk_278 += 6000;
+		pthis->animTimer += 6000;
 	}
 	else
 	{
-		pthis->unk_278 += 3000;
+		pthis->animTimer += 3000;
 	}
 
 	// Mimic varying wind gusts
-	sin = Math_SinS(pthis->unk_278) * 80.0f;
+	sin = Math_SinS(pthis->animTimer) * 80.0f;
 	pitch = -Math_Vec3f_Pitch(&zeroVec, &windVec);
 	pitch = ((s32)((15000 - pitch) * (1.0f - (globalCtx->envCtx.windSpeed / (255.0f - sin))))) + pitch;
 	Math_SmoothStepToS(&pthis->limbs[FLAGPOLE_LIMB_FLAG_1_HOIST_END_BASE].y, pitch, pthis->invScale, pthis->maxStep, pthis->minStep);

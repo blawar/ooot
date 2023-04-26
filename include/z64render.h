@@ -46,7 +46,7 @@ struct SkyboxContext
 	/* 0x138 */ Gfx* unk_138;
 	/* 0x13C */ Vtx* roomVtx;
 	/* 0x140 */ s16 unk_140;
-	/* 0x144 */ Vec3f rot;
+	/* 0x144 */ VecRot rot;
 	/* 0x150 */ char unk_150[0x10];
 }; // size = 0x160
 

@@ -56,8 +56,8 @@ void Player_UpdateBottleHeld(GlobalContext* globalCtx, Player* player, s32 item,
 s32 Player_IsTargetingAnActor(Player* player);
 void func_8008EC70(Player* player);
 void Player_ClearZTarget(Player* player);
-void func_8008EE08(Player* player);
-void func_8008EEAC(GlobalContext* globalCtx, Actor* actor);
+void SetFlagsForClearZTarget(Player* player);
+void StartInvolintaryZtarget(GlobalContext* globalCtx, Actor* actor);
 s32 func_8008EF44(GlobalContext* globalCtx, s32 ammo);
 s32 Player_HoldingHookshot(Player* player);
 s32 func_8008F2BC(Player* player, s32 actionParam);

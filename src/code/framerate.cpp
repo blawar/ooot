@@ -22,7 +22,7 @@ u8 SKIP_GFX_FRAME_MASK = 0;
 #endif
 
 static bool g_force20FPS = false;
-static float g_force20FPSLast = 20.0f;
+static float g_force20FPSLastMaxFps = 20.0f;
 
 static FramerateProfile g_profile = PROFILE_BOOT;
 
@@ -102,14 +102,12 @@ namespace oot
 
 	void setMaxFramerate(float targetFramerate)
 	{
-		const float framerate = g_force20FPS ? 20.0f : targetFramerate;
-
-		if(framerate == SET_FRAMERATE)
+		if(targetFramerate == SET_FRAMERATE)
 		{
 			return;
 		}
 #ifndef STATIC_FRAMERATE
-		switch((s32)framerate)
+		switch((s32)targetFramerate)
 		{
 			case 240:
 				SET_FRAMERATE = 240.0f;
@@ -171,14 +169,34 @@ namespace oot
 				g_profileRates[8] = FRAMERATE_60FPS; // PROFILE_TITLE
 				g_profileRates[9] = FRAMERATE_60FPS; // PROFILE_FILE_CHOOSE
 				break;
+			case 40:
+				SET_FRAMERATE = 40.0f;
+				TICK_RATE = 60.0f;
+				UPDATE_SCALER = 40.0f / 60.0f;
+				GAME_SPEED_RATIO = 60.0f / 40.0f;
+				DEKU_NUT_SPAWN_SCALER = 1.2f;
+				INTERPOLATE_ANIM = true;
+				SKIP_GFX_FRAME_MASK = 0;
+
+				g_profileRates[0] = FRAMERATE_30FPS; // PROFILE_BOOT
+				g_profileRates[1] = FRAMERATE_60FPS; // PROFILE_PAUSE
+				g_profileRates[2] = FRAMERATE_60FPS; // PROFILE_GAMEPLAY
+				g_profileRates[3] = FRAMERATE_60FPS; // PROFILE_UNKNOWN1
+				g_profileRates[4] = FRAMERATE_60FPS; // PROFILE_UNKNOWN2
+				g_profileRates[5] = FRAMERATE_60FPS; // PROFILE_SAMPLE
+				g_profileRates[6] = FRAMERATE_60FPS; // PROFILE_OPENING
+				g_profileRates[7] = FRAMERATE_60FPS; // PROFILE_SELECT
+				g_profileRates[8] = FRAMERATE_60FPS; // PROFILE_TITLE
+				g_profileRates[9] = FRAMERATE_60FPS; // PROFILE_FILE_CHOOSE
+				break;
 			case 30:
 				SET_FRAMERATE = 30.0f;
 				TICK_RATE = 60.0f;
-				UPDATE_SCALER = 1.0f;
-				GAME_SPEED_RATIO = 1.0f;
+				UPDATE_SCALER = 30.0f / 60.0f;
+				GAME_SPEED_RATIO = 60.0f / 30.0f;
 				DEKU_NUT_SPAWN_SCALER = 1.2f;
 				INTERPOLATE_ANIM = true;
-				SKIP_GFX_FRAME_MASK = 1;
+				SKIP_GFX_FRAME_MASK = 0;
 
 				g_profileRates[0] = FRAMERATE_30FPS; // PROFILE_BOOT
 				g_profileRates[1] = FRAMERATE_60FPS; // PROFILE_PAUSE
@@ -237,6 +255,7 @@ namespace oot
 		FRAMERATE_SCALER = (20.0f * GAME_SPEED_RATIO / TICK_RATE);
 		FRAMERATE_SCALER_INV = TICK_RATE / (20.0f * GAME_SPEED_RATIO);
 		R_UPDATE_RATE = framerate_divider();
+		osSyncPrintf("Framerate: %d\n", (s32)targetFramerate);
 
 		config().save();
 #endif
@@ -264,12 +283,25 @@ float Round(float value)
 	return roundf(value * 100) / 100.0f;
 }
 
+/// <summary>
+/// This is a lazy function, for anywhere you dont want the high fps to effect game mechanics. This should only be used as a temporary measure
+/// </summary>
+/// <param name="force"></param>
 void force20FPS(bool force)
 {
 	if(force)
 	{
-		g_force20FPSLast = oot::getMaxFramerate();
+		g_force20FPS = true;
+		//enable force 20fps remember last fps
+		g_force20FPSLastMaxFps = oot::getMaxFramerate();
+		oot::setMaxFramerate(20.0f);
 	}
-	g_force20FPS = force;
-	oot::setMaxFramerate(g_force20FPSLast);
+	else
+	{
+		if(!g_force20FPS)
+			g_force20FPSLastMaxFps = oot::getMaxFramerate(); 
+		g_force20FPS = false;
+		//disable force 20fps and set last fps
+		oot::setMaxFramerate(g_force20FPSLastMaxFps);
+	}
 }

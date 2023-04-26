@@ -139,10 +139,18 @@ void EffectSsGSplash_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	}
 }
 
+static u8 counter[1024];
 void EffectSsGSplash_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
 	Vec3f newSplashPos;
 
+	counter[index]++;
+	if(counter[index] < FRAMERATE_SCALER_INV)
+	{
+		pthis->life++;
+		return;
+	}
+	counter[index] = 0;
 	if((pthis->rType == 1) && (pthis->life == 5))
 	{
 		newSplashPos = pthis->pos;

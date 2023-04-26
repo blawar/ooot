@@ -562,12 +562,14 @@ class CounterF
 
 	CounterF& operator+=(float f)
 	{
+		m_counterScaler = FRAMERATE_SCALER_INV;
 		m_counter += f / m_counterScaler;
 		return *this;
 	}
 
 	CounterF& operator-=(float f)
 	{
+		m_counterScaler = FRAMERATE_SCALER_INV;
 		m_counter -= f / m_counterScaler;
 		return *this;
 	}

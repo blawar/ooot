@@ -22,7 +22,7 @@ struct Vec2f
 
 struct Vec3f
 {
-	f32 x, y, z;
+	f32 x, y, z;	
 }; // size = 0x0C
 
 struct Vec3us
@@ -64,6 +64,22 @@ struct VecPosF
 	CounterF x, y, z;
 };
 */
+struct VecCounterF
+{
+	VecCounterF();
+	VecCounterF(const CounterF& x, const CounterF& y, const CounterF& z);
+	VecCounterF(const Vec3s& vec);
+	VecCounterF(const Vec3f& vec);
+	VecCounterF(Vec3f* vec);
+	VecCounterF(const Vec3f* vec);
+	//Vec3f* operator&();
+	//VecPosF(const Vec3f* vec);
+	operator Vec3s() const;
+	operator Vec3f() const;
+	operator Vec3f*();
+	operator Vec3f*() const;
+	CounterF x, y, z;
+ };
 
 typedef VecRot VecPos;
 typedef Vec3f VecRotF;

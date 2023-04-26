@@ -70,7 +70,7 @@ void EnOkarinaEffect_TriggerStorm(EnOkarinaEffect* pthis, GlobalContext* globalC
 	globalCtx->envCtx.gloomySkyMode = 1; // start gloomy sky
 	if((gWeatherMode != 0) || globalCtx->envCtx.unk_17 != 0)
 	{
-		globalCtx->envCtx.unk_DE = 1;
+		globalCtx->envCtx.skyState = 1;
 	}
 	globalCtx->envCtx.lightningMode = LIGHTNING_MODE_ON;
 	func_80077624(globalCtx);
@@ -121,7 +121,7 @@ void EnOkarinaEffect_ManageStorm(EnOkarinaEffect* pthis, GlobalContext* globalCt
 		else
 		{
 			globalCtx->envCtx.gloomySkyMode = 0;
-			globalCtx->envCtx.unk_DE = 0;
+			globalCtx->envCtx.skyState = 0;
 		}
 		globalCtx->envCtx.lightningMode = LIGHTNING_MODE_LAST;
 		Actor_Kill(&pthis->actor);

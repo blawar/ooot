@@ -123,23 +123,34 @@ void EffectSsGRipple_Draw(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 	}
 }
 
+static u8 counter[1024];
 void EffectSsGRipple_Update(GlobalContext* globalCtx, u32 index, EffectSs* pthis)
 {
-	f32 radius;
+	TimerF32 radius;
 	f32 primAlpha;
 	f32 envAlpha;
+
+	counter[index]++;
+	if(counter[index] < FRAMERATE_SCALER_INV)
+	{
+		pthis->life++;
+	}
+	else
+	{
+		counter[index] = 0;
+	}
 
 	if(DECRI(pthis->rLifespan) == 0)
 	{
 		radius = pthis->rRadius;
-		Math_SmoothStepToF(&radius, pthis->rRadiusMax, 0.2f, 30.0f, 1.0f);
+		Math_SmoothStepToF(&radius, pthis->rRadiusMax, 0.2f * FRAMERATE_SCALER_INV, 30.0f, 1.0f);
 		pthis->rRadius = radius;
 
 		primAlpha = pthis->rPrimColorA;
 		envAlpha = pthis->rEnvColorA;
 
-		Math_SmoothStepToF(&primAlpha, 0.0f, 0.2f, 15.0f, 7.0f);
-		Math_SmoothStepToF(&envAlpha, 0.0f, 0.2f, 15.0f, 7.0f);
+		Math_SmoothStepToF(&primAlpha, 0.0f, 0.2f * FRAMERATE_SCALER_INV, 15.0f, 7.0f);
+		Math_SmoothStepToF(&envAlpha, 0.0f, 0.2f * FRAMERATE_SCALER_INV, 15.0f, 7.0f);
 
 		pthis->rPrimColorA = primAlpha;
 		pthis->rEnvColorA = envAlpha;

@@ -455,7 +455,7 @@ void EnFish_Dropped_Fall(EnFish* pthis, GlobalContext* globalCtx)
 	{
 		osSyncPrintf(VT_COL(YELLOW, BLACK));
 		// "BG missing? Running Actor_delete"
-		osSyncPrintf("BG 抜け？ Actor_delete します(%s %d)\n", "../z_en_sakana.c", 822);
+		osSyncPrintf("Missing BG？ Actor_delete Do(%s %d)\n", "../z_en_sakana.c", 822);
 		osSyncPrintf(VT_RST);
 		Actor_Kill(&pthis->actor);
 	}

@@ -16,6 +16,18 @@ namespace oot
 		m_controllers.push_back(controller);
 	}
 
+	void Player::detach(const std::shared_ptr<hid::Controller>& controller)
+	{
+		for(auto it = m_controllers.begin(); it != m_controllers.end(); it++)
+		{
+			if(*it == controller)
+			{
+				m_controllers.erase(it);
+				return;
+			}
+		}
+	}
+
 	void Player::detachControllers()
 	{
 		m_controllers.resize(0);

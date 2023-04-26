@@ -64,7 +64,17 @@ Step one install all required Programs below
 ![68747470733a2f2f692e696d6775722e636f6d2f4544326c5139512e706e67](https://user-images.githubusercontent.com/84041391/163289314-75bf3467-9506-4df6-bdf8-ece6a7114792.png)
 
 
-[Git](https://git-scm.com/) **Choose x64 Build and Use the git bash to clone the repo and to run setup.py**
+[Git Deskktop](https://central.github.com/deployments/desktop/desktop/latest/win32) **Install with your github account and clone using URL**
+
+![image](https://user-images.githubusercontent.com/84041391/233754962-5c28c5e7-9c91-4ca3-8862-91f79e68dbb9.png)
+
+Next we switch to Dev branch 
+
+![image](https://user-images.githubusercontent.com/84041391/233754991-bb94b133-74d5-4e2c-9563-cf5279d93202.png)
+
+Next click Fetch 
+
+![image](https://user-images.githubusercontent.com/84041391/233755011-a14ef259-0367-4a74-8cfc-781d1a560358.png)
 
 [Visual Studio Community 2022](https://visualstudio.microsoft.com/vs/community/) **During setup click C++ development**
 ![vcc](https://user-images.githubusercontent.com/84041391/163289227-6fdfd616-edeb-4314-b29c-9a5ed50aa1c5.png)
@@ -87,19 +97,18 @@ make sure baserom_original.z64 or baserom_original.n64 is inside the correct fol
 
 iF the roms hash is not correct it won't extract the assets and continue. `"hash_md5": ["c02c1d79679f7ceb9a3bde55fff8aa13"] `
 
-Open git Bash or command prompt and type:
-``git clone --recursive https://github.com/blawar/ooot.git``
+Open command prompt and type:
 
-![git clone](https://user-images.githubusercontent.com/84041391/163308082-4af59ab6-4956-405e-96a3-63b6407b32be.png)
+```
+cd .\source\repo\ooot 
+```
+
+![image](https://user-images.githubusercontent.com/84041391/233755375-b20fd588-1879-4f8f-a2cb-c5c1bd590ea3.png)
 
 
-after it's done type `cd ooot` 
+after it's done type:
 
-![cd ooot](https://user-images.githubusercontent.com/84041391/163308108-2c0bb792-9535-41b3-acd1-942730183f3e.png)
-
-run this command next to extract the assets from the rom. (baserom_original.z64 must exist in the directory `\ooot\roms\PAL_1.0\`)
-
-![pal](https://user-images.githubusercontent.com/84041391/163309103-8936c210-5532-45ab-b3f1-f3f21b04f1f7.png)
+![image](https://user-images.githubusercontent.com/84041391/233755385-f85fbc3b-e1ad-4766-aa9e-0c364356b44c.png)
 
 ```
 python setup.py -b PAL_1.0
@@ -116,19 +125,17 @@ make sure baserom_original.z64 or baserom_original.n64 is inside the correct fol
 
 if the roms hash is not correct it won't extract the assets and continue. `"hash_md5": ["f0b7f35375f9cc8ca1b2d59d78e35405", "8ca71e87de4ce5e9f6ec916202a623e9"`
 
-Open git Bash or command prompt and type:
+Open command prompt and type:
 
-``git clone --recursive https://github.com/blawar/ooot.git``
+```
+cd .\source\repo\ooot 
+```
 
-![git clone](https://user-images.githubusercontent.com/84041391/163308776-13aa98c0-7e5a-4e00-9b2c-4c44e67ecc89.png)
-
-after it's done type `cd ooot` 
-
-![cd ooot](https://user-images.githubusercontent.com/84041391/163308819-37bec5b7-1b30-4964-bacf-6213d45a4c01.png)
+![image](https://user-images.githubusercontent.com/84041391/233755375-b20fd588-1879-4f8f-a2cb-c5c1bd590ea3.png)
 
 run this command next to extract the assets from the rom. (baserom_original.z64 must exist in the directory `\ooot\roms\EUR_MQD\`)
 
-![mq](https://user-images.githubusercontent.com/84041391/163309044-3956df29-5e0c-4325-8d53-c9009199ebd5.png)
+![image](https://user-images.githubusercontent.com/84041391/233755458-da107be7-65ab-4bd1-b897-3f83ea3a31e5.png)
 
 ```
 python setup.py -b EUR_MQD

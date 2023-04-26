@@ -36,10 +36,10 @@ namespace oot::hid
 		L_CBUTTONS = CONT_C,
 		R_CBUTTONS = CONT_F,
 		D_CBUTTONS = CONT_D,
-		STICK_X_LEFT = 1ULL << 16,
-		STICK_X_RIGHT = 1ULL << 17,
-		STICK_X_DOWN = 1ULL << 19,
-		STICK_X_UP = 1ULL << 18,
+		LEFT_STICK_LEFT = 1ULL << 16,
+		LEFT_STICK_RIGHT = 1ULL << 17,
+		LEFT_STICK_DOWN = 1ULL << 19,
+		LEFT_STICK_UP = 1ULL << 18,
 		WALK_BUTTON = 1ULL << 20,
 		DEBUG_MENU = 1ULL << 21,
 		OCARINA = 1ULL << 22,
@@ -68,15 +68,17 @@ namespace oot::hid
 		s8 stick_x; /* -80 <= stick_x <= 80 */
 		s8 stick_y; /* -80 <= stick_y <= 80 */
 		u8 errnum;
-		s8 r_stick_x; /* -80 <= stick_x <= 80 */
-		s8 r_stick_y; /* -80 <= stick_y <= 80 */
+		s32 r_stick_x;
+		s32 r_stick_y;
 
 		float gyro[3];
 		float accel[3];
 
-		s64 mouse_x;
-		s64 mouse_y;
+		s32 mouse_delta_x;
+		s32 mouse_delta_y;
 		bool has_mouse;
+		bool had_mouse;
+		bool skipFirstMouseClick;
 		bool m_walk;
 	};
 
@@ -99,8 +101,8 @@ namespace oot::hid
 		bool m_hasGyro = false;
 		bool m_hasAccel = false;
 
-		static s64 mouseScaleX(s64 value);
-		static s64 mouseScaleY(s64 value);
+		static f32 mouseXScaler();
+		static f32 mouseYScaler();
 
 		Controller(bool isLocal = true);
 		virtual void update();
@@ -163,11 +165,13 @@ namespace oot::hid
 	{
 		if(value > 0)
 		{
-			return value * 0x7F / max;
+			//printf("value: %d, byte: %d\n", value, value * 0x7F / (max * 1.5));
+			return value * 0x7F / (max * 1.5);
 		}
 		else
 		{
-			return value * 0x80 / (max+1);
+			//printf("value: %d, byte: %d\n", value, value * 0x80 / (max + 1));
+			return value * 0x80 / (1.5 * (max+1));
 		}
 	}
 

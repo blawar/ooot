@@ -489,7 +489,7 @@ void Player_ClearZTarget(Player* pthis)
 	pthis->stateFlags2 &= ~PLAYER_STATE2_ZTARGET_CHANGED;
 }
 
-void func_8008EE08(Player* pthis)
+void SetFlagsForClearZTarget(Player* pthis)
 {
 	if((pthis->actor.bgCheckFlags & BG_STATE_0) || (pthis->stateFlags1 & (PLAYER_STATE1_21 | PLAYER_STATE_HORSE_MOUNTED | PLAYER_STATE_SWIMMING)) ||
 	   (!(pthis->stateFlags1 & (PLAYER_STATE1_18 | PLAYER_STATE1_19)) && ((pthis->actor.world.pos.y - pthis->actor.floorHeight) < 100.0f)))
@@ -504,11 +504,11 @@ void func_8008EE08(Player* pthis)
 	Player_ClearZTarget(pthis);
 }
 
-void func_8008EEAC(GlobalContext* globalCtx, Actor* actor)
+void StartInvolintaryZtarget(GlobalContext* globalCtx, Actor* actor)
 {
 	Player* pthis = GET_PLAYER(globalCtx);
 
-	func_8008EE08(pthis);
+	SetFlagsForClearZTarget(pthis);
 	pthis->targetedActor = actor;
 	pthis->unk_684 = actor;
 	pthis->stateFlags1 |= PLAYER_STATE1_16;
@@ -898,7 +898,7 @@ void func_8008F87C(GlobalContext* globalCtx, Player* pthis, SkelAnime* skelAnime
 
 		sp7C = D_80126058[(void)0, gSaveContext.linkAge];
 		sp78 = D_80126060[(void)0, gSaveContext.linkAge];
-		sp74 = D_80126068[(void)0, gSaveContext.linkAge] - pthis->unk_6C4;
+		sp74 = D_80126068[(void)0, gSaveContext.linkAge] - pthis->sinkTimer;
 
 		Matrix_Push();
 		Matrix_TranslateRotateZYX(pos, rot);
@@ -988,7 +988,7 @@ s32 func_8008FCC8(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
 			}
 		}
 
-		pos->y -= pthis->unk_6C4;
+		pos->y -= pthis->sinkTimer;
 
 		if(pthis->rotationX != 0)
 		{

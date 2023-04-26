@@ -848,9 +848,9 @@ typedef struct
 #ifdef LITTLE_ENDIAN
 		struct
 		{
-			u8 arg2;
-			u8 arg1;
-			u8 arg0;
+			u8 scriptIndex;
+			u8 seqPlayerChannelIndex;
+			u8 seqPlayerIndex;
 			u8 op;
 		};
 #else

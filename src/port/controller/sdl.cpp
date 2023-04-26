@@ -28,6 +28,9 @@ static int g_rstickY_peak = INITIAL_PEAK;
 #include <time.h>
 extern struct Object* gMarioObject;
 #endif
+#include <RaphnetAdapter/src/gcn64.h>
+#include <RaphnetAdapter/src/gcn64lib.h>
+#include <RaphnetAdapter/src/plugin_back.h>
 
 namespace oot::hid
 {
@@ -228,7 +231,7 @@ namespace oot::hid
 
 			static inline int8_t convertToByte(int value, int max)
 			{
-				int8_t result = value * 0x7F / max;
+				int8_t result = value * 0x7F / (max * 1.5);
 
 				return result;
 			}
@@ -240,7 +243,14 @@ namespace oot::hid
 
 			inline int8_t stickLeftX()
 			{
-				auto value = readAxis(SDL_CONTROLLER_AXIS_LEFTX);
+				int deadzone = oot::config().controls().stickLeftDeadzone() * 0x7f;
+				int value = readAxis(SDL_CONTROLLER_AXIS_LEFTX);
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
 
 				if(abs(value) > g_lstickX_peak)
 				{
@@ -252,7 +262,14 @@ namespace oot::hid
 
 			inline int8_t stickLeftY()
 			{
+				int deadzone = oot::config().controls().stickLeftDeadzone() * 0x7f;
 				auto value = -readAxis(SDL_CONTROLLER_AXIS_LEFTY);
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
 
 				if(abs(value) > g_lstickY_peak)
 				{
@@ -264,7 +281,14 @@ namespace oot::hid
 
 			inline int8_t stickRightX()
 			{
-				auto value = readAxis(SDL_CONTROLLER_AXIS_RIGHTX);
+				int deadzone = oot::config().controls().stickRightDeadzone() * 0x7f;
+				int value = readAxis(SDL_CONTROLLER_AXIS_RIGHTX);
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
 
 				if(abs(value) > g_rstickX_peak)
 				{
@@ -276,7 +300,14 @@ namespace oot::hid
 
 			inline int8_t stickRightY()
 			{
-				auto value = -readAxis(SDL_CONTROLLER_AXIS_RIGHTY);
+				int deadzone = oot::config().controls().stickRightDeadzone() * 0x7f;
+				int value = -readAxis(SDL_CONTROLLER_AXIS_RIGHTY);
+				if(value < -deadzone)
+					value += deadzone;
+				else if(value > deadzone)
+					value -= deadzone;
+				else
+					value = 0;
 
 				if(abs(value) > g_rstickY_peak)
 				{
@@ -446,22 +477,6 @@ namespace oot::hid
 					m_state.stick_y *= 0.25f;
 				}
 
-				uint32_t magnitude_sq = (uint32_t)(m_state.stick_x * m_state.stick_x) + (uint32_t)(m_state.stick_y * m_state.stick_y);
-
-				if(magnitude_sq < (uint32_t)(oot::config().controls().stickLeftDeadzone() * oot::config().controls().stickLeftDeadzone()))
-				{
-					m_state.stick_x = 0;
-					m_state.stick_y = 0;
-				}
-
-				magnitude_sq = (uint32_t)(m_state.r_stick_x * m_state.r_stick_x) + (uint32_t)(m_state.r_stick_y * m_state.r_stick_y);
-
-				if(magnitude_sq < (uint32_t)(oot::config().controls().stickRightDeadzone() * oot::config().controls().stickRightDeadzone()))
-				{
-					m_state.r_stick_x = 0;
-					m_state.r_stick_y = 0;
-				}
-
 				memcpy(m_lastButtonState, m_buttonState, sizeof(m_lastButtonState));
 				rumble();
 			}
@@ -477,6 +492,42 @@ namespace oot::hid
 	} // namespace controller
 	SDL::SDL()
 	{
+#ifdef __SWITCH__
+		// swap A, B and X, Y to correct positions
+		SDL_GameControllerAddMapping("53776974636820436F6E74726F6C6C65,Switch Controller,"
+					     "a:b0,b:b1,back:b11,"
+					     "dpdown:b15,dpleft:b12,dpright:b14,dpup:b13,"
+					     "leftshoulder:b6,leftstick:b4,lefttrigger:b8,leftx:a0,lefty:a1,"
+					     "rightshoulder:b7,rightstick:b5,righttrigger:b9,rightx:a2,righty:a3,"
+					     "start:b10,x:b2,y:b3");
+#endif
+
+		SDL_GameControllerAddMapping("03000000D620000010A7000000000000,Mayflash N64 controller adapter 2p,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+
+#define RAPHNET_ID_v36_GCN64 "030000009b2800006000000000000000"
+#define RAPHNET_ID_v36_N64 "030000009b2800006100000000000000"
+#define RAPHNET_ID_v36_2GCN64 "030000009b2800006300000000000000"
+#define RAPHNET_ID_v36_2N64 "030000009b2800006400000000000000"
+
+		
+		SDL_GameControllerAddMapping(RAPHNET_ID_v36_GCN64 ",GC/N64 to USB v3.6,platform:Windows,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+
+		SDL_GameControllerAddMapping(RAPHNET_ID_v36_N64 ",GC/N64 to USB v3.6,platform:Windows,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+		
+		SDL_GameControllerAddMapping(RAPHNET_ID_v36_2GCN64 ",GC/N64 to USB v3.6,platform:Windows,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+
+		SDL_GameControllerAddMapping(RAPHNET_ID_v36_2N64 ",GC/N64 to USB v3.6,platform:Windows,"
+			"a:b7,b:b9,x:b8,y:b6,back:b0,guide:b3,start:b1,leftstick:b2,leftshoulder:b4,rightshoulder:b5,"
+			"dpup:b10,dpdown:b11,dpleft:b12,dpright:b13,leftx:a0,lefty:a1,");
+
 		if(config().controls().useDInput())
 		{
 			SDL_SetHint(SDL_HINT_XINPUT_ENABLED, "0");
@@ -498,25 +549,32 @@ namespace oot::hid
 	}
 
 	void SDL::scan(class Controllers* controllers)
-	{
-#ifdef __SWITCH__
-		// swap A, B and X, Y to correct positions
-		SDL_GameControllerAddMapping("53776974636820436F6E74726F6C6C65,Switch Controller,"
-					     "a:b0,b:b1,back:b11,"
-					     "dpdown:b15,dpleft:b12,dpright:b14,dpup:b13,"
-					     "leftshoulder:b6,leftstick:b4,lefttrigger:b8,leftx:a0,lefty:a1,"
-					     "rightshoulder:b7,rightstick:b5,righttrigger:b9,rightx:a2,righty:a3,"
-					     "start:b10,x:b2,y:b3");
-#endif
-
+	{		
 		init_ok = true;
+
+		if(m_controllers.size() > 0)
+		{
+			for(auto it = m_controllers.begin(); it != m_controllers.end(); it++)
+			{
+				players().detach(*it, 0);
+			}
+
+			m_controllers.resize(0);
+		}
 
 		for(int i = 0; i < SDL_NumJoysticks(); i++)
 		{
 			if(SDL_IsGameController(i))
 			{
 				auto context = SDL_GameControllerOpen(i);
+				std::string s = SDL_GameControllerMapping(context);
+				std::string delimiter = ",";
+				std::string token = s.substr(0, s.find(delimiter));
 
+				if(token == RAPHNET_ID_v36_GCN64 || token == RAPHNET_ID_v36_N64 || token == RAPHNET_ID_v36_2GCN64 || token == RAPHNET_ID_v36_2N64)
+				{
+					pb_scanControllers();
+				}
 				if(context)
 				{
 					auto controller = std::make_shared<controller::SDL>(context, i);

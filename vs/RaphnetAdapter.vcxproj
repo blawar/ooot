@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{70F3612F-D053-4559-B070-687E631E9BB6}</ProjectGuid>
+    <RootNamespace>RaphnetAdapter</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)..\RaphnetAdapter\PropertySheets\$(Platform).props" />
+    <Import Project="$(SolutionDir)..\RaphnetAdapter\PropertySheets\$(Configuration).props" />
+  </ImportGroup>
+  <PropertyGroup Label="Configuration">
+    <IntDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\external\$(Platform)\</OutDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>$(ProjectName)d</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\RaphnetAdapter\hidapi-win\include</AdditionalIncludeDirectories>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp17</LanguageStandard>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ScanSourceForModuleDependencies>
+      <ScanSourceForModuleDependencies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ScanSourceForModuleDependencies>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp17</LanguageStandard>
+      <ConformanceMode Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</ConformanceMode>
+      <ConformanceMode Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Default</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='Win32'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories Condition="'$(Platform)'=='x64'">$(SolutionDir)..\RaphnetAdapter\hidapi-win\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>hidapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+    </Link>
+    <PostBuildEvent>
+      <Command Condition="'$(Platform)'=='Win32'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x86\* $(SolutionDir)$(Configuration)\</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Command Condition="'$(Platform)'=='x64'">xcopy /y $(SolutionDir)..\RaphnetAdapter\hidapi-win\x64\* $(SolutionDir)$(Configuration)\</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/libusb/hidapi/releases/download/hidapi-0.13.1/hidapi-win.zip', '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip'); Expand-Archive -Path '$(SolutionDir)..\$(ProjectName)\hidapi-win.zip' -DestinationPath '$(SolutionDir)..\$(ProjectName)\hidapi-win' -Force"</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\RaphnetAdapter\src\gcn64.cpp" />
+    <ClCompile Include="..\RaphnetAdapter\src\gcn64lib.cpp" />
+    <ClCompile Include="..\RaphnetAdapter\src\hexdump.cpp" />
+    <ClCompile Include="..\RaphnetAdapter\src\plugin_back.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\RaphnetAdapter\hidapi-win\include\hidapi.h" />
+    <ClInclude Include="..\RaphnetAdapter\hidapi-win\include\hidapi_winapi.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\gcn64.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\gcn64lib.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\gcn64_priv.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\gcn64_protocol.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\hexdump.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\osal_preproc.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\plugin_back.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\plugin_front.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\requests.h" />
+    <ClInclude Include="..\RaphnetAdapter\src\version.h" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="resource.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <ItemGroup>
+    <FilesToDeploy Include="$(OutDir)RaphnetAdapter.dll" />
+  </ItemGroup>
+  <!--Set Pj64Install as an environment variable or as an MSBuild command-line property.-->
+  <Target Name="Publish">
+    <Message Text="Deploying to [$(Pj64Install)]" />
+    <Message Text="Files to move: [@(FilesToDeploy)]" />
+    <Copy SourceFiles="@(FilesToDeploy)" DestinationFolder="$(Pj64Install)\Plugin\$(PluginType)" Condition="'$(Platform)'=='Win32'" />
+    <Copy SourceFiles="@(FilesToDeploy)" DestinationFolder="$(Pj64Install)\Plugin64\$(PluginType)" Condition="'$(Platform)'=='x64'" />
+  </Target>
+</Project>
