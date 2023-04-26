@@ -30,9 +30,9 @@
       "market_position_name": "Mercado",
       "question_mark_position_name": "?",
       "sacred_forest_meadow_position_name": "Prado da\nFloresta Sagrada",
-      "zoras_domain_point_name": "Domínio dos Zora",
-      "zoras_domain_position_name": "Domínio\ndos Zora",
-      "zoras_fountain_position_name": "Fonte\ndos Zora",
-      "zoras_river_position_name": "Rio dos Zora"
+      "zoras_domain_point_name": "Domínio Zora",
+      "zoras_domain_position_name": "Domínio Zora",
+      "zoras_fountain_position_name": "Fonte Zora",
+      "zoras_river_position_name": "Rio Zora"
     }
   ]
