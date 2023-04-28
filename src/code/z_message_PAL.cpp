@@ -653,7 +653,7 @@ void Message_DrawTextboxIcon(GlobalContext* globalCtx, Gfx** p, s16 x, s16 y)
 }
 
 #define MESSAGE_SPACE_WIDTH 6
-f32 sFontWidths[151] = {
+f32 sFontWidths[155] = {
     8.0f,  // ' '
     8.0f,  // '!'
     6.0f,  // '"'
@@ -805,6 +805,10 @@ f32 sFontWidths[151] = {
     12.0f, // 'Á'
     11.0f, // 'Ñ'
     9.0f,  // 'ñ'
+    12.0f, // 'Ã'
+    13.0f, // 'Õ'
+    8.0f,  // 'ã'
+    9.0f,  // 'õ'
 };
 
 u16 Message_DrawItemIcon(GlobalContext* globalCtx, u16 itemId, Gfx** p, u16 i)

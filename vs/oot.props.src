@@ -8,7 +8,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-	<IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../include;../src;../assets/$(buildrom)/;../build;../;../external/include;%(IncludePath)</IncludePath>
+	<IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../include;../src;../assets/$(buildrom)/;../assets/ALL/;../build;../build/assets/$(buildrom)/;../;../external/include;%(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);../external/Win32;%(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>

@@ -62,7 +62,11 @@ vs/build
 *.enc.h
 !*_custom*
 .extracted-assets.json
-assets/
+assets/*
+build/assets/*
+!assets/ALL/
+!assets/ALL/textures/**/*.png
+generated/
 
 # Docs
 !docs/tutorial/

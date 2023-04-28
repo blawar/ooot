@@ -965,7 +965,7 @@
     <ClCompile Include="..\assets\$(buildrom)\textures\map_name_static\map_name_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\message_static\message_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\message_texture_static\message_texture_static.cpp" />
-    <ClCompile Include="..\assets\$(buildrom)\textures\nes_font_static\nes_font_static.cpp" />
+    <ClCompile Include="..\assets\ALL\textures\nes_font_static\nes_font_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\nintendo_rogo_static\nintendo_rogo_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\parameter_static\parameter_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_01.cpp" />
@@ -1026,8 +1026,8 @@
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_56.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_57.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\title_static\title_static.cpp" />
-    <ClCompile Include="..\roms\$(buildrom)\text\spa_message_data_static.cpp" />
-    <ClCompile Include="..\roms\$(buildrom)\text\pt_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\spa_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\pt_message_data_static.cpp" />
     <ClCompile Include="..\roms\$(buildrom)\text\fra_message_data_static.cpp" />
     <ClCompile Include="..\roms\$(buildrom)\text\ger_message_data_static.cpp" />
     <ClCompile Include="..\roms\$(buildrom)\text\nes_message_data_static.cpp" />

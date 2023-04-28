@@ -37,34 +37,27 @@ def clean():
 
 def generateEncMsgs():
 	print("Starting message encoding")
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_en.h'), str('include/translations/message_data_en.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_de.h'), str('include/translations/message_data_de.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_fr.h'), str('include/translations/message_data_fr.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_es-SV.h'), str('include/translations/message_data_es.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str('include/translations/message_data_pt.h'), str('include/translations/message_data_pt.enc.h'), buildRom()])
+	charmap = str('assets/ALL/text/charmap.txt')
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_en.h'), str('include/translations/message_data_en.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_de.h'), str('include/translations/message_data_de.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_fr.h'), str('include/translations/message_data_fr.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_es-SV.h'), str('include/translations/message_data_es.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_pt.h'), str('include/translations/message_data_pt.enc.h'), buildRom()])
 	mkdir(assetPath('text'))
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
+	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
 	print("Finished message encoding")
 
-def addAdditionalLatinChars():
-	fontcppfile = str(assetPath('textures/nes_font_static/nes_font_static.cpp'))
-	fontheaderfile = str(assetPath('textures/nes_font_static/nes_font_static.h'))
-	tocppfile = str('include/translations/res/additional_latin_chars/add_to.nes_font_static.cpp.txt')
-	toheaderfile1 = str('include/translations/res/additional_latin_chars/add1_to.nes_font_static.h.txt')
-	toheaderfile2 = str('include/translations/res/additional_latin_chars/add2_to.nes_font_static.h.txt')
-	foundtex = 'gMsgCharACLatinCapitalLetterIWithAcuteTex'
-	
-	with open(fontcppfile, 'r+') as fontcpp:
-		if not foundtex in fontcpp.read():
-				fontcpp.write(open(tocppfile, 'r').read())
-	
-	with open(fontheaderfile, 'r') as fontheader:
-		headertext = fontheader.read()
-		if not foundtex in headertext:
-				headertext = headertext.replace('static void* nes_font_static_lut[] = {', open(toheaderfile1, 'r').read())
-				headertext = headertext.replace('};', open(toheaderfile2, 'r').read())
-				with open(fontheaderfile, 'w') as fontheader:
-					fontheader.write(headertext)
+def addAdditionalChars():
+	zapd = Path(zapdBinary())
+	chars = []
+	charsdir = str('assets/ALL/textures/nes_font_static')
+	chars.extend(Path(charsdir).glob('*.i4.png'))
+	mkdir(charsdir + '/generated')
+	for char in chars:
+		input_path = os.path.abspath(char)
+		output_path = os.path.abspath(f"{charsdir}/generated/{os.path.splitext(os.path.basename(char))[0]}.inc.c")
+		command = f"{zapd} btex -tt i4 -i {input_path} -o {output_path}"
+		os.system(command)
 
 def build():
 	print("Starting asset extraction and parsing")
@@ -81,7 +74,7 @@ def build():
 	subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/create_luts.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/fix_mtx.py'), buildRom()])
-	addAdditionalLatinChars()
+	addAdditionalChars()
 
 	print("Finished asset extraction and parsing")
 
@@ -98,7 +91,7 @@ def main():
 	parser.add_argument("-o", "--organize-roms", help="Renames and moves roms to their proper location", action="store_true", default=False)
 	parser.add_argument("-s", "--skip-organize-roms", help="Skip organizing roms", action="store_true", default=False)
 	parser.add_argument("--run-msgenc", help="Run msgenc", action="store_true", default=False)
-	parser.add_argument("--add-extra-chars", help="Adds new Latin characters", action="store_true", default=False)
+	parser.add_argument("--add-extra-chars", help="Adds new characters", action="store_true", default=False)
 	
 	args = parser.parse_args()
 	
@@ -129,7 +122,7 @@ def main():
 		exit(0)
 
 	if args.add_extra_chars:
-		addAdditionalLatinChars()
+		addAdditionalChars()
 		exit(0)
 
 	if args.enable_mouse:
