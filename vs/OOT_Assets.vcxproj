@@ -1026,7 +1026,7 @@
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_56.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_57.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\title_static\title_static.cpp" />
-    <ClCompile Include="..\assets\ALL\text\spa_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\es_message_data_static.cpp" />
     <ClCompile Include="..\assets\ALL\text\pt_message_data_static.cpp" />
     <ClCompile Include="..\roms\$(buildrom)\text\fra_message_data_static.cpp" />
     <ClCompile Include="..\roms\$(buildrom)\text\ger_message_data_static.cpp" />

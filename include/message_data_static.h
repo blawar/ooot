@@ -46,11 +46,11 @@ struct MessageTableEntry
 
 #undef DEFINE_MESSAGE
 
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage, spaMessage, ptMessage) \
+#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage, esMessage, ptMessage) \
 	extern "C" const char _message_##textId##_nes[]; \
 	extern "C" const char _message_##textId##_ger[]; \
 	extern "C" const char _message_##textId##_fra[]; \
-	extern "C" const char _message_##textId##_spa[]; \
+	extern "C" const char _message_##textId##_es[]; \
 	extern "C" const char _message_##textId##_pt[];
 
 #include "translations/message_data_en.h"

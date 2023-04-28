@@ -91,8 +91,8 @@ MessageTableEntry sFraMessageEntryTable[] = {
     {0xFFFF, 0, NULL, 0},
 };
 
-MessageTableEntry sSpaMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, spaMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_spa, sizeof(spaMessage)},
+MessageTableEntry sEsMessageEntryTable[] = {
+#define DEFINE_MESSAGE(textId, type, yPos, esMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_es, sizeof(esMessage)},
 #include "translations/message_data_es.h"
 #undef DEFINE_MESSAGE
     {0xFFFF, 0, NULL, 0},
@@ -1284,7 +1284,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP)
 
 static s16 GetLocalized(s16 array[])
 {
-	if(gSaveContext.language > LANGUAGE_SPA)
+	if(gSaveContext.language > LANGUAGE_ES)
 		return (s16)array[0];
 	else
 		return (s16)array[gSaveContext.language];
@@ -3837,8 +3837,8 @@ void Message_SetTables(void)
 		case LANGUAGE_FRA:
 			sMessageEntryTablePtr = sFraMessageEntryTable;
 			break;
-		case LANGUAGE_SPA:
-			sMessageEntryTablePtr = sSpaMessageEntryTable;
+		case LANGUAGE_ES:
+			sMessageEntryTablePtr = sEsMessageEntryTable;
 			break;
 		case LANGUAGE_PT:
 			sMessageEntryTablePtr = sPtMessageEntryTable;
