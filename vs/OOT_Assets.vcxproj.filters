@@ -2911,13 +2911,7 @@
     <ClCompile Include="..\assets\$(buildrom)\scenes\test_levels\testroom\testroom_scene.cpp">
       <Filter>scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\ALL\text\es_message_data_static.cpp">
-      <Filter>text</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\ALL\text\pt_message_data_static.cpp">
-      <Filter>text</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\ALL\text\pt-BR_message_data_static.cpp">
+    <ClCompile Include="..\assets\ALL\text\*.cpp">
       <Filter>text</Filter>
     </ClCompile>
     <ClCompile Include="..\roms\$(buildrom)\text\staff_message_data_static.cpp">

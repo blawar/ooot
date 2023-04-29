@@ -112,6 +112,13 @@ MessageTableEntry sPtBrMessageEntryTable[] = {
     {0xFFFF, 0, NULL, 0},
 };
 
+MessageTableEntry sItMessageEntryTable[] = {
+#define DEFINE_MESSAGE(textId, type, yPos, itMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_it, sizeof(itMessage)},
+#include "translations/message_data_it.h"
+#undef DEFINE_MESSAGE
+    {0xFFFF, 0, NULL, 0},
+};
+
 MessageTableEntry sStaffMessageEntryTable[] = {
 #define DEFINE_MESSAGE(textId, type, yPos, staffMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_staff, sizeof(staffMessage)},
 #include "text/message_data_staff.h"
@@ -3852,6 +3859,9 @@ void Message_SetTables(void)
 			break;
 		case LANGUAGE_PT_BR:
 			sMessageEntryTablePtr = sPtBrMessageEntryTable;
+			break;
+		case LANGUAGE_IT:
+			sMessageEntryTablePtr = sItMessageEntryTable;
 			break;
 		case LANGUAGE_ENG:
 		default:

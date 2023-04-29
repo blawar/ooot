@@ -38,13 +38,16 @@ def clean():
 def generateEncMsgs():
 	print("Starting message encoding")
 	charmap = str('assets/ALL/text/charmap.txt')
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_en.h'), str('include/translations/message_data_en.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_de.h'), str('include/translations/message_data_de.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_fr.h'), str('include/translations/message_data_fr.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_es-SV.h'), str('include/translations/message_data_es.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str('include/translations/message_data_pt.h'), str('include/translations/message_data_pt.enc.h'), buildRom()])
+	msgenc = str('tools/msgenc.py')
+	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_en.h'), str('include/translations/message_data_en.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_de.h'), str('include/translations/message_data_de.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_fr.h'), str('include/translations/message_data_fr.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_es-SV.h'), str('include/translations/message_data_es.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_pt.h'), str('include/translations/message_data_pt.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_pt-BR.h'), str('include/translations/message_data_pt-BR.enc.h'), buildRom()])
+	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_it.h'), str('include/translations/message_data_it.enc.h'), buildRom()])
 	mkdir(assetPath('text'))
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), charmap, str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
+	subprocess.check_call([sys.executable, msgenc, charmap, str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
 	print("Finished message encoding")
 
 def addAdditionalChars():
