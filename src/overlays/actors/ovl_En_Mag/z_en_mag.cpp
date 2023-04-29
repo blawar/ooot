@@ -621,20 +621,22 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 		int lang = gSaveContext.language;
 
 		// FontIndexesLanguage
-		static u8* pressStartFontIndexes[5] = {
+		static u8* pressStartFontIndexes[6] = {
 		    {pressStartFontIndexes_ENG},
 		    {pressStartFontIndexes_GER},
 		    {pressStartFontIndexes_FRA},
 		    {pressStartFontIndexes_SPA},
+		    {pressStartFontIndexes_PT},
 		    {pressStartFontIndexes_PT}
 		};
 
 		// Count, Left, SpaceIndex, StartIndex
-		static int pressStartInfo[5][4] = {
+		static int pressStartInfo[6][4] = {
 			{10, 0, 4, 4},
 			{11, -3, 5, 5},
 			{15, -15, 6, 9},
 			{10, 0, 4, 4},
+			{11, -3, 5, 5},
 			{11, -3, 5, 5}
 		};
 

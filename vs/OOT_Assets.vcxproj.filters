@@ -2917,6 +2917,9 @@
     <ClCompile Include="..\assets\ALL\text\pt_message_data_static.cpp">
       <Filter>text</Filter>
     </ClCompile>
+    <ClCompile Include="..\assets\ALL\text\pt-BR_message_data_static.cpp">
+      <Filter>text</Filter>
+    </ClCompile>
     <ClCompile Include="..\roms\$(buildrom)\text\staff_message_data_static.cpp">
       <Filter>text</Filter>
     </ClCompile>

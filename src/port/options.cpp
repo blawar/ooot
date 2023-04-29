@@ -6,6 +6,7 @@
 #include "port/options.h"
 #include "xxhash64.h"
 #include <SDL2/SDL.h>
+#include <unordered_map>
 
 #ifdef __SWITCH__
 #include "pc/nx.h"
@@ -25,60 +26,56 @@ std::string userLanguage()
 	SDL_Locale* locale = SDL_GetPreferredLocales();
 	if(locale)
 	{
-		lang = locale->language;
+		lang = std::string(locale->language) + "_" + std::string(locale->country);
 		SDL_free(locale);
 	}
 
 	return lang;
 }
 
+// FIXME: This is too complex, I rather use some struct with the lang data
+static const std::unordered_map<Language, std::string> languageMap = {
+    {LANGUAGE_AUTO,  "auto"},
+    {LANGUAGE_ENG,   "en"},
+    {LANGUAGE_ES,    "es"},
+    {LANGUAGE_FRA,   "fr"},
+    {LANGUAGE_GER,   "de"},
+    {LANGUAGE_PT,    "pt"},
+    {LANGUAGE_PT_BR, "pt_BR"}
+};
+
 std::string languageGetString(Language id)
 {
-	switch(id)
+	auto it = languageMap.find(id);
+	if(it != languageMap.end())
 	{
-		case LANGUAGE_AUTO:
-			return "auto";
-		case LANGUAGE_ENG:
-			return "en";
-		case LANGUAGE_ES:
-			return "es";
-		case LANGUAGE_FRA:
-			return "fr";
-		case LANGUAGE_GER:
-			return "de";
-		case LANGUAGE_PT:
-			return "pt";
+		return it->second;
 	}
+
 	return "en";
 }
 
 Language languageGetId(const std::string& s)
 {
-	if(s == "auto")
+	auto it = std::find_if(
+	    languageMap.begin(), languageMap.end(), // is full lang?
+	    [&s](const std::pair<Language, std::string>& pair) { return pair.second == s; });
+
+	if(it != languageMap.end())
 	{
-		return LANGUAGE_AUTO;
+		return (Language)it->first;
 	}
-	if(s == "en")
+
+	it = std::find_if(
+	    languageMap.begin(), languageMap.end(), // is base lang?
+	    [&s](const std::pair<Language, std::string>& pair) { return pair.second == s.substr(0, 2); });
+
+	if(it != languageMap.end())
 	{
-		return LANGUAGE_ENG;
+		return (Language)it->first;
 	}
-	else if(s == "es")
-	{
-		return LANGUAGE_ES;
-	}
-	else if(s == "fr")
-	{
-		return LANGUAGE_FRA;
-	}
-	else if(s == "de")
-	{
-		return LANGUAGE_GER;
-	}
-	else if(s == "pt")
-	{
-		return LANGUAGE_PT;
-	}
-	return LANGUAGE_ENG;
+
+	return LANGUAGE_ENG; // Fallback!
 }
 
 namespace oot
@@ -328,51 +325,13 @@ namespace oot
 
 		void Game::setNextLanguage()
 		{
-			switch(m_language)
-			{
-				case LANGUAGE_ENG:
-					setLanguage(LANGUAGE_GER);
-					break;
-				case LANGUAGE_FRA:
-					setLanguage(LANGUAGE_ES);
-					break;
-				case LANGUAGE_ES:
-					setLanguage(LANGUAGE_PT);
-					break;
-				case LANGUAGE_PT:
-					setLanguage(LANGUAGE_ENG);
-					break;
-				case LANGUAGE_GER:
-					setLanguage(LANGUAGE_FRA);
-					break;
-				default:
-					setLanguage(LANGUAGE_ENG);
-			}
+			setLanguage((Language)((m_language + 1) % LANGUAGE_MAX));
 			config().save();
 		}
 
 		void Game::setPrevLanguage()
 		{
-			switch(m_language)
-			{
-				case LANGUAGE_ENG:
-					setLanguage(LANGUAGE_PT);
-					break;
-				case LANGUAGE_PT:
-					setLanguage(LANGUAGE_ES);
-					break;
-				case LANGUAGE_ES:
-					setLanguage(LANGUAGE_FRA);
-					break;
-				case LANGUAGE_FRA:
-					setLanguage(LANGUAGE_GER);
-					break;
-				case LANGUAGE_GER:
-					setLanguage(LANGUAGE_ENG);
-					break;
-				default:
-					setLanguage(LANGUAGE_ENG);
-			}
+			setLanguage((Language)((m_language + LANGUAGE_MAX - 1) % LANGUAGE_MAX));
 			config().save();
 		}
 
