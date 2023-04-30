@@ -1931,7 +1931,7 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx)
 		}
 		else if(((pauseCtx->state == 7 && pauseCtx->unk_1EC >= 4) || pauseCtx->state == 0xF) && oot::config().game().restoreSaveConfirmation())
 		{
-			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sSaveConfirmationTexs[gSaveContext.language], 152, 16, 0);
+			POLY_OPA_DISP = KaleidoScope_QuadTextureIA8(POLY_OPA_DISP, sSaveConfirmationTexs[GetLanguageIndex()], 152, 16, 0);
 		}
 		else if((pauseCtx->state != 7) || (pauseCtx->unk_1EC < 4))
 		{
