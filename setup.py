@@ -31,23 +31,21 @@ def clean():
 		if path.exists() == False:
 			continue
 		elif path.is_dir():
-			shutil.rmtree(path)
+			for sp in path.glob('*'):
+				if sp.name != 'ALL': shutil.rmtree(sp)
 		else:
 			os.remove(path)
 
 def generateEncMsgs():
 	print("Starting message encoding")
-	charmap = str('assets/ALL/text/charmap.txt')
-	msgenc = str('tools/msgenc.py')
-	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_en.h'), str('include/translations/message_data_en.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_de.h'), str('include/translations/message_data_de.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_fr.h'), str('include/translations/message_data_fr.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_es-SV.h'), str('include/translations/message_data_es.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_pt.h'), str('include/translations/message_data_pt.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_pt-BR.h'), str('include/translations/message_data_pt-BR.enc.h'), buildRom()])
-	subprocess.check_call([sys.executable, msgenc, charmap, str('include/translations/message_data_it.h'), str('include/translations/message_data_it.enc.h'), buildRom()])
-	mkdir(assetPath('text'))
-	subprocess.check_call([sys.executable, msgenc, charmap, str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
+	charmap = 'assets/ALL/text/charmap.txt'
+	from tools import msgenc
+	for code in {'en', 'de', 'fr', 'es-SV', 'pt', 'pt-BR', 'it'}:
+		input_h = f'include/translations/message_data_{code}.h'
+		if code == 'es-SV': code = 'es'
+		output_h = f'include/translations/message_data_{code}.enc.h'
+		msgenc.do_enc(charmap, input_h, output_h)
+	msgenc.do_enc(charmap, assetPath('text/message_data_staff.h'), assetPath('text/message_data_staff.enc.h'))
 	print("Finished message encoding")
 
 def addAdditionalChars():
@@ -58,9 +56,13 @@ def addAdditionalChars():
 	mkdir(charsdir + '/generated')
 	for char in chars:
 		input_path = os.path.abspath(char)
-		output_path = os.path.abspath(f"{charsdir}/generated/{os.path.splitext(os.path.basename(char))[0]}.inc.c")
-		command = f"{zapd} btex -tt i4 -i {input_path} -o {output_path}"
-		os.system(command)
+		output_path = os.path.abspath(f'{charsdir}/generated/{os.path.splitext(os.path.basename(char))[0]}.inc.c')
+		os.system(f'{zapd} btex -tt i4 -i {input_path} -o {output_path}')
+	nes_remove = [] # Delete conflicting files
+	nes_remove.extend(Path(assetPath('textures/nes_font_static')).glob('nes_font_static.*'))
+	for file in nes_remove:
+		try: os.remove(file)
+		except OSError: pass
 
 def build():
 	print("Starting asset extraction and parsing")
