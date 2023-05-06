@@ -42,7 +42,8 @@ static const std::unordered_map<Language, std::string> languageMap = {
     {LANGUAGE_GER,   "de"},
     {LANGUAGE_PT,    "pt"},
     {LANGUAGE_PT_BR, "pt_BR"},
-    {LANGUAGE_IT,    "it"}
+    {LANGUAGE_IT,    "it"},
+    {LANGUAGE_SV_SE, "sv-SE"},
 };
 
 std::string languageGetString(Language id)

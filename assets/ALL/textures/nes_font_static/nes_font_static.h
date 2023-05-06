@@ -157,6 +157,8 @@ extern u8 gMsgCharB7LatinCapitalLetterAWithTildeTex[];
 extern u8 gMsgCharB8LatinCapitalLetterOWithTildeTex[];
 extern u8 gMsgCharB9LatinSmallLetterAWithTildeTex[];
 extern u8 gMsgCharBALatinSmallLetterOWithTildeTex[];
+extern u8 gMsgCharBBLatinCapitalLetterAWithRingAbove[];
+extern u8 gMsgCharBCLatinSmallLetterAWithRingAbove[];
 
 static void* nes_font_static_lut[] = {
 gMsgChar20SpaceTex,
@@ -315,7 +317,9 @@ gMsgCharB6LatinSmallLetterNWithTildeTex,
 gMsgCharB7LatinCapitalLetterAWithTildeTex,
 gMsgCharB8LatinCapitalLetterOWithTildeTex,
 gMsgCharB9LatinSmallLetterAWithTildeTex,
-gMsgCharBALatinSmallLetterOWithTildeTex
+gMsgCharBALatinSmallLetterOWithTildeTex,
+gMsgCharBBLatinCapitalLetterAWithRingAbove,
+gMsgCharBCLatinSmallLetterAWithRingAbove
 };
 
 extern u8 _nes_font_staticSegmentRomLastSymbol;

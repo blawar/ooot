@@ -119,6 +119,13 @@ MessageTableEntry sItMessageEntryTable[] = {
     {0xFFFF, 0, NULL, 0},
 };
 
+MessageTableEntry sSvSeMessageEntryTable[] = {
+#define DEFINE_MESSAGE(textId, type, yPos, seMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_se, sizeof(seMessage)},
+#include "translations/message_data_sv-SE.h"
+#undef DEFINE_MESSAGE
+    {0xFFFF, 0, NULL, 0},
+};
+
 MessageTableEntry sStaffMessageEntryTable[] = {
 #define DEFINE_MESSAGE(textId, type, yPos, staffMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_staff, sizeof(staffMessage)},
 #include "text/message_data_staff.h"
@@ -667,7 +674,7 @@ void Message_DrawTextboxIcon(GlobalContext* globalCtx, Gfx** p, s16 x, s16 y)
 }
 
 #define MESSAGE_SPACE_WIDTH 6
-f32 sFontWidths[155] = {
+f32 sFontWidths[157] = {
     8.0f,  // ' '
     8.0f,  // '!'
     6.0f,  // '"'
@@ -823,6 +830,8 @@ f32 sFontWidths[155] = {
     13.0f, // 'Õ'
     8.0f,  // 'ã'
     9.0f,  // 'õ'
+    12.0f, // 'Å'
+    8.0f,  // 'å'
 };
 
 u16 Message_DrawItemIcon(GlobalContext* globalCtx, u16 itemId, Gfx** p, u16 i)
@@ -3862,6 +3871,9 @@ void Message_SetTables(void)
 			break;
 		case LANGUAGE_IT:
 			sMessageEntryTablePtr = sItMessageEntryTable;
+			break;
+		case LANGUAGE_SV_SE:
+			sMessageEntryTablePtr = sSvSeMessageEntryTable;
 			break;
 		case LANGUAGE_ENG:
 		default:

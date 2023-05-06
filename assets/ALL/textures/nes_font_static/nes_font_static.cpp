@@ -627,4 +627,12 @@ u8 gMsgCharBALatinSmallLetterOWithTildeTex[] = {
 #include "textures/nes_font_static/generated/msg_char_ba_latin_small_letter_o_with_tilde.i4.inc.c"
 };
 
+u8 gMsgCharBBLatinCapitalLetterAWithRingAbove[] = {
+#include "textures/nes_font_static/generated/msg_char_bb_latin_capital_letter_a_with_ring_above.i4.inc.c"
+};
+
+u8 gMsgCharBCLatinSmallLetterAWithRingAbove[] = {
+#include "textures/nes_font_static/generated/msg_char_bc_latin_small_letter_a_with_ring_above.i4.inc.c"
+};
+
 u8 _nes_font_staticSegmentRomLastSymbol = 0;

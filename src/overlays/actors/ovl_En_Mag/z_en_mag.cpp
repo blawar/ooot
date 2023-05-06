@@ -57,6 +57,10 @@ static u8 pressStartFontIndexes_IT[] = {
     0x19, 0x1B, 0x0E, 0x16, 0x12, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
 };
 
+static u8 pressStartFontIndexes_SV[] = { // TODO
+    0x17, 0x18, 0x0C, 0x18, 0x17, 0x1D, 0x1B, 0x18, 0x15, 0x15, 0x0E, 0x1B,
+};
+
 static void* effectMaskTextures_28[] = {
     gTitleEffectMask00Tex, gTitleEffectMask01Tex, gTitleEffectMask02Tex, gTitleEffectMask10Tex, gTitleEffectMask11Tex, gTitleEffectMask12Tex, gTitleEffectMask20Tex, gTitleEffectMask21Tex, gTitleEffectMask22Tex,
 };
@@ -625,24 +629,26 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 		int lang = gSaveContext.language;
 
 		// FontIndexesLanguage
-		static u8* pressStartFontIndexes[7] = {
+		static u8* pressStartFontIndexes[8] = {
 		    {pressStartFontIndexes_ENG},
 		    {pressStartFontIndexes_GER},
 		    {pressStartFontIndexes_FRA},
 		    {pressStartFontIndexes_SPA},
 		    {pressStartFontIndexes_PT},
 		    {pressStartFontIndexes_PT},
-		    {pressStartFontIndexes_IT}
+		    {pressStartFontIndexes_IT},
+		    {pressStartFontIndexes_SV},
 		};
 
 		// Count, Left, SpaceIndex, StartIndex
-		static int pressStartInfo[7][4] = {
+		static int pressStartInfo[8][4] = {
 			{10, 0, 4, 4},
 			{11, -3, 5, 5},
 			{15, -15, 6, 9},
 			{10, 0, 4, 4},
 			{11, -3, 5, 5},
 			{11, -3, 5, 5},
+			{10, 0, 4, 4},
 			{10, 0, 4, 4},
 		};
 

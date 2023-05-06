@@ -40,7 +40,7 @@ def generateEncMsgs():
 	print("Starting message encoding")
 	charmap = 'assets/ALL/text/charmap.txt'
 	from tools import msgenc
-	for code in {'en', 'de', 'fr', 'es-SV', 'pt', 'pt-BR', 'it'}:
+	for code in {'en', 'de', 'fr', 'es-SV', 'pt', 'pt-BR', 'it', 'sv-SE'}:
 		input_h = f'include/translations/message_data_{code}.h'
 		if code == 'es-SV': code = 'es'
 		output_h = f'include/translations/message_data_{code}.enc.h'
