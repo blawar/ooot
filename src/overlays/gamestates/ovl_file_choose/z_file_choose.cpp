@@ -3,6 +3,7 @@
 #include "actor_common.h"
 #include "file_choose.h"
 #include "framerate.h"
+#include "port/generic.h"
 #include "port/options.h"
 #include "segment_symbols.h"
 #include "textures/parameter_static/parameter_static.h"
@@ -844,7 +845,7 @@ namespace oot::gamestate
 
 			for(i = 0, vtxOffset = 0; vtxOffset < 0x20; i++, vtxOffset += 4)
 			{
-				FileChoose_DrawCharacter(pthis->gfxCtx, sp54->fontBuf + pthis->fileNames[fileIndex][i] * FONT_CHAR_TEX_SIZE, vtxOffset);
+				FileChoose_DrawCharacter(pthis->gfxCtx, sp54->fontBuf + ToASCII(pthis->fileNames[fileIndex][i]) * FONT_CHAR_TEX_SIZE, vtxOffset);
 			}
 		}
 
@@ -860,7 +861,7 @@ namespace oot::gamestate
 			// draw death count
 			for(i = 0, vtxOffset = 0; i < 3; i++, vtxOffset += 4)
 			{
-				FileChoose_DrawCharacter(pthis->gfxCtx, sp54->fontBuf + deathCountSplit[i] * FONT_CHAR_TEX_SIZE, vtxOffset);
+				FileChoose_DrawCharacter(pthis->gfxCtx, sp54->fontBuf + ToASCII(deathCountSplit[i]) * FONT_CHAR_TEX_SIZE, vtxOffset);
 			}
 
 			gDPPipeSync(POLY_OPA_DISP++);

@@ -14,6 +14,7 @@
 #include "def/z_kanfont.h"
 #include "def/z_rcp.h"
 #include "objects/object_mag/object_mag.h"
+#include <string>
 
 #define FLAGS (ACTOR_FLAG_4 | ACTOR_FLAG_5)
 
@@ -29,44 +30,12 @@ static s16 textFadeDirection_28 = 0;
 
 static Counter textFadeTimer_28 = 0;
 
-static u8 noControllerFontIndexes_28[] = {
-    0x17, 0x18, 0x0C, 0x18, 0x17, 0x1D, 0x1B, 0x18, 0x15, 0x15, 0x0E, 0x1B,
-};
-
-static u8 pressStartFontIndexes_ENG[] = {
-    0x19, 0x1B, 0x0E, 0x1C, 0x1C, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
-};
-
-static u8 pressStartFontIndexes_GER[] = {
-    0x0D, 0x1B, 0x1E, 0x0C, 0x14, 0x0E, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
-};
-
-static u8 pressStartFontIndexes_FRA[] = {
-    0x0A, 0x19, 0x19, 0x1E, 0x22, 0x0E, 0x23, 0x1C, 0x1E, 0x1B, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
-};
-
-static u8 pressStartFontIndexes_SPA[] = {
-    0x19, 0x1E, 0x15, 0x1C, 0x0A, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
-};
-
-static u8 pressStartFontIndexes_PT[] = {
-    0x0A, 0x19, 0x0E, 0x1B, 0x1D, 0x0E, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
-};
-
-static u8 pressStartFontIndexes_IT[] = {
-    0x19, 0x1B, 0x0E, 0x16, 0x12, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
-};
-
-static u8 pressStartFontIndexes_SV[] = { // TODO
-    0x17, 0x18, 0x0C, 0x18, 0x17, 0x1D, 0x1B, 0x18, 0x15, 0x15, 0x0E, 0x1B,
-};
-
 static void* effectMaskTextures_28[] = {
-    gTitleEffectMask00Tex, gTitleEffectMask01Tex, gTitleEffectMask02Tex, gTitleEffectMask10Tex, gTitleEffectMask11Tex, gTitleEffectMask12Tex, gTitleEffectMask20Tex, gTitleEffectMask21Tex, gTitleEffectMask22Tex,
+	gTitleEffectMask00Tex, gTitleEffectMask01Tex, gTitleEffectMask02Tex, gTitleEffectMask10Tex, gTitleEffectMask11Tex, gTitleEffectMask12Tex, gTitleEffectMask20Tex, gTitleEffectMask21Tex, gTitleEffectMask22Tex,
 };
 
 ActorInit En_Mag_InitVars = {
-    ACTOR_EN_MAG, ACTORCAT_PROP, FLAGS, OBJECT_MAG, ACTOR_FACTORY(EnMag), (ActorFunc)EnMag_Init, (ActorFunc)EnMag_Destroy, (ActorFunc)EnMag_Update, (ActorFunc)EnMag_Draw, (ActorFunc)EnMag_Reset,
+	ACTOR_EN_MAG, ACTORCAT_PROP, FLAGS, OBJECT_MAG, ACTOR_FACTORY(EnMag), (ActorFunc)EnMag_Init, (ActorFunc)EnMag_Destroy, (ActorFunc)EnMag_Update, (ActorFunc)EnMag_Draw, (ActorFunc)EnMag_Reset,
 };
 
 static Timer sDelayTimer = 0;
@@ -381,7 +350,7 @@ void EnMag_DrawTextureI8(Gfx** gfxp, void* texture, s16 texWidth, s16 texHeight,
 }
 
 void EnMag_DrawEffectTextures(
-    Gfx** gfxp, void* maskTex, void* effectTex, s16 maskWidth, s16 maskHeight, s16 effectWidth, s16 effectHeight, s16 rectLeft, s16 rectTop, s16 rectWidth, s16 rectHeight, u16 dsdx, u16 dtdy, u16 shifts, u16 shiftt, u16 flag, EnMag* pthis)
+	Gfx** gfxp, void* maskTex, void* effectTex, s16 maskWidth, s16 maskHeight, s16 effectWidth, s16 effectHeight, s16 rectLeft, s16 rectTop, s16 rectWidth, s16 rectHeight, u16 dsdx, u16 dtdy, u16 shifts, u16 shiftt, u16 flag, EnMag* pthis)
 {
 	Gfx* gfx = *gfxp;
 
@@ -484,6 +453,39 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 	u16 i, j, k;
 	u16 rectLeft;
 	u16 rectTop;
+	std::string ps = "PRESS START";
+	std::string nc = "NO CONTROLLER";
+	switch(gSaveContext.language)
+	{
+		case LANGUAGE_GER:
+			ps = "DR\x8E""CKE START"; /* Ü */
+			nc = "CONTROLLER FEHLT";
+			break;
+		case LANGUAGE_FRA:
+			ps = "APPUYEZ SUR START";
+			nc = "MANETTE D\x86""BRANCH\x86""E"; /* É */
+			break;
+		case LANGUAGE_ES:
+			ps = "PULSA START";
+			nc = "SIN MANDO";
+			break;
+		case LANGUAGE_PT:
+			ps = "PRESSIONA START";
+			nc = "SEM CONTROLADOR";
+			break;
+		case LANGUAGE_PT_BR:
+			ps = "APERTE START";
+			nc = "NENHUM CONTROLADOR";
+			break;
+		case LANGUAGE_IT:
+			ps = "PREMI START";
+			nc = "NESSUN CONTROLLER";
+			break;
+		case LANGUAGE_SV_SE:
+			ps = "TRYCK P\xBB"" START"; /* Å */
+			nc = "INGEN HANDKONTROLL";
+			break;
+	}
 
 	gSPSegment(gfx++, 0x06, gObjectTable[pthis->actor.objBankIndex].vromStart.get());
 
@@ -591,102 +593,51 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 		{
 			textAlpha_28 = 255;
 		}
-
-		// Text Shadow
+		u8 length = nc.length();
 		gDPPipeSync(gfx++);
 		gDPSetCombineLERP(gfx++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
 		gDPSetPrimColor(gfx++, 0, 0, 0, 0, 0, textAlpha_28);
-
-		rectLeft = VREG(19) + 1;
-		for(i = 0; i < ARRAY_COUNT(noControllerFontIndexes_28); i++)
+		rectLeft = VREG(19) + 1 + ((length - 13) * -3);
+		for(int j = 0; j < 2; j++)
 		{
-			EnMag_DrawCharTexture(&gfx, font->fontBuf + noControllerFontIndexes_28[i] * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + 172);
-			rectLeft += VREG(21);
-			if(i == 1)
+			if(j == 1)
 			{
-				rectLeft += VREG(23);
+				gDPSetPrimColor(gfx++, 0, 0, 100, 255, 255, textAlpha_28);
+				rectLeft = VREG(19) + ((length - 13) * -3);
 			}
-		}
-
-		// Actual Text
-		gDPPipeSync(gfx++);
-		gDPSetPrimColor(gfx++, 0, 0, 100, 255, 255, textAlpha_28);
-
-		rectLeft = VREG(19);
-		for(i = 0; i < ARRAY_COUNT(noControllerFontIndexes_28); i++)
-		{
-			EnMag_DrawCharTexture(&gfx, font->fontBuf + noControllerFontIndexes_28[i] * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + 171);
-			rectLeft += VREG(21);
-			if(i == 1)
+			for(i = 0; i < length; i++)
 			{
-				rectLeft += VREG(23);
+				unsigned char c = nc[i];
+				EnMag_DrawCharTexture(&gfx, font->fontBuf + c * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + ((j == 0) ? 172 : 171));
+				rectLeft += (c == ' ') ? VREG(23) : VREG(21);
 			}
 		}
 	}
 	else if(pthis->copyrightAlpha >= 200.0f)
 	{
-		// int lang = LANGUAGE_ENG;
-		int lang = gSaveContext.language;
-
-		// FontIndexesLanguage
-		static u8* pressStartFontIndexes[8] = {
-		    {pressStartFontIndexes_ENG},
-		    {pressStartFontIndexes_GER},
-		    {pressStartFontIndexes_FRA},
-		    {pressStartFontIndexes_SPA},
-		    {pressStartFontIndexes_PT},
-		    {pressStartFontIndexes_PT},
-		    {pressStartFontIndexes_IT},
-		    {pressStartFontIndexes_SV},
-		};
-
-		// Count, Left, SpaceIndex, StartIndex
-		static int pressStartInfo[8][4] = {
-			{10, 0, 4, 4},
-			{11, -3, 5, 5},
-			{15, -15, 6, 9},
-			{10, 0, 4, 4},
-			{11, -3, 5, 5},
-			{11, -3, 5, 5},
-			{10, 0, 4, 4},
-			{10, 0, 4, 4},
-		};
-
 		// Draw "PRESS START" Text
 		textAlpha_28 = textFadeTimer_28 * 10;
 		if(textAlpha_28 >= 255)
 		{
 			textAlpha_28 = 255;
 		}
-
-		// Text Shadow
+		u8 length = ps.length();
 		gDPPipeSync(gfx++);
 		gDPSetCombineLERP(gfx++, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
 		gDPSetPrimColor(gfx++, 0, 0, 0, 0, 0, textAlpha_28);
-
-		rectLeft = YREG(7) + 1 + pressStartInfo[lang][1];
-		for(i = 0; i < pressStartInfo[lang][0]; i++)
+		rectLeft = YREG(7) + 1 + ((length - 11) * -3);
+		for(int j = 0; j < 2; j++)
 		{
-			EnMag_DrawCharTexture(&gfx, font->fontBuf + pressStartFontIndexes[lang][i] * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + 172);
-			rectLeft += YREG(8);
-			if((i == pressStartInfo[lang][2]) || (i == pressStartInfo[lang][3]))
+			if(j == 1)
 			{
-				rectLeft += YREG(9);
+				gDPSetPrimColor(gfx++, 0, 0, YREG(4), YREG(5), YREG(6), textAlpha_28);
+				rectLeft = YREG(7) + ((length - 11) * -3);
 			}
-		}
-
-		// Actual Text
-		gDPPipeSync(gfx++);
-		gDPSetPrimColor(gfx++, 0, 0, YREG(4), YREG(5), YREG(6), textAlpha_28);
-
-		rectLeft = YREG(7) + pressStartInfo[lang][1];
-		for(i = 0; i < pressStartInfo[lang][0]; i++)
-		{
-			EnMag_DrawCharTexture(&gfx, font->fontBuf + pressStartFontIndexes[lang][i] * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + 171);
-			rectLeft += YREG(8);
-			if((i == pressStartInfo[lang][2]) || (i == pressStartInfo[lang][3]))
+			for(i = 0; i < length; i++)
 			{
-				rectLeft += YREG(9);
+				unsigned char c = ps[i];
+				EnMag_DrawCharTexture(&gfx, font->fontBuf + c * FONT_CHAR_TEX_SIZE, rectLeft, YREG(10) + ((j == 0) ? 172 : 171));
+				rectLeft += (c == ' ') ? YREG(9) : YREG(8);
 			}
 		}
 	}
@@ -739,7 +690,7 @@ void EnMag_Reset(Actor* pthisx, GlobalContext* globalCtx)
 	textFadeTimer_28 = 0;
 
 	En_Mag_InitVars = {
-	    ACTOR_EN_MAG, ACTORCAT_PROP, FLAGS, OBJECT_MAG, ACTOR_FACTORY(EnMag), (ActorFunc)EnMag_Init, (ActorFunc)EnMag_Destroy, (ActorFunc)EnMag_Update, (ActorFunc)EnMag_Draw, (ActorFunc)EnMag_Reset,
+		ACTOR_EN_MAG, ACTORCAT_PROP, FLAGS, OBJECT_MAG, ACTOR_FACTORY(EnMag), (ActorFunc)EnMag_Init, (ActorFunc)EnMag_Destroy, (ActorFunc)EnMag_Update, (ActorFunc)EnMag_Draw, (ActorFunc)EnMag_Reset,
 	};
 
 	sDelayTimer = 0;

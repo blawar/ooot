@@ -57,7 +57,6 @@ struct MessageTableEntry
 	extern "C" const char _message_##textId##_se[];
 
 #include "translations/message_data_en.h"
-extern "C" const char _message_0xFFFC_nes[73];
 
 #undef DEFINE_MESSAGE
 

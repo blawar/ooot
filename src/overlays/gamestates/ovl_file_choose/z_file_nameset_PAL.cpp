@@ -2,6 +2,7 @@
 #include "actor_common.h"
 #include "file_choose.h"
 #include "overlays/ovl_File_Choose/ovl_file_choose.h"
+#include "port/generic.h"
 #include "port/options.h"
 #include "textures/title_static/title_static.h"
 #include "def/z_file_choose.h"
@@ -231,7 +232,7 @@ namespace oot::gamestate
 
 		for(phi_v0 = 0, phi_s0 = 0; phi_s0 < 0x20; phi_s0 += 4, phi_v0++)
 		{
-			FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + pthis->fileNames[pthis->buttonIndex][phi_v0] * FONT_CHAR_TEX_SIZE, phi_s0);
+			FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + ToASCII(pthis->fileNames[pthis->buttonIndex][phi_v0]) * FONT_CHAR_TEX_SIZE, phi_s0);
 		}
 
 		pthis->nameEntryVtx[0x25].v.tc[0] = pthis->nameEntryVtx[0x26].v.tc[1] = pthis->nameEntryVtx[0x27].v.tc[0] = pthis->nameEntryVtx[0x27].v.tc[1] = pthis->nameEntryVtx[0x29].v.tc[0] = pthis->nameEntryVtx[0x2A].v.tc[1] =
@@ -271,14 +272,14 @@ namespace oot::gamestate
 
 			for(tmp = 0; tmp < 32; i++, tmp += 4)
 			{
-				FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + D_808123F0[i] * FONT_CHAR_TEX_SIZE, tmp);
+				FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + ToASCII(D_808123F0[i]) * FONT_CHAR_TEX_SIZE, tmp);
 			}
 
 			vtx += 32;
 		}
 
 		gSPVertex(POLY_OPA_DISP++, &pthis->keyboardVtx[0x100], 4, 0);
-		FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + D_808123F0[i] * FONT_CHAR_TEX_SIZE, 0);
+		FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + ToASCII(D_808123F0[i]) * FONT_CHAR_TEX_SIZE, 0);
 
 		CLOSE_DISPS(pthis->gfxCtx, "../z_file_nameset_PAL.c", 347);
 	}
@@ -416,7 +417,7 @@ namespace oot::gamestate
 						gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 0, 255);
 						gSPVertex(POLY_OPA_DISP++, &pthis->keyboardVtx[pthis->charIndex * 4], 4, 0);
 
-						FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + D_808123F0[pthis->charIndex] * FONT_CHAR_TEX_SIZE, 0);
+						FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + ToASCII(D_808123F0[pthis->charIndex]) * FONT_CHAR_TEX_SIZE, 0);
 
 						if(CHECK_BTN_ALL(input->press.button, BTN_A))
 						{

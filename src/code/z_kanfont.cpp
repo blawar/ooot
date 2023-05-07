@@ -32,34 +32,13 @@ void Font_LoadMessageBoxIcon(Font* font, u16 icon)
 }
 
 /**
- * Loads a full set of character textures based on their ordering in the message with text id 0xFFFC into
- * the font buffer.
+ * Loads a full set of character textures based on their ordering in nes_font_static_lut into the font buffer.
  */
 void Font_LoadOrderedFont(Font* font)
 {
-	void* fontBuf;
-	uintptr_t codePointIndex;
-	uintptr_t fontBufIndex;
-	uintptr_t offset;
-
-	font->msgOffset = 0;
-
-	DmaMgr_SendRequest1(font->msgBuf, (char*)_message_0xFFFC_nes, sizeof(_message_0xFFFC_nes), "../z_kanfont.c", 122);
-
-	for(fontBufIndex = 0, codePointIndex = 0; font->msgBuf[codePointIndex] != MESSAGE_END; codePointIndex++)
+	int i;
+	for(i = 0; i < sizeof(nes_font_static_lut) / sizeof(char*); i++)
 	{
-		if(codePointIndex > sizeof(_message_0xFFFC_nes))
-		{
-			osSyncPrintf("ＥＲＲＯＲ！！  エラー！！！  error───！！！！\n");
-			return;
-		}
-
-		if(font->msgBuf[codePointIndex] != MESSAGE_NEWLINE)
-		{
-			fontBuf = font->fontBuf + fontBufIndex * 8;
-
-			DmaMgr_SendRequest1(fontBuf, nes_font_static_lut[font->msgBuf[codePointIndex] - '\x20'], FONT_CHAR_TEX_SIZE, "../z_kanfont.c", 134);
-			fontBufIndex += FONT_CHAR_TEX_SIZE / 8;
-		}
+		memcpy(font->fontBuf + (FONT_CHAR_TEX_SIZE * (i + 0x20)), nes_font_static_lut[i], FONT_CHAR_TEX_SIZE);
 	}
 }

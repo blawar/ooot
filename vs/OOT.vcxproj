@@ -789,6 +789,7 @@
     <ClCompile Include="..\src\port\ultra_reimplementation.cpp" />
     <ClCompile Include="..\src\port\window\sdl\window_sdl2.cpp" />
     <ClCompile Include="..\src\port\window\window.cpp" />
+    <ClCompile Include="..\src\port\generic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\actor_common.h" />
