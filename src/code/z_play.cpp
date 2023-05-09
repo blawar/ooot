@@ -666,10 +666,10 @@ void Gameplay_Update(GlobalContext* globalCtx)
 						globalCtx->transitionCtx.setType(&globalCtx->transitionCtx.data, globalCtx->transitionCtx.transitionType | 0x80);
 					}
 
-					gSaveContext.unk_1419 = 14;
+					gSaveContext.wipeSpeed = 14;
 					if((globalCtx->transitionCtx.transitionType == 8) || (globalCtx->transitionCtx.transitionType == 9))
 					{
-						gSaveContext.unk_1419 = 28;
+						gSaveContext.wipeSpeed = 28;
 					}
 
 					gSaveContext.fadeDuration = 60;
