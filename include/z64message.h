@@ -112,17 +112,17 @@ enum TextState
 
 struct Font
 {
-	/* 0x0000 */ Pointer msgOffset;
-	/* 0x0004 */ size_t msgLength;
-	/* 0x0008 */ u8 charTexBuf[FONT_CHAR_TEX_SIZE * 120];
-	/* 0x3C08 */ u8 iconBuf[FONT_CHAR_TEX_SIZE];
-	/* 0x3C88 */ u8 fontBuf[FONT_CHAR_TEX_SIZE * 320];
+	Pointer msgOffset;
+	size_t msgLength;
+	u8 charTexBuf[FONT_CHAR_TEX_SIZE * 120];
+	u8 iconBuf[FONT_CHAR_TEX_SIZE];
+	u8 fontBuf[FONT_CHAR_TEX_SIZE * 320];
 	union
 	{
-		/* 0xDC88 */ char msgBuf[1280];
-		/* 0xDC88 */ u16 msgBufWide[640];
+		char msgBuf[1280];
+		u16 msgBufWide[640];
 	};
-}; // size = 0xE188
+};
 
 #define TEXTBOX_ENDTYPE_DEFAULT 0x00
 #define TEXTBOX_ENDTYPE_2_CHOICE 0x10

@@ -2662,9 +2662,6 @@
     <ClCompile Include="..\assets\$(buildrom)\textures\message_texture_static\message_texture_static.cpp">
       <Filter>textures</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\ALL\textures\nes_font_static\nes_font_static.cpp">
-      <Filter>textures</Filter>
-    </ClCompile>
     <ClCompile Include="..\assets\$(buildrom)\textures\nintendo_rogo_static\nintendo_rogo_static.cpp">
       <Filter>textures</Filter>
     </ClCompile>

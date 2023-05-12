@@ -455,12 +455,12 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 	switch(gSaveContext.language)
 	{
 		case LANGUAGE_GER:
-			ps = "DR\x8E""CKE START"; /* Ü */
+			ps = "DR\x8E""CKE START"; /* Ãœ */
 			nc = "CONTROLLER FEHLT";
 			break;
 		case LANGUAGE_FRA:
 			ps = "APPUYEZ SUR START";
-			nc = "MANETTE D\x86""BRANCH\x86""E"; /* É */
+			nc = "MANETTE D\x86""BRANCH\x86""E"; /* Ã‰ */
 			break;
 		case LANGUAGE_ES:
 			ps = "PULSA START";
@@ -479,7 +479,7 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 			nc = "NESSUN CONTROLLER";
 			break;
 		case LANGUAGE_SV_SE:
-			ps = "TRYCK P\xBB"" START"; /* Å */
+			ps = "TRYCK P\xBB"" START"; /* Ã… */
 			nc = "INGEN HANDKONTROLL";
 			break;
 	}

@@ -13,12 +13,31 @@ void func_8006EE50(Font* font, u16 arg1, u16 arg2)
 }
 
 /**
- * Loads a texture from nes_font_static for the requested `character` into the character texture buffer
- * at `codePointIndex`. The value of `character` is the ASCII codepoint subtract ' '/0x20.
+ * Loads a texture from nes_font_static for the requested `character` into the character texture buffer at `codePointIndex`.
  */
 void Font_LoadChar(Font* font, u8 character, u16 codePointIndex)
 {
-	DmaMgr_SendRequest1(&font->charTexBuf[codePointIndex], nes_font_static_lut[character], FONT_CHAR_TEX_SIZE, "../z_kanfont.c", 93);
+	for(const CharInfo& info : font_static_lut)
+	{
+		if(info.code == character)
+		{
+			Copy(&font->charTexBuf[codePointIndex], info.tex, FONT_CHAR_TEX_SIZE);
+			return;
+		}
+	}
+	Copy(&font->charTexBuf[codePointIndex], gMsgChar3FQuestionMarkTex, FONT_CHAR_TEX_SIZE);
+}
+
+f32 Font_GetCharWidth(u8 character)
+{
+	for(const CharInfo& info : font_static_lut)
+	{
+		if(info.code == character)
+		{
+			return info.width;
+		}
+	}
+	return 10.0f;
 }
 
 /**
@@ -28,17 +47,17 @@ void Font_LoadChar(Font* font, u8 character, u16 codePointIndex)
  */
 void Font_LoadMessageBoxIcon(Font* font, u16 icon)
 {
-	DmaMgr_SendRequest1(font->iconBuf, message_static_lut[4 + icon], FONT_CHAR_TEX_SIZE, "../z_kanfont.c", 100);
+	Copy(font->iconBuf, message_static_lut[4 + icon], FONT_CHAR_TEX_SIZE);
 }
 
-/**
- * Loads a full set of character textures based on their ordering in nes_font_static_lut into the font buffer.
+/** Mainly used in the Title Screen and File Select Screen.
+ * Loads a full set of character textures based on their ordering in font_static_lut into the font buffer.
  */
 void Font_LoadOrderedFont(Font* font)
 {
 	int i;
-	for(i = 0; i < sizeof(nes_font_static_lut) / sizeof(char*); i++)
+	for(i = 0; i < sizeof(font_static_lut) / sizeof(CharInfo); i++)
 	{
-		memcpy(font->fontBuf + (FONT_CHAR_TEX_SIZE * (i + 0x20)), nes_font_static_lut[i], FONT_CHAR_TEX_SIZE);
+		Copy(font->fontBuf + (FONT_CHAR_TEX_SIZE * (i + 0x20)), font_static_lut[i].tex, FONT_CHAR_TEX_SIZE);
 	}
 }

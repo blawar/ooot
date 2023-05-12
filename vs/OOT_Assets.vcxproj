@@ -970,7 +970,6 @@
     <ClCompile Include="..\assets\$(buildrom)\textures\map_name_static\map_name_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\message_static\message_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\message_texture_static\message_texture_static.cpp" />
-    <ClCompile Include="..\assets\ALL\textures\nes_font_static\nes_font_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\nintendo_rogo_static\nintendo_rogo_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\parameter_static\parameter_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_01.cpp" />
