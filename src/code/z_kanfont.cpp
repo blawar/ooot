@@ -15,7 +15,7 @@ void func_8006EE50(Font* font, u16 arg1, u16 arg2)
 /**
  * Loads a texture from nes_font_static for the requested `character` into the character texture buffer at `codePointIndex`.
  */
-void Font_LoadChar(Font* font, u8 character, u16 codePointIndex)
+void Font_LoadChar(Font* font, wchar_t character, u16 codePointIndex)
 {
 	for(const CharInfo& info : font_static_lut)
 	{
@@ -28,7 +28,7 @@ void Font_LoadChar(Font* font, u8 character, u16 codePointIndex)
 	Copy(&font->charTexBuf[codePointIndex], gMsgChar3FQuestionMarkTex, FONT_CHAR_TEX_SIZE);
 }
 
-f32 Font_GetCharWidth(u8 character)
+f32 Font_GetCharWidth(wchar_t character)
 {
 	for(const CharInfo& info : font_static_lut)
 	{
