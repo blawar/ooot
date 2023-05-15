@@ -45,33 +45,35 @@ void func_801109B0(GlobalContext* globalCtx)
 
 	interfaceCtx->parameterSegment = _parameter_staticSegmentRomStart;
 
-	if(gSaveContext.language == LANGUAGE_ENG)
+	switch(gSaveContext.language)
 	{
-		doActionOffset = 0;
-	}
-	else if(gSaveContext.language == LANGUAGE_GER)
-	{
-		doActionOffset = 0x2B80;
-	}
-	else
-	{
-		doActionOffset = 0x5700;
+		case LANGUAGE_EN:
+		default:
+			doActionOffset = 0;
+			break;
+		case LANGUAGE_DE:
+			doActionOffset = 0x2B80;
+			break;
+		case LANGUAGE_FR:
+			doActionOffset = 0x5700;
+			break;
 	}
 
 	interfaceCtx->doActionSegment1 = (u8*)do_action_static_lut[doActionOffset / 0x180];
 	interfaceCtx->doActionSegment2 = (u8*)do_action_static_lut[(doActionOffset / 0x180) + 1];
 
-	if(gSaveContext.language == LANGUAGE_ENG)
+	switch(gSaveContext.language)
 	{
-		doActionOffset = 0x480;
-	}
-	else if(gSaveContext.language == LANGUAGE_GER)
-	{
-		doActionOffset = 0x3000;
-	}
-	else
-	{
-		doActionOffset = 0x5B80;
+		case LANGUAGE_EN:
+		default:
+			doActionOffset = 0x480;
+			break;
+		case LANGUAGE_DE:
+			doActionOffset = 0x3000;
+			break;
+		case LANGUAGE_FR:
+			doActionOffset = 0x5B80;
+			break;
 	}
 
 	interfaceCtx->doActionSegment3 = (u8*)do_action_static_lut[doActionOffset / 0x180];

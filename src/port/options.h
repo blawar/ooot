@@ -484,11 +484,7 @@ namespace oot
 				return m_textScrollSpeed;
 			}
 
-			const Language& language() const
-			{
-				return m_language;
-			}
-
+			Language language() const;
 			void setLanguage(Language id);
 			void setNextLanguage();
 			void setPrevLanguage();
@@ -541,7 +537,7 @@ namespace oot
 			bool m_enablDebugLevelSelect = false;
 			u64 m_pauseExitInputClearFrames = 2;
 			u64 m_textScrollSpeed = 1;
-			Language m_language = LANGUAGE_ENG;
+			Language m_language = LANGUAGE_AUTO;
 			u64 m_fastForwardSpeed = 5;
 			bool m_pauseOnLostFocus = true;
 			bool m_restoreSaveConfirmation = true;

@@ -4,7 +4,6 @@
 #
 
 import argparse, ast, re
-from oot import *
 
 charmap = {}
 
@@ -27,22 +26,23 @@ def cvt_str(m):
 
     return string
 
+def do_enc(charmap, input, output):
+    read_charmap(charmap)
+
+    contents = ""
+    with open(input, "r", encoding='UTF8') as infile:
+        contents = infile.read()
+
+    contents = re.sub(string_regex, cvt_str, contents)
+
+    with open(output, "w", encoding="raw_unicode_escape", newline='\n') as outfile:
+        outfile.write(contents)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Encode message_data_static text headers")
     parser.add_argument("charmap", help="path to charmap file specifying custom encoding elements")
     parser.add_argument("input", help="path to file to be encoded")
     parser.add_argument("output", help="encoded file")
-    parser.add_argument("buildRom", help="encoded file")
     args = parser.parse_args()
-    setBuildRom(args.buildRom)
-
-    read_charmap(args.charmap)
-
-    contents = ""
-    with open(args.input, "r", encoding='UTF8') as infile:
-        contents = infile.read()
-
-    contents = re.sub(string_regex, cvt_str, contents)
-
-    with open(args.output, "w", encoding="raw_unicode_escape") as outfile:
-        outfile.write(contents)
+    do_enc(args.charmap, args.input, args.output)
+    

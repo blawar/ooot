@@ -5,6 +5,8 @@
 #include "json.h"
 #include "port/options.h"
 #include "xxhash64.h"
+#include <SDL2/SDL.h>
+#include <unordered_map>
 
 #ifdef __SWITCH__
 #include "pc/nx.h"
@@ -18,35 +20,64 @@
 
 void Set_Language(u8 language_id);
 
+std::string userLanguage()
+{
+	std::string lang = "en";
+	SDL_Locale* locale = SDL_GetPreferredLocales();
+	if(locale)
+	{
+		lang = std::string(locale->language) + "_" + std::string(locale->country);
+		SDL_free(locale);
+	}
+
+	return lang;
+}
+
+// FIXME: This is too complex, I rather use some struct with the lang data
+static const std::unordered_map<Language, std::string> languageMap = {
+	{LANGUAGE_AUTO,		"auto"},
+	{LANGUAGE_EN,		"en"},
+	{LANGUAGE_ES,		"es"},
+	{LANGUAGE_FR,		"fr"},
+	{LANGUAGE_DE,		"de"},
+	{LANGUAGE_PT,		"pt"},
+	{LANGUAGE_PT_BR,	"pt_BR"},
+	{LANGUAGE_IT,		"it"},
+	{LANGUAGE_SV_SE,	"sv-SE"},
+};
+
 std::string languageGetString(Language id)
 {
-	switch(id)
+	auto it = languageMap.find(id);
+	if(it != languageMap.end())
 	{
-		case LANGUAGE_ENG:
-			return "en";
-		case LANGUAGE_FRA:
-			return "fr";
-		case LANGUAGE_GER:
-			return "de";
+		return it->second;
 	}
+
 	return "en";
 }
 
 Language languageGetId(const std::string& s)
 {
-	if(s == "en")
+	auto it = std::find_if(
+		languageMap.begin(), languageMap.end(), // is full lang?
+		[&s](const std::pair<Language, std::string>& pair) { return pair.second == s; });
+
+	if(it != languageMap.end())
 	{
-		return LANGUAGE_ENG;
+		return (Language)it->first;
 	}
-	else if(s == "fr")
+
+	it = std::find_if(
+		languageMap.begin(), languageMap.end(), // is base lang?
+		[&s](const std::pair<Language, std::string>& pair) { return pair.second == s.substr(0, 2); });
+
+	if(it != languageMap.end())
 	{
-		return LANGUAGE_FRA;
+		return (Language)it->first;
 	}
-	else if(s == "de")
-	{
-		return LANGUAGE_GER;
-	}
-	return LANGUAGE_ENG;
+
+	return LANGUAGE_EN; // Fallback!
 }
 
 namespace oot
@@ -191,6 +222,8 @@ namespace oot
 			}
 		}
 
+		bool manualChangeLang;
+
 		Game::Game()
 		{
 		}
@@ -214,7 +247,18 @@ namespace oot
 			json::setU64(container, "pauseExitInputClearFrames", pauseExitInputClearFrames(), allocator);
 			json::setU64(container, "textScrollSpeed", textScrollSpeed(), allocator);
 			json::setU64(container, "fastForwardSpeed", fastForwardSpeed(), allocator);
-			json::set(container, "language", languageGetString(language()), allocator);
+
+			std::string lang;
+			if(!manualChangeLang)
+			{
+				lang = languageGetString(LANGUAGE_AUTO);
+			}
+			else
+			{
+				lang = languageGetString(language());
+			}
+
+			json::set(container, "language", lang, allocator);
 			json::setU64(container, "framerate", getMaxFramerate(), allocator);
 
 			doc.AddMember(rapidjson::Value("game", allocator), container, allocator);
@@ -257,47 +301,39 @@ namespace oot
 			return getMaxFramerate();
 		}
 
+		Language Game::language() const
+		{
+			if(!manualChangeLang)
+			{
+				return languageGetId(userLanguage());
+			}
+			return m_language;
+		}
+
 		void Game::setLanguage(Language id)
 		{
-			m_language = (Language)(id % LANGUAGE_MAX);
+			if(id == LANGUAGE_AUTO)
+			{
+				m_language = languageGetId(userLanguage());
+				manualChangeLang = false;
+			}
+			else
+			{
+				m_language = (Language)(id % LANGUAGE_MAX);
+				manualChangeLang = true;
+			}
 			Set_Language(m_language);
 		}
 
 		void Game::setNextLanguage()
 		{
-			switch(m_language)
-			{
-				case LANGUAGE_ENG:
-					setLanguage(LANGUAGE_GER);
-					break;
-				case LANGUAGE_FRA:
-					setLanguage(LANGUAGE_ENG);
-					break;
-				case LANGUAGE_GER:
-					setLanguage(LANGUAGE_FRA);
-					break;
-				default:
-					setLanguage(LANGUAGE_ENG);
-			}
+			setLanguage((Language)((m_language + 1) % LANGUAGE_MAX));
 			config().save();
 		}
 
 		void Game::setPrevLanguage()
 		{
-			switch(m_language)
-			{
-				case LANGUAGE_ENG:
-					setLanguage(LANGUAGE_FRA);
-					break;
-				case LANGUAGE_FRA:
-					setLanguage(LANGUAGE_GER);
-					break;
-				case LANGUAGE_GER:
-					setLanguage(LANGUAGE_ENG);
-					break;
-				default:
-					setLanguage(LANGUAGE_ENG);
-			}
+			setLanguage((Language)((m_language + LANGUAGE_MAX - 1) % LANGUAGE_MAX));
 			config().save();
 		}
 

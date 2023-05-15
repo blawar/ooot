@@ -93,6 +93,7 @@ s32 DmaMgr_SendRequest2(DmaRequest* req, Pointer ram, Pointer vrom, size_t size,
 
 s32 DmaMgr_SendRequest1(Pointer ram0, Pointer vrom, size_t size, const char* file, s32 line)
 {
+	// TODO: LOG4DEBUG!
 	_memcpy(ram0, vrom, size);
 	return 0;
 }

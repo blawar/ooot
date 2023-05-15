@@ -76,6 +76,11 @@
     <TargetName>oot_assets</TargetName>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="..\assets\$(buildrom)\misc\link_animetion\link_animetion.cpp" />
@@ -965,7 +970,6 @@
     <ClCompile Include="..\assets\$(buildrom)\textures\map_name_static\map_name_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\message_static\message_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\message_texture_static\message_texture_static.cpp" />
-    <ClCompile Include="..\assets\$(buildrom)\textures\nes_font_static\nes_font_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\nintendo_rogo_static\nintendo_rogo_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\parameter_static\parameter_static.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_01.cpp" />
@@ -1026,10 +1030,15 @@
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_56.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\place_title_cards\g_pn_57.cpp" />
     <ClCompile Include="..\assets\$(buildrom)\textures\title_static\title_static.cpp" />
-    <ClCompile Include="..\roms\$(buildrom)\text\fra_message_data_static.cpp" />
-    <ClCompile Include="..\roms\$(buildrom)\text\ger_message_data_static.cpp" />
-    <ClCompile Include="..\roms\$(buildrom)\text\nes_message_data_static.cpp" />
-    <ClCompile Include="..\roms\$(buildrom)\text\staff_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\es_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\fr_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\de_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\it_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\en_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\pt-BR_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\pt_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\staff_message_data_static.cpp" />
+    <ClCompile Include="..\assets\ALL\text\sv-SE_message_data_static.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(buildrom)'=='EUR_MQD'">
     <ClCompile Include="..\assets\$(buildrom)\scenes\indoors\hairal_niwa2\hairal_niwa2_room_0.cpp" />

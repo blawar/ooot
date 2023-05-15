@@ -6,32 +6,34 @@
 
 enum TextBoxType
 {
-	/*  0 */ TEXTBOX_TYPE_BLACK,
-	/*  1 */ TEXTBOX_TYPE_WOODEN,
-	/*  2 */ TEXTBOX_TYPE_BLUE,
-	/*  3 */ TEXTBOX_TYPE_OCARINA,
-	/*  4 */ TEXTBOX_TYPE_NONE_BOTTOM,
-	/*  5 */ TEXTBOX_TYPE_NONE_NO_SHADOW,
-	/* 11 */ TEXTBOX_TYPE_CREDITS = 11
+	TEXTBOX_TYPE_BLACK,
+	TEXTBOX_TYPE_WOODEN,
+	TEXTBOX_TYPE_BLUE,
+	TEXTBOX_TYPE_OCARINA,
+	TEXTBOX_TYPE_NONE_BOTTOM,
+	TEXTBOX_TYPE_NONE_NO_SHADOW,
+	TEXTBOX_TYPE_CREDITS = 11,
+	TEXTBOX_TYPE_PERFORMANCE = 99 /* Free Ocarina Performance (no text box) */
 };
 
 enum TextBoxBackground
 {
-	/* 0 */ TEXTBOX_BG_CROSS
+	TEXTBOX_BG_CROSS
 };
 
 enum TextBoxPosition
 {
-	/* 0 */ TEXTBOX_POS_VARIABLE,
-	/* 1 */ TEXTBOX_POS_TOP,
-	/* 2 */ TEXTBOX_POS_MIDDLE,
-	/* 3 */ TEXTBOX_POS_BOTTOM
+	TEXTBOX_POS_VARIABLE,
+	TEXTBOX_POS_TOP,
+	TEXTBOX_POS_MIDDLE,
+	TEXTBOX_POS_BOTTOM
 };
 
 struct MessageTableEntry
 {
 	u16 textId;
-	u8 typePos;
+	TextBoxType type;
+	TextBoxPosition pos;
 	const char* segment;
 	u32 length;
 };
@@ -46,13 +48,17 @@ struct MessageTableEntry
 
 #undef DEFINE_MESSAGE
 
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage, gerMessage, fraMessage)                                                                                                                                                                                 \
-	extern "C" const char _message_##textId##_nes[];                                                                                                                                                                                                       \
-	extern "C" const char _message_##textId##_ger[];                                                                                                                                                                                                       \
-	extern "C" const char _message_##textId##_fra[];
+#define DEFINE_MESSAGE(textId, type, yPos, enMessage, deMessage, frMessage, esMessage, ptMessage, brMessage, itMessage, seMessage) \
+	extern "C" const char _message_##textId##_en[]; \
+	extern "C" const char _message_##textId##_de[]; \
+	extern "C" const char _message_##textId##_fr[]; \
+	extern "C" const char _message_##textId##_es[]; \
+	extern "C" const char _message_##textId##_pt[]; \
+	extern "C" const char _message_##textId##_br[]; \
+	extern "C" const char _message_##textId##_it[]; \
+	extern "C" const char _message_##textId##_se[];
 
-#include "text/message_data.h"
-extern "C" const char _message_0xFFFC_nes[73];
+#include "translations/message_data_en.h"
 
 #undef DEFINE_MESSAGE
 

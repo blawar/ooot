@@ -1,11 +1,12 @@
 #pragma once
 #include <stddef.h>
-#include <string.h>
 #include "porting_defs.h"
 #include "z64.h"
 
 #ifdef __cplusplus
 #define _LANGUAGE_C_PLUS_PLUS
+#include <string>
+std::wstring utf8_to_utf16(const std::string& utf8);
 #endif
 
 #include "macros.h"

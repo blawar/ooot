@@ -781,7 +781,7 @@ namespace oot::save
 		s.chamberCutsceneNum = this->chamberCutsceneNum;
 		s.nextDayTime = this->nextDayTime;
 		s.fadeDuration = this->fadeDuration;
-		s.unk_1419 = this->unk_1419;
+		s.wipeSpeed = this->wipeSpeed;
 		s.skyboxTime = this->skyboxTime;
 		s.dogIsLost = this->dogIsLost;
 		s.nextTransition = this->nextTransition;
@@ -917,7 +917,7 @@ namespace oot::save
 		this->chamberCutsceneNum = s.chamberCutsceneNum;
 		this->nextDayTime = s.nextDayTime;
 		this->fadeDuration = s.fadeDuration;
-		this->unk_1419 = s.unk_1419;
+		this->wipeSpeed = s.wipeSpeed;
 		this->skyboxTime = s.skyboxTime;
 		this->dogIsLost = s.dogIsLost;
 		this->nextTransition = s.nextTransition;

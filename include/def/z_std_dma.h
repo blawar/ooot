@@ -22,3 +22,4 @@ s32 DmaMgr_SendRequest1(Pointer ram0, Pointer vrom, size_t size, const char* fil
 s32 DmaMgr_SendRequest2(DmaRequest* req, Pointer ram, Pointer vrom, size_t size, u32 unk5, OSMesgQueue* queue, OSMesg msg, const char* file, s32 line);
 s32 DmaMgr_SendRequestImpl(DmaRequest* req, Pointer ram, Pointer vrom, size_t size, u32 unk, OSMesgQueue* queue, OSMesg msg);
 void DmaMgr_ThreadEntry(void* arg0);
+#define Copy(p1, p2, size) do { DmaMgr_SendRequest1(p1, p2, size, __FILE__, __LINE__); } while(0); /* DMA_Copy */

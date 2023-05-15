@@ -2139,6 +2139,9 @@
     <ClCompile Include="..\src\port\options.cpp">
       <Filter>Source Files\port</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\port\generic.cpp">
+      <Filter>Source Files\port</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\port\controller\controller.cpp">
       <Filter>Source Files\port\controller</Filter>
     </ClCompile>

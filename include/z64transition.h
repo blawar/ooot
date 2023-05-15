@@ -28,7 +28,7 @@ struct TransitionUnk
 struct TransitionWipe
 {
 	/* 0x000 */ Color_RGBA8 color;
-	/* 0x004 */ Color_RGBA8 envColor;
+	/* 0x004 */ Color_RGBA8 altColor;
 	/* 0x008 */ u8 direction;
 	/* 0x009 */ u8 frame;
 	/* 0x00A */ u8 isDone;

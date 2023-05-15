@@ -217,7 +217,7 @@ namespace oot::save
 		/* 0x1415 */ u8 chamberCutsceneNum;
 		/* 0x1416 */ u16 nextDayTime; // "next_zelda_time"
 		/* 0x1418 */ u8 fadeDuration;
-		/* 0x1419 */ u8 unk_1419; // transition related
+		/* 0x1419 */ u8 wipeSpeed; // transition related
 		/* 0x141A */ u16 skyboxTime;
 		/* 0x141C */ u8 dogIsLost;
 		/* 0x141D */ u8 nextTransition;
@@ -379,7 +379,7 @@ namespace oot::save
 		/* 0x1415 */ u8 chamberCutsceneNum;
 		/* 0x1416 */ u16 nextDayTime; // "next_zelda_time"
 		/* 0x1418 */ u8 fadeDuration;
-		/* 0x1419 */ u8 unk_1419; // transition related
+		/* 0x1419 */ u8 wipeSpeed; // transition related
 		/* 0x141A */ TimerU16 skyboxTime;
 		/* 0x141C */ u8 dogIsLost;
 		/* 0x141D */ u8 nextTransition;

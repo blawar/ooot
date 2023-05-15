@@ -31,9 +31,38 @@ def clean():
 		if path.exists() == False:
 			continue
 		elif path.is_dir():
-			shutil.rmtree(path)
+			for sp in path.glob('*'):
+				if sp.name != 'ALL': shutil.rmtree(sp)
 		else:
 			os.remove(path)
+
+def generateEncMsgs():
+	print("Starting message encoding")
+	charmap = 'assets/ALL/text/charmap.txt'
+	from tools import msgenc
+	for code in {'en', 'de', 'fr', 'es-SV', 'pt', 'pt-BR', 'it', 'sv-SE'}:
+		input_h = f'include/translations/message_data_{code}.h'
+		if code == 'es-SV': code = 'es'
+		output_h = f'include/translations/message_data_{code}.enc.h'
+		msgenc.do_enc(charmap, input_h, output_h)
+	msgenc.do_enc(charmap, assetPath('text/message_data_staff.h'), assetPath('text/message_data_staff.enc.h'))
+	print("Finished message encoding")
+
+def addAdditionalChars():
+	zapd = Path(zapdBinary())
+	chars = []
+	charsdir = str('assets/ALL/textures/nes_font_static')
+	chars.extend(Path(charsdir).glob('*.i4.png'))
+	mkdir(charsdir + '/generated')
+	for char in chars:
+		input_path = os.path.abspath(char)
+		output_path = os.path.abspath(f'{charsdir}/generated/{os.path.splitext(os.path.basename(char))[0]}.inc.c')
+		os.system(f'{zapd} btex -tt i4 -i {input_path} -o {output_path}')
+	nes_remove = [] # Delete conflicting files
+	nes_remove.extend(Path(assetPath('textures/nes_font_static')).glob('nes_font_static.*'))
+	for file in nes_remove:
+		try: os.remove(file)
+		except OSError: pass
 
 def build():
 	print("Starting asset extraction and parsing")
@@ -46,12 +75,11 @@ def build():
 	subprocess.check_call([sys.executable, str('tools/extract_assets.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/extract_z64_variables.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/convert_assets.py'), buildRom()])
-	mkdir(assetPath('text'))
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data.h')), str(assetPath('text/message_data.enc.h')), buildRom()])
-	subprocess.check_call([sys.executable, str('tools/msgenc.py'), str(romPath('text/charmap.txt')), str(assetPath('text/message_data_staff.h')), str(assetPath('text/message_data_staff.enc.h')), buildRom()])
+	generateEncMsgs()
 	subprocess.check_call([sys.executable, str('tools/extract_missing_assets.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/create_luts.py'), buildRom()])
 	subprocess.check_call([sys.executable, str('tools/fix_mtx.py'), buildRom()])
+	addAdditionalChars()
 
 	print("Finished asset extraction and parsing")
 
@@ -67,7 +95,9 @@ def main():
 	parser.add_argument("--refresh-configs", help="Refreshes rom config files (do not use)", action="store_true", default=False)
 	parser.add_argument("-o", "--organize-roms", help="Renames and moves roms to their proper location", action="store_true", default=False)
 	parser.add_argument("-s", "--skip-organize-roms", help="Skip organizing roms", action="store_true", default=False)
-
+	parser.add_argument("--run-msgenc", help="Run msgenc", action="store_true", default=False)
+	parser.add_argument("--add-extra-chars", help="Adds new characters", action="store_true", default=False)
+	
 	args = parser.parse_args()
 	
 	if args.refresh_configs:
@@ -91,6 +121,14 @@ def main():
 	buffer = buffer.replace('#BUILD_ROM#', buildRom())
 	defines = []
 	defines.append('ENABLE_%sFPS' % args.framerate)
+
+	if args.run_msgenc:
+		generateEncMsgs()
+		exit(0)
+
+	if args.add_extra_chars:
+		addAdditionalChars()
+		exit(0)
 
 	if args.enable_mouse:
 		defines.append('ENABLE_MOUSE')

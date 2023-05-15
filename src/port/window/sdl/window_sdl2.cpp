@@ -21,7 +21,6 @@
 #include "def/audioMgr.h"
 
 void quit();
-void Set_Language(u8 language_id);
 #ifndef _WIN32
 void WindowsWGL_GrabWindow(void* wnd);
 #endif
@@ -257,29 +256,6 @@ namespace platform::window
 
 			set_refresh_interval();
 			resize(width(), height());
-
-			auto locale = SDL_GetPreferredLocales();
-
-			while(locale != nullptr)
-			{
-				if(strcmp(locale->language, "en") == 0)
-				{
-					Set_Language(LANGUAGE_ENG);
-					break;
-				}
-				else if(strcmp(locale->language, "ge") == 0)
-				{
-					Set_Language(LANGUAGE_GER);
-					break;
-				}
-				else if(strcmp(locale->language, "fr") == 0)
-				{
-					Set_Language(LANGUAGE_FRA);
-					break;
-				}
-
-				locale++;
-			}
 		}
 
 		void set_fullscreen(bool on, bool call_callback)

@@ -2,6 +2,7 @@
 #include "actor_common.h"
 #include "file_choose.h"
 #include "overlays/ovl_File_Choose/ovl_file_choose.h"
+#include "port/generic.h"
 #include "port/options.h"
 #include "textures/title_static/title_static.h"
 #include "def/z_file_choose.h"
@@ -25,6 +26,22 @@ namespace oot::gamestate
 	    0x0000, 0x0001, 0x0001, 0x0001, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0003, 0x0002, 0x0002, 0x0004, 0x0003, 0x0002, 0x0004, 0x0001, 0x0002, 0x0002, 0x0001, 0x0001, 0x0002,
 	    0x0002, 0x0003, 0x0002, 0x0002, 0x0000, 0x0002, 0x0002, 0x0002, 0x0003, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0002, 0x0001, 0x0003,
 	};
+
+	static u16 GetLocalized(u16 array[])
+	{
+		if(gSaveContext.language > LANGUAGE_FR)
+			return (u16)array[0];
+		else
+			return (u16)array[gSaveContext.language];
+	}
+
+	static void* GetLocalized(void* array[])
+	{
+		if(gSaveContext.language > LANGUAGE_FR)
+			return (void*)array[0];
+		else
+			return (void*)array[gSaveContext.language];
+	}
 
 	void FileChoose_DrawCharacter(GraphicsContext* gfxCtx, void* texture, s16 vtx)
 	{
@@ -90,11 +107,21 @@ namespace oot::gamestate
 
 	static void* sNameLabelTextures[] = {gFileSelNameENGTex, gFileSelNameENGTex, gFileSelNameFRATex};
 
-	static void* sBackspaceEndTextures[][2] = {
-	    {gFileSelBackspaceButtonTex, gFileSelENDButtonENGTex},
-	    {gFileSelBackspaceButtonTex, gFileSelENDButtonGERTex},
-	    {gFileSelBackspaceButtonTex, gFileSelENDButtonFRATex},
+	//sBackspaceEndTextures
+
+	static void* sBackspaceTextures[] = {
+	    gFileSelBackspaceButtonTex,
+	    gFileSelBackspaceButtonTex,
+	    gFileSelBackspaceButtonTex,
 	};
+
+	static void* sEndTextures[] = {
+	    gFileSelENDButtonENGTex,
+	    gFileSelENDButtonGERTex,
+	    gFileSelENDButtonFRATex,
+	};
+
+	//
 
 	static u16 sBackspaceEndWidths[] = {28, 44};
 
@@ -133,7 +160,7 @@ namespace oot::gamestate
 		gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 255, pthis->titleAlpha[0]);
 		gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
 		gSPVertex(POLY_OPA_DISP++, D_80811BB0, 24, 0);
-		gDPLoadTextureBlock(POLY_OPA_DISP++, sNameLabelTextures[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, 56, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+		gDPLoadTextureBlock(POLY_OPA_DISP++, GetLocalized(sNameLabelTextures), G_IM_FMT_IA, G_IM_SIZ_8b, 56, 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 		gSP1Quadrangle(POLY_OPA_DISP++, 0, 2, 3, 1, 0);
 		gDPPipeSync(POLY_OPA_DISP++);
 
@@ -142,8 +169,11 @@ namespace oot::gamestate
 		{
 			gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, pthis->windowColor[0], pthis->windowColor[1], pthis->windowColor[2], 255);
 			gDPSetEnvColor(POLY_OPA_DISP++, 0, 0, 0, 0);
+			void** sBackspaceEndTextures = new void*[2];
+			sBackspaceEndTextures[0] = GetLocalized(sBackspaceTextures);
+			sBackspaceEndTextures[1] = GetLocalized(sEndTextures);
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, sBackspaceEndTextures[gSaveContext.language][phi_t1], G_IM_FMT_IA, G_IM_SIZ_16b, sBackspaceEndWidths[phi_t1], 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
+			    POLY_OPA_DISP++, sBackspaceEndTextures[phi_t1], G_IM_FMT_IA, G_IM_SIZ_16b, sBackspaceEndWidths[phi_t1], 16, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
 			    G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, phi_s0, phi_s0 + 2, phi_s0 + 3, phi_s0 + 1, 0);
 		}
@@ -202,7 +232,7 @@ namespace oot::gamestate
 
 		for(phi_v0 = 0, phi_s0 = 0; phi_s0 < 0x20; phi_s0 += 4, phi_v0++)
 		{
-			FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + pthis->fileNames[pthis->buttonIndex][phi_v0] * FONT_CHAR_TEX_SIZE, phi_s0);
+			FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + ToASCII(pthis->fileNames[pthis->buttonIndex][phi_v0]) * FONT_CHAR_TEX_SIZE, phi_s0);
 		}
 
 		pthis->nameEntryVtx[0x25].v.tc[0] = pthis->nameEntryVtx[0x26].v.tc[1] = pthis->nameEntryVtx[0x27].v.tc[0] = pthis->nameEntryVtx[0x27].v.tc[1] = pthis->nameEntryVtx[0x29].v.tc[0] = pthis->nameEntryVtx[0x2A].v.tc[1] =
@@ -242,14 +272,14 @@ namespace oot::gamestate
 
 			for(tmp = 0; tmp < 32; i++, tmp += 4)
 			{
-				FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + D_808123F0[i] * FONT_CHAR_TEX_SIZE, tmp);
+				FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + ToASCII(D_808123F0[i]) * FONT_CHAR_TEX_SIZE, tmp);
 			}
 
 			vtx += 32;
 		}
 
 		gSPVertex(POLY_OPA_DISP++, &pthis->keyboardVtx[0x100], 4, 0);
-		FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + D_808123F0[i] * FONT_CHAR_TEX_SIZE, 0);
+		FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + ToASCII(D_808123F0[i]) * FONT_CHAR_TEX_SIZE, 0);
 
 		CLOSE_DISPS(pthis->gfxCtx, "../z_file_nameset_PAL.c", 347);
 	}
@@ -387,7 +417,7 @@ namespace oot::gamestate
 						gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 255, 255, 0, 255);
 						gSPVertex(POLY_OPA_DISP++, &pthis->keyboardVtx[pthis->charIndex * 4], 4, 0);
 
-						FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + D_808123F0[pthis->charIndex] * FONT_CHAR_TEX_SIZE, 0);
+						FileChoose_DrawCharacter(pthis->gfxCtx, font->fontBuf + ToASCII(D_808123F0[pthis->charIndex]) * FONT_CHAR_TEX_SIZE, 0);
 
 						if(CHECK_BTN_ALL(input->press.button, BTN_A))
 						{
@@ -1035,7 +1065,7 @@ namespace oot::gamestate
 			gSPVertex(POLY_OPA_DISP++, D_80811D30, 32, 0);
 		}
 #else
-		if(gSaveContext.language == LANGUAGE_GER && 0)
+		if(gSaveContext.language == LANGUAGE_DE && 0)
 		{
 			gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[16], 32, 0);
 		}
@@ -1053,7 +1083,7 @@ namespace oot::gamestate
 		for(i = 0, vtx = 0; i < ARRAY_COUNT(gOptionsMenuHeaders); i++, vtx += 4)
 		{
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, gOptionsMenuHeaders[i].texture[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, gOptionsMenuHeaders[i].width[gSaveContext.language], gOptionsMenuHeaders[i].height, 0, G_TX_NOMIRROR | G_TX_WRAP,
+			    POLY_OPA_DISP++, GetLocalized(gOptionsMenuHeaders[i].texture), G_IM_FMT_IA, G_IM_SIZ_8b, GetLocalized(gOptionsMenuHeaders[i].width), gOptionsMenuHeaders[i].height, 0, G_TX_NOMIRROR | G_TX_WRAP,
 			    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
 		}
@@ -1068,7 +1098,7 @@ namespace oot::gamestate
 			gSPVertex(POLY_OPA_DISP++, D_80811F30, 32, 0);
 		}
 #else
-		if(gSaveContext.language == LANGUAGE_GER && 0)
+		if(gSaveContext.language == LANGUAGE_DE && 0)
 		{
 			gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[64], 32, 0);
 		}
@@ -1101,7 +1131,7 @@ namespace oot::gamestate
 			}
 
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, gOptionsMenuSettings[i].texture[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, gOptionsMenuSettings[i].width[gSaveContext.language], gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
+			    POLY_OPA_DISP++, GetLocalized(gOptionsMenuSettings[i].texture), G_IM_FMT_IA, G_IM_SIZ_8b, GetLocalized(gOptionsMenuSettings[i].width), gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
 			    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
 		}
@@ -1130,7 +1160,7 @@ namespace oot::gamestate
 			}
 
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, gOptionsMenuSettings[i].texture[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, gOptionsMenuSettings[i].width[gSaveContext.language], gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
+			    POLY_OPA_DISP++, GetLocalized(gOptionsMenuSettings[i].texture), G_IM_FMT_IA, G_IM_SIZ_8b, GetLocalized(gOptionsMenuSettings[i].width), gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
 			    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
 		}
@@ -1165,7 +1195,7 @@ namespace oot::gamestate
 			}
 
 			gDPLoadTextureBlock(
-			    POLY_OPA_DISP++, gOptionsMenuSettings[i].texture[gSaveContext.language], G_IM_FMT_IA, G_IM_SIZ_8b, gOptionsMenuSettings[i].width[gSaveContext.language], gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
+			    POLY_OPA_DISP++, GetLocalized(gOptionsMenuSettings[i].texture), G_IM_FMT_IA, G_IM_SIZ_8b, GetLocalized(gOptionsMenuSettings[i].width), gOptionsMenuHeadersHeight, 0, G_TX_NOMIRROR | G_TX_WRAP,
 			    G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 			gSP1Quadrangle(POLY_OPA_DISP++, vtx, vtx + 2, vtx + 3, vtx + 1, 0);
 		}

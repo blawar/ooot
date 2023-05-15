@@ -386,6 +386,14 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
 	CLOSE_DISPS(gfxCtx, "../z_kaleido_map_PAL.c", 388);
 }
 
+static void* GetLocalized(void* array[])
+{
+	if(gSaveContext.language > LANGUAGE_FR)
+		return (void*)array[0];
+	else
+		return (void*)array[gSaveContext.language];
+}
+
 void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx, oot::pause::Page* page)
 {
 	auto mapPageVtx = page->pageVtx();
@@ -790,7 +798,7 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
 	gDPSetCombineLERP(POLY_OPA_DISP++, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0, 1, 0, PRIMITIVE, 0, TEXEL0, 0, PRIMITIVE, 0);
 	gDPSetPrimColor(POLY_OPA_DISP++, 0, 0, 0, 0, 0, pauseCtx->alpha);
 
-	gDPLoadTextureBlock_4b(POLY_OPA_DISP++, currentPosTitleTexs[gSaveContext.language], G_IM_FMT_I, 64, 8, 0, G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+	gDPLoadTextureBlock_4b(POLY_OPA_DISP++, GetLocalized(currentPosTitleTexs), G_IM_FMT_I, 64, 8, 0, G_TX_WRAP | G_TX_NOMIRROR, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
 	gSP1Quadrangle(POLY_OPA_DISP++, 8, 10, 11, 9, 0);
 
