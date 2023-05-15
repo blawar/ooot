@@ -58,66 +58,66 @@ u16 sOcarinaSongBitFlags = 0; // ocarina bit flags
 #include "message_data_fmt.h"
 
 MessageTableEntry sEnMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, enMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_en, sizeof(enMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, enMessage) {textId, type, yPos, _message_##textId##_en, sizeof(enMessage)},
 #include "translations/message_data_en.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 MessageTableEntry sDeMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, deMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_de, sizeof(deMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, deMessage) {textId, type, yPos, _message_##textId##_de, sizeof(deMessage)},
 #include "translations/message_data_de.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 MessageTableEntry sFrMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, frMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_fr, sizeof(frMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, frMessage) {textId, type, yPos, _message_##textId##_fr, sizeof(frMessage)},
 #include "translations/message_data_fr.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 MessageTableEntry sEsMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, esMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_es, sizeof(esMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, esMessage) {textId, type, yPos, _message_##textId##_es, sizeof(esMessage)},
 #include "translations/message_data_es.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 MessageTableEntry sPtMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, ptMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_pt, sizeof(ptMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, ptMessage) {textId, type, yPos, _message_##textId##_pt, sizeof(ptMessage)},
 #include "translations/message_data_pt.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 MessageTableEntry sPtBrMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, brMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_br, sizeof(brMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, brMessage) {textId, type, yPos, _message_##textId##_br, sizeof(brMessage)},
 #include "translations/message_data_pt-BR.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 MessageTableEntry sItMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, itMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_it, sizeof(itMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, itMessage) {textId, type, yPos, _message_##textId##_it, sizeof(itMessage)},
 #include "translations/message_data_it.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 MessageTableEntry sSvSeMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, seMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_se, sizeof(seMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, seMessage) {textId, type, yPos, _message_##textId##_se, sizeof(seMessage)},
 #include "translations/message_data_sv-SE.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 MessageTableEntry sStaffMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, staffMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_staff, sizeof(staffMessage)},
+#define DEFINE_MESSAGE(textId, type, yPos, staffMessage) {textId, type, yPos, _message_##textId##_staff, sizeof(staffMessage)},
 #include "text/message_data_staff.h"
 #undef DEFINE_MESSAGE
-	{0xFFFF, 0, NULL, 0},
+	{0xFFFF, TEXTBOX_TYPE_BLACK, TEXTBOX_POS_VARIABLE, nullptr, 0},
 };
 
 #undef HS_HORSE_ARCHERY
@@ -382,7 +382,8 @@ void Message_FindMessage(GlobalContext* globalCtx, u16 textId)
 
 		if(messageTableEntry->textId == textId)
 		{
-			font->charTexBuf[0] = messageTableEntry->typePos;
+			font->msgType = messageTableEntry->type;
+			font->msgPos = messageTableEntry->pos;
 			font->msgOffset = messageTableEntry->segment;
 			font->msgLength = messageTableEntry->length;
 			return;
@@ -395,7 +396,8 @@ void Message_FindMessage(GlobalContext* globalCtx, u16 textId)
 	font = &globalCtx->msgCtx.font;
 	messageTableEntry = sMessageEntryTablePtr;
 
-	font->charTexBuf[0] = messageTableEntry->typePos;
+	font->msgType = messageTableEntry->type;
+	font->msgPos = messageTableEntry->pos;
 	font->msgOffset = messageTableEntry->segment;
 	font->msgLength = messageTableEntry->length;
 }
@@ -411,7 +413,8 @@ void Message_FindCreditsMessage(GlobalContext* globalCtx, u16 textId)
 
 		if(messageTableEntry->textId == textId)
 		{
-			font->charTexBuf[0] = messageTableEntry->typePos;
+			font->msgType = messageTableEntry->type;
+			font->msgPos = messageTableEntry->pos;
 			font->msgOffset = messageTableEntry->segment;
 			font->msgLength = messageTableEntry->length;
 			return;
@@ -1744,9 +1747,8 @@ void Message_OpenText(GlobalContext* globalCtx, u16 textId)
 		msgCtx->msgLength = font->msgLength;
 		Copy(font->msgBuf, font->msgOffset, font->msgLength);
 	}
-	msgCtx->textBoxProperties = font->charTexBuf[0];
-	msgCtx->textBoxType = msgCtx->textBoxProperties >> 4;
-	msgCtx->textBoxPos = msgCtx->textBoxProperties & 0xF;
+	msgCtx->textBoxType = font->msgType;
+	msgCtx->textBoxPos = font->msgPos;
 	textBoxType = msgCtx->textBoxType;
 	// "Text Box Type"
 	osSyncPrintf("吹き出し種類＝%d\n", msgCtx->textBoxType);
@@ -1959,7 +1961,7 @@ void Message_StartOcarina(GlobalContext* globalCtx, u16 ocarinaActionId)
 	if(ocarinaActionId == OCARINA_ACTION_FREE_PLAY || ocarinaActionId == OCARINA_ACTION_CHECK_NOWARP)
 	{
 		msgCtx->msgMode = MSGMODE_OCARINA_STARTING;
-		msgCtx->textBoxType = 0x63;
+		msgCtx->textBoxType = TEXTBOX_TYPE_PERFORMANCE;
 	}
 	else if(ocarinaActionId == OCARINA_ACTION_FROGS)
 	{
@@ -3469,7 +3471,7 @@ void Message_Update(GlobalContext* globalCtx)
 				R_TEXT_CHOICE_YPOS(0) = R_TEXTBOX_Y_TARGET + 20;
 				R_TEXT_CHOICE_YPOS(1) = R_TEXTBOX_Y_TARGET + 32;
 				R_TEXT_CHOICE_YPOS(2) = R_TEXTBOX_Y_TARGET + 44;
-				osSyncPrintf("message->msg_disp_type=%x\n", msgCtx->textBoxProperties & 0xF0);
+				osSyncPrintf("msgCtx->textBoxType=%x\n", msgCtx->textBoxType);
 				if(msgCtx->textBoxType == TEXTBOX_TYPE_NONE_BOTTOM || msgCtx->textBoxType == TEXTBOX_TYPE_NONE_NO_SHADOW)
 				{
 					msgCtx->msgMode = MSGMODE_TEXT_STARTING;

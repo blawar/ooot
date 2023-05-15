@@ -12,7 +12,8 @@ enum TextBoxType
 	TEXTBOX_TYPE_OCARINA,
 	TEXTBOX_TYPE_NONE_BOTTOM,
 	TEXTBOX_TYPE_NONE_NO_SHADOW,
-	TEXTBOX_TYPE_CREDITS = 11
+	TEXTBOX_TYPE_CREDITS = 11,
+	TEXTBOX_TYPE_PERFORMANCE = 99 /* Free Ocarina Performance (no text box) */
 };
 
 enum TextBoxBackground
@@ -31,7 +32,8 @@ enum TextBoxPosition
 struct MessageTableEntry
 {
 	u16 textId;
-	u8 typePos;
+	TextBoxType type;
+	TextBoxPosition pos;
 	const char* segment;
 	u32 length;
 };

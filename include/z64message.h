@@ -2,6 +2,7 @@
 #include "ultra64/types.h"
 #include "view.h"
 #include <string>
+#include "message_data_static.h"
 //#include "z64audio.h"
 
 struct OcarinaStaff;
@@ -115,6 +116,8 @@ struct Font
 {
 	Pointer msgOffset;
 	size_t msgLength;
+	TextBoxType msgType;
+	TextBoxPosition msgPos;
 	u8 charTexBuf[FONT_CHAR_TEX_SIZE * 120];
 	u8 iconBuf[FONT_CHAR_TEX_SIZE];
 	u8 fontBuf[FONT_CHAR_TEX_SIZE * 320];
@@ -135,59 +138,58 @@ struct Font
 
 struct MessageContext
 {
-	/* 0x0000 */ View view;
-	/* 0x0128 */ Font font;
-	/* 0xE2B0 */ void* textboxSegment; // original name: "fukidashiSegment"
-	/* 0xE2B4 */ char unk_E2B4[0x4];
-	/* 0xE2B8 */ OcarinaStaff* ocarinaStaff; // original name : "info"
-	/* 0xE2BC */ char unk_E2BC[0x3C];
-	/* 0xE2F8 */ u16 textId;
-	/* 0xE2FA */ u16 choiceTextId;
-	/* 0xE2FC */ u8 textBoxProperties; // original name : "msg_disp_type"
-	/* 0xE2FD */ u8 textBoxType;	   // "Text Box Type"
-	/* 0xE2FE */ u8 textBoxPos;	   // text box position
-	/* 0xE300 */ s32 msgLength;	   // original name : "msg_data"
-	/* 0xE304 */ u8 msgMode;	   // original name: "msg_mode"
-	/* 0xE305 */ char unk_E305[0x1];
-	/* 0xE306 */ u8 msgBufDecoded[200]; // decoded message buffer, may be smaller than this
-	/* 0xE3CE */ u16 msgBufPos;	    // original name : "rdp"
-	/* 0xE3D0 */ u16 unk_E3D0;	    // unused, only ever set to 0
-	/* 0xE3D2 */ Counter textDrawPos;   // draw all decoded characters up to this buffer position
-	/* 0xE3D4 */ u16 decodedTextLen;    // decoded message buffer length
-	/* 0xE3D6 */ u16 textUnskippable;
-	/* 0xE3D8 */ s16 textPosX;
-	/* 0xE3DA */ s16 textPosY;
-	/* 0xE3DC */ s16 textColorR;
-	/* 0xE3DE */ s16 textColorG;
-	/* 0xE3E0 */ s16 textColorB;
-	/* 0xE3E2 */ s16 textColorAlpha;
-	/* 0xE3E4 */ u8 textboxEndType; // original name : "select"
-	/* 0xE3E5 */ u8 choiceIndex;
-	/* 0xE3E6 */ u8 choiceNum; // textboxes that are not choice textboxes have a choiceNum of 1
-	/* 0xE3E7 */ TimerU8 stateTimer;
-	/* 0xE3E8 */ TimerU16 textDelayTimer;
-	/* 0xE3EA */ u16 textDelay;
-	/* 0xE3EA */ u16 lastPlayedSong; // original references : "Ocarina_Flog" , "Ocarina_Free"
-	/* 0xE3EE */ u16 ocarinaMode;	 // original name : "ocarina_mode"
-	/* 0xE3F0 */ u16 ocarinaAction;	 // original name : "ocarina_no"
-	/* 0xE3F2 */ u16 unk_E3F2;	 // this is like "lastPlayedSong" but set less often, original name : "chk_ocarina_no"
-	/* 0xE3F4 */ u16 unk_E3F4;	 // unused, only set to 0 in z_actor
-	/* 0xE3F6 */ u16 textboxBackgroundIdx;
-	/* 0xE3F8 */ u8 textboxBackgroundForeColorIdx;
-	/* 0xE3F8 */ u8 textboxBackgroundBackColorIdx;
-	/* 0xE3F8 */ u8 textboxBackgroundYOffsetIdx;
-	/* 0xE3F8 */ u8 textboxBackgroundUnkArg; // unused, set by the textbox background control character arguments
-	/* 0xE3FC */ char unk_E3FC[0x2];
-	/* 0xE3FE */ s16 textboxColorRed;
-	/* 0xE400 */ s16 textboxColorGreen;
-	/* 0xE402 */ s16 textboxColorBlue;
-	/* 0xE404 */ s16 textboxColorAlphaTarget;
-	/* 0xE406 */ s16 textboxColorAlphaCurrent;
-	/* 0xE408 */ struct Actor* talkActor;
-	/* 0xE40C */ s16 disableWarpSongs; // warp song flag set by scene commands
-	/* 0xE40E */ s16 unk_E40E;	   // ocarina related
-	/* 0xE410 */ u8 lastOcaNoteIdx;
-}; // size = 0xE418
+	View view;
+	Font font;
+	void* textboxSegment; // original name: "fukidashiSegment"
+	char unk_E2B4[0x4];
+	OcarinaStaff* ocarinaStaff; // original name : "info"
+	char unk_E2BC[0x3C];
+	u16 textId;
+	u16 choiceTextId;
+	TextBoxType textBoxType;
+	TextBoxPosition textBoxPos;
+	s32 msgLength;	   // original name : "msg_data"
+	u8 msgMode;	   // original name: "msg_mode"
+	char unk_E305[0x1];
+	u8 msgBufDecoded[200]; // decoded message buffer, may be smaller than this
+	u16 msgBufPos;	    // original name : "rdp"
+	u16 unk_E3D0;	    // unused, only ever set to 0
+	Counter textDrawPos;   // draw all decoded characters up to this buffer position
+	u16 decodedTextLen;    // decoded message buffer length
+	u16 textUnskippable;
+	s16 textPosX;
+	s16 textPosY;
+	s16 textColorR;
+	s16 textColorG;
+	s16 textColorB;
+	s16 textColorAlpha;
+	u8 textboxEndType; // original name : "select"
+	u8 choiceIndex;
+	u8 choiceNum; // textboxes that are not choice textboxes have a choiceNum of 1
+	TimerU8 stateTimer;
+	TimerU16 textDelayTimer;
+	u16 textDelay;
+	u16 lastPlayedSong; // original references : "Ocarina_Flog" , "Ocarina_Free"
+	u16 ocarinaMode;	 // original name : "ocarina_mode"
+	u16 ocarinaAction;	 // original name : "ocarina_no"
+	u16 unk_E3F2;	 // this is like "lastPlayedSong" but set less often, original name : "chk_ocarina_no"
+	u16 unk_E3F4;	 // unused, only set to 0 in z_actor
+	u16 textboxBackgroundIdx;
+	u8 textboxBackgroundForeColorIdx;
+	u8 textboxBackgroundBackColorIdx;
+	u8 textboxBackgroundYOffsetIdx;
+	u8 textboxBackgroundUnkArg; // unused, set by the textbox background control character arguments
+	char unk_E3FC[0x2];
+	s16 textboxColorRed;
+	s16 textboxColorGreen;
+	s16 textboxColorBlue;
+	s16 textboxColorAlphaTarget;
+	s16 textboxColorAlphaCurrent;
+	struct Actor* talkActor;
+	s16 disableWarpSongs; // warp song flag set by scene commands
+	s16 unk_E40E;	   // ocarina related
+	u8 lastOcaNoteIdx;
+};
 
 enum DoAction
 {
