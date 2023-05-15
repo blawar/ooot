@@ -47,14 +47,14 @@ void func_801109B0(GlobalContext* globalCtx)
 
 	switch(gSaveContext.language)
 	{
-		case LANGUAGE_ENG:
+		case LANGUAGE_EN:
 		default:
 			doActionOffset = 0;
 			break;
-		case LANGUAGE_GER:
+		case LANGUAGE_DE:
 			doActionOffset = 0x2B80;
 			break;
-		case LANGUAGE_FRA:
+		case LANGUAGE_FR:
 			doActionOffset = 0x5700;
 			break;
 	}
@@ -64,14 +64,14 @@ void func_801109B0(GlobalContext* globalCtx)
 
 	switch(gSaveContext.language)
 	{
-		case LANGUAGE_ENG:
+		case LANGUAGE_EN:
 		default:
 			doActionOffset = 0x480;
 			break;
-		case LANGUAGE_GER:
+		case LANGUAGE_DE:
 			doActionOffset = 0x3000;
 			break;
-		case LANGUAGE_FRA:
+		case LANGUAGE_FR:
 			doActionOffset = 0x5B80;
 			break;
 	}

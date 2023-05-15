@@ -35,15 +35,15 @@ std::string userLanguage()
 
 // FIXME: This is too complex, I rather use some struct with the lang data
 static const std::unordered_map<Language, std::string> languageMap = {
-    {LANGUAGE_AUTO,  "auto"},
-    {LANGUAGE_ENG,   "en"},
-    {LANGUAGE_ES,    "es"},
-    {LANGUAGE_FRA,   "fr"},
-    {LANGUAGE_GER,   "de"},
-    {LANGUAGE_PT,    "pt"},
-    {LANGUAGE_PT_BR, "pt_BR"},
-    {LANGUAGE_IT,    "it"},
-    {LANGUAGE_SV_SE, "sv-SE"},
+	{LANGUAGE_AUTO,		"auto"},
+	{LANGUAGE_EN,		"en"},
+	{LANGUAGE_ES,		"es"},
+	{LANGUAGE_FR,		"fr"},
+	{LANGUAGE_DE,		"de"},
+	{LANGUAGE_PT,		"pt"},
+	{LANGUAGE_PT_BR,	"pt_BR"},
+	{LANGUAGE_IT,		"it"},
+	{LANGUAGE_SV_SE,	"sv-SE"},
 };
 
 std::string languageGetString(Language id)
@@ -60,8 +60,8 @@ std::string languageGetString(Language id)
 Language languageGetId(const std::string& s)
 {
 	auto it = std::find_if(
-	    languageMap.begin(), languageMap.end(), // is full lang?
-	    [&s](const std::pair<Language, std::string>& pair) { return pair.second == s; });
+		languageMap.begin(), languageMap.end(), // is full lang?
+		[&s](const std::pair<Language, std::string>& pair) { return pair.second == s; });
 
 	if(it != languageMap.end())
 	{
@@ -69,15 +69,15 @@ Language languageGetId(const std::string& s)
 	}
 
 	it = std::find_if(
-	    languageMap.begin(), languageMap.end(), // is base lang?
-	    [&s](const std::pair<Language, std::string>& pair) { return pair.second == s.substr(0, 2); });
+		languageMap.begin(), languageMap.end(), // is base lang?
+		[&s](const std::pair<Language, std::string>& pair) { return pair.second == s.substr(0, 2); });
 
 	if(it != languageMap.end())
 	{
 		return (Language)it->first;
 	}
 
-	return LANGUAGE_ENG; // Fallback!
+	return LANGUAGE_EN; // Fallback!
 }
 
 namespace oot

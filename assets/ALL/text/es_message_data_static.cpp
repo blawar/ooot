@@ -4,6 +4,6 @@
 #include "message_data_static.h"
 
 #define DEFINE_MESSAGE(textId, type, yPos, esMessage) \
-    const char _message_##textId##_es[sizeof(esMessage END)] = { esMessage END };
+	const char _message_##textId##_es[sizeof(esMessage END)] = {esMessage END};
 
 #include "translations/message_data_es.enc.h"

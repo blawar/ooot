@@ -388,7 +388,7 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
 
 static void* GetLocalized(void* array[])
 {
-	if(gSaveContext.language > LANGUAGE_FRA)
+	if(gSaveContext.language > LANGUAGE_FR)
 		return (void*)array[0];
 	else
 		return (void*)array[gSaveContext.language];

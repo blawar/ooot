@@ -35,7 +35,7 @@ def do_enc(charmap, input, output):
 
     contents = re.sub(string_regex, cvt_str, contents)
 
-    with open(output, "w", encoding="raw_unicode_escape") as outfile:
+    with open(output, "w", encoding="raw_unicode_escape", newline='\n') as outfile:
         outfile.write(contents)
 
 if __name__ == "__main__":

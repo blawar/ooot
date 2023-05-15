@@ -29,7 +29,7 @@ namespace oot::gamestate
 
 	static u16 GetLocalized(u16 array[])
 	{
-		if(gSaveContext.language > LANGUAGE_FRA)
+		if(gSaveContext.language > LANGUAGE_FR)
 			return (u16)array[0];
 		else
 			return (u16)array[gSaveContext.language];
@@ -37,7 +37,7 @@ namespace oot::gamestate
 
 	static void* GetLocalized(void* array[])
 	{
-		if(gSaveContext.language > LANGUAGE_FRA)
+		if(gSaveContext.language > LANGUAGE_FR)
 			return (void*)array[0];
 		else
 			return (void*)array[gSaveContext.language];
@@ -1065,7 +1065,7 @@ namespace oot::gamestate
 			gSPVertex(POLY_OPA_DISP++, D_80811D30, 32, 0);
 		}
 #else
-		if(gSaveContext.language == LANGUAGE_GER && 0)
+		if(gSaveContext.language == LANGUAGE_DE && 0)
 		{
 			gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[16], 32, 0);
 		}
@@ -1098,7 +1098,7 @@ namespace oot::gamestate
 			gSPVertex(POLY_OPA_DISP++, D_80811F30, 32, 0);
 		}
 #else
-		if(gSaveContext.language == LANGUAGE_GER && 0)
+		if(gSaveContext.language == LANGUAGE_DE && 0)
 		{
 			gSPVertex(POLY_OPA_DISP++, &gOptionsMenuVtx[64], 32, 0);
 		}

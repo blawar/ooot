@@ -454,11 +454,11 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp)
 	std::string nc = "NO CONTROLLER";
 	switch(gSaveContext.language)
 	{
-		case LANGUAGE_GER:
+		case LANGUAGE_DE:
 			ps = "DR\x8E""CKE START"; /* Ü */
 			nc = "CONTROLLER FEHLT";
 			break;
-		case LANGUAGE_FRA:
+		case LANGUAGE_FR:
 			ps = "APPUYEZ SUR START";
 			nc = "MANETTE D\x86""BRANCH\x86""E"; /* É */
 			break;

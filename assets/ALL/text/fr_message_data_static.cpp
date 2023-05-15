@@ -3,7 +3,7 @@
 #include "message_data_fmt.h"
 #include "message_data_static.h"
 
-#define DEFINE_MESSAGE(textId, type, yPos, fraMessage) \
-	const char _message_##textId##_fra[sizeof(fraMessage END)] = { fraMessage END };
+#define DEFINE_MESSAGE(textId, type, yPos, frMessage) \
+	const char _message_##textId##_fr[sizeof(frMessage END)] = {frMessage END};
 
 #include "translations/message_data_fr.enc.h"

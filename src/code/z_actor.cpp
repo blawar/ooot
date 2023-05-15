@@ -868,7 +868,7 @@ void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx)
 }
 
 // test
-static int GetLanguageIndex(int maxLang = LANGUAGE_FRA)
+static int GetLanguageIndex(int maxLang = LANGUAGE_FR)
 {
 	if(gSaveContext.language > maxLang)
 		return 0;

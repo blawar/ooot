@@ -1,6 +1,7 @@
 #pragma once
 #include "ultra64/types.h"
 #include "view.h"
+#include <string>
 //#include "z64audio.h"
 
 struct OcarinaStaff;
@@ -14,9 +15,9 @@ enum TextBoxIcon
 
 enum Language
 {
-	LANGUAGE_ENG,
-	LANGUAGE_GER,
-	LANGUAGE_FRA,
+	LANGUAGE_EN,
+	LANGUAGE_DE,
+	LANGUAGE_FR,
 	LANGUAGE_ES,
 	LANGUAGE_PT,
 	LANGUAGE_PT_BR,

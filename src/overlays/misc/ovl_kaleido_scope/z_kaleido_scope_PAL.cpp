@@ -54,7 +54,7 @@ Gfx* KaleidoScope_DrawPageSections(Gfx* gfx, Vtx* vertices, void** textures);
 s16 KaleidoScope_SetPageVertices(GlobalContext* globalCtx, Vtx* vtx, s16 pageId, s16 arg3);
 
 // test
-static int GetLanguageIndex(int maxLang = LANGUAGE_FRA)
+static int GetLanguageIndex(int maxLang = LANGUAGE_FR)
 {
 	if(gSaveContext.language > maxLang)
 		return 0;
@@ -391,12 +391,12 @@ namespace oot::pause
 			{
 				switch(langId)
 				{
-					case LANGUAGE_ENG:
+					case LANGUAGE_EN:
 					default:
 						return gPauseToSelectItemENGTex;
-					case LANGUAGE_GER:
+					case LANGUAGE_DE:
 						return gPauseToSelectItemGERTex;
-					case LANGUAGE_FRA:
+					case LANGUAGE_FR:
 						return gPauseToSelectItemFRATex;
 				}
 				return gPauseNoENGTex;
@@ -609,12 +609,12 @@ namespace oot::pause
 			{
 				switch(langId)
 				{
-					case LANGUAGE_ENG:
+					case LANGUAGE_EN:
 					default:
 						return gPauseToMapENGTex;
-					case LANGUAGE_GER:
+					case LANGUAGE_DE:
 						return gPauseToMapGERTex;
-					case LANGUAGE_FRA:
+					case LANGUAGE_FR:
 						return gPauseToMapFRATex;
 				}
 				return gPauseNoENGTex;
@@ -699,12 +699,12 @@ namespace oot::pause
 				{
 					switch(langId)
 					{
-						case LANGUAGE_ENG:
+						case LANGUAGE_EN:
 						default:
 							return gPauseToMapENGTex;
-						case LANGUAGE_GER:
+						case LANGUAGE_DE:
 							return gPauseToMapGERTex;
-						case LANGUAGE_FRA:
+						case LANGUAGE_FR:
 							return gPauseToMapFRATex;
 					}
 					return gPauseNoENGTex;
@@ -802,12 +802,12 @@ namespace oot::pause
 			{
 				switch(langId)
 				{
-					case LANGUAGE_ENG:
+					case LANGUAGE_EN:
 					default:
 						return gPauseToQuestStatusENGTex;
-					case LANGUAGE_GER:
+					case LANGUAGE_DE:
 						return gPauseToQuestStatusGERTex;
-					case LANGUAGE_FRA:
+					case LANGUAGE_FR:
 						return gPauseToQuestStatusFRATex;
 				}
 				return gPauseNoENGTex;
@@ -937,12 +937,12 @@ namespace oot::pause
 			{
 				switch(langId)
 				{
-					case LANGUAGE_ENG:
+					case LANGUAGE_EN:
 					default:
 						return gPauseToEquipmentENGTex;
-					case LANGUAGE_GER:
+					case LANGUAGE_DE:
 						return gPauseToEquipmentGERTex;
-					case LANGUAGE_FRA:
+					case LANGUAGE_FR:
 						return gPauseToEquipmentFRATex;
 				}
 				return gPauseNoENGTex;
@@ -2362,7 +2362,7 @@ void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx)
 
 					pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] + WREG(52 + GetLanguageIndex());
 
-					if(GetLanguageIndex() == LANGUAGE_GER)
+					if(GetLanguageIndex() == LANGUAGE_DE)
 					{
 						pauseCtx->infoPanelVtx[20].v.ob[0] = pauseCtx->infoPanelVtx[22].v.ob[0] = pauseCtx->infoPanelVtx[16].v.ob[0] - 99;
 					}
@@ -2431,7 +2431,7 @@ void KaleidoScope_UpdateNamePanel(GlobalContext* globalCtx)
 				{
 					sp2A += 12;
 				}
-				if(GetLanguageIndex() == LANGUAGE_FRA)
+				if(GetLanguageIndex() == LANGUAGE_FR)
 				{
 					sp2A += 12;
 				}
@@ -2449,7 +2449,7 @@ void KaleidoScope_UpdateNamePanel(GlobalContext* globalCtx)
 				{
 					sp2A += 123;
 				}
-				if(GetLanguageIndex() == LANGUAGE_FRA)
+				if(GetLanguageIndex() == LANGUAGE_FR)
 				{
 					sp2A += 123;
 				}
@@ -3303,14 +3303,14 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 
 				switch(gSaveContext.language)
 				{
-					case LANGUAGE_ENG:
+					case LANGUAGE_EN:
 					default:
 						pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
 						break;
-					case LANGUAGE_GER:
+					case LANGUAGE_DE:
 						pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
 						break;
-					case LANGUAGE_FRA:
+					case LANGUAGE_FR:
 						pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
 						break;
 				}
@@ -3321,14 +3321,14 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 				{
 					switch(gSaveContext.language)
 					{
-						case LANGUAGE_ENG:
+						case LANGUAGE_EN:
 						default:
 							pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36];
 							break;
-						case LANGUAGE_GER:
+						case LANGUAGE_DE:
 							pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36 + 22];
 							break;
-						case LANGUAGE_FRA:
+						case LANGUAGE_FR:
 							pauseCtx->nameSegment2 = (u8*)map_name_static_lut[gSaveContext.worldMapArea + 36 + 22 + 22];
 							break;
 					}
@@ -3928,14 +3928,14 @@ void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount)
 
 				switch(gSaveContext.language)
 				{
-					case LANGUAGE_ENG:
+					case LANGUAGE_EN:
 					default:
 						pauseCtx->iconItemLangSegment = _icon_item_nes_staticSegmentRomStart;
 						break;
-					case LANGUAGE_GER:
+					case LANGUAGE_DE:
 						pauseCtx->iconItemLangSegment = _icon_item_ger_staticSegmentRomStart;
 						break;
-					case LANGUAGE_FRA:
+					case LANGUAGE_FR:
 						pauseCtx->iconItemLangSegment = _icon_item_fra_staticSegmentRomStart;
 						break;
 				}

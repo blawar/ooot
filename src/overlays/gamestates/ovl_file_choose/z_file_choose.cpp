@@ -43,7 +43,7 @@ namespace oot::gamestate
 
 	static u16 GetLocalized(u16 array[])
 	{
-		if(gSaveContext.language > LANGUAGE_FRA)
+		if(gSaveContext.language > LANGUAGE_FR)
 			return (u16)array[0];
 		else
 			return (u16)array[gSaveContext.language];
@@ -51,7 +51,7 @@ namespace oot::gamestate
 
 	static void* GetLocalized(void* array[])
 	{
-		if(gSaveContext.language > LANGUAGE_FRA)
+		if(gSaveContext.language > LANGUAGE_FR)
 			return (void*)array[0];
 		else
 			return (void*)array[gSaveContext.language];

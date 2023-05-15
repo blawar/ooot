@@ -2909,31 +2909,31 @@
       <Filter>scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\ALL\text\es_message_data_static.cpp">
-       <Filter>text</Filter>
+      <Filter>text</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\ALL\text\fra_message_data_static.cpp">
-       <Filter>text</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assets\ALL\text\ger_message_data_static.cpp">
-       <Filter>text</Filter>
+    <ClCompile Include="..\assets\ALL\text\de_message_data_static.cpp">
+      <Filter>text</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\ALL\text\it_message_data_static.cpp">
-       <Filter>text</Filter>
+      <Filter>text</Filter>
     </ClCompile>
-    <ClCompile Include="..\assets\ALL\text\nes_message_data_static.cpp">
-       <Filter>text</Filter>
+    <ClCompile Include="..\assets\ALL\text\en_message_data_static.cpp">
+      <Filter>text</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\ALL\text\pt-BR_message_data_static.cpp">
-       <Filter>text</Filter>
+      <Filter>text</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\ALL\text\pt_message_data_static.cpp">
-       <Filter>text</Filter>
+      <Filter>text</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\ALL\text\staff_message_data_static.cpp">
-       <Filter>text</Filter>
+      <Filter>text</Filter>
     </ClCompile>
     <ClCompile Include="..\assets\ALL\text\sv-SE_message_data_static.cpp">
-       <Filter>text</Filter>
+      <Filter>text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assets\ALL\text\fr_message_data_static.cpp">
+      <Filter>text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

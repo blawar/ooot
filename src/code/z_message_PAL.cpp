@@ -41,51 +41,38 @@
 #define MSG_GET_OFFSET(a, b) a
 
 s16 sTextFade = false; // original name: key_off_flag ?
-
 u8 D_8014B2F4 = 0;
-
 s16 sOcarinaNoteBufPos = 0;
-
 s16 sOcarinaNoteBufLen = 0;
-
 u8 sTextboxSkipped = false;
-
 u16 sNextTextId = 0;
-
 s16 sTextIsCredits = false;
-
 UNK_TYPE D_8014B30C = 0;
-
 s16 sLastPlayedSong = 0xFF; // last played song?
-
 s16 sHasSunsSong = false;
-
 s16 sMessageHasSetSfx = false;
-
 u16 sOcarinaSongBitFlags = 0; // ocarina bit flags
 
 #undef MESSAGE_DATA_FMT_H
 #define MESSAGE_DATA_STATIC
 #include "message_data_fmt.h"
 
-MessageTableEntry sNesMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, nesMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_nes, sizeof(nesMessage)},
-#define DEFINE_MESSAGE_FFFC
+MessageTableEntry sEnMessageEntryTable[] = {
+#define DEFINE_MESSAGE(textId, type, yPos, enMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_en, sizeof(enMessage)},
 #include "translations/message_data_en.h"
-#undef DEFINE_MESSAGE_FFFC
 #undef DEFINE_MESSAGE
 	{0xFFFF, 0, NULL, 0},
 };
 
-MessageTableEntry sGerMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, gerMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_ger, sizeof(gerMessage)},
+MessageTableEntry sDeMessageEntryTable[] = {
+#define DEFINE_MESSAGE(textId, type, yPos, deMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_de, sizeof(deMessage)},
 #include "translations/message_data_de.h"
 #undef DEFINE_MESSAGE
 	{0xFFFF, 0, NULL, 0},
 };
 
-MessageTableEntry sFraMessageEntryTable[] = {
-#define DEFINE_MESSAGE(textId, type, yPos, fraMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_fra, sizeof(fraMessage)},
+MessageTableEntry sFrMessageEntryTable[] = {
+#define DEFINE_MESSAGE(textId, type, yPos, frMessage) {textId, (_SHIFTL(type, 4, 8) | _SHIFTL(yPos, 0, 8)), _message_##textId##_fr, sizeof(frMessage)},
 #include "translations/message_data_fr.h"
 #undef DEFINE_MESSAGE
 	{0xFFFF, 0, NULL, 0},
@@ -149,7 +136,7 @@ MessageTableEntry sStaffMessageEntryTable[] = {
 #undef YELLOW
 #undef BLACK
 
-MessageTableEntry* sMessageEntryTablePtr = sNesMessageEntryTable;
+MessageTableEntry* sMessageEntryTablePtr = sEnMessageEntryTable;
 MessageTableEntry* sStaffMessageEntryTablePtr = sStaffMessageEntryTable;
 
 s16 sTextboxBackgroundForePrimColors[][3] = {
@@ -802,7 +789,6 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP)
 {
 	MessageContext* msgCtx = &globalCtx->msgCtx;
 	u16 lookAheadCharacter;
-	u8 character;
 	u16 j;
 	u16 i;
 	u16 sfxHi;
@@ -837,7 +823,7 @@ void Message_DrawText(GlobalContext* globalCtx, Gfx** gfxP)
 
 	for(i = 0; i < msgCtx->textDrawPos; i++)
 	{
-		character = msgCtx->msgBufDecoded[i];
+		u8 character = msgCtx->msgBufDecoded[i];
 
 		switch(character)
 		{
@@ -1171,7 +1157,7 @@ void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y)
 		R_TEXTBOX_ICON_XPOS = R_TEXT_INIT_XPOS - GetLocalized(sIconItem32XOffsets);
 		R_TEXTBOX_ICON_YPOS = y + 6;
 		R_TEXTBOX_ICON_SIZE = 32;
-		DmaMgr_SendRequest1(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE), icon_item_static_lut[itemId], 0x1000, "../z_message_PAL.c", 1473);
+		Copy(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE), icon_item_static_lut[itemId], 0x1000);
 		// "Item 32-0"
 		osSyncPrintf("アイテム32-0\n");
 	}
@@ -1180,7 +1166,7 @@ void Message_LoadItemIcon(GlobalContext* globalCtx, u16 itemId, s16 y)
 		R_TEXTBOX_ICON_XPOS = R_TEXT_INIT_XPOS - GetLocalized(sIconItem24XOffsets);
 		R_TEXTBOX_ICON_YPOS = y + 10;
 		R_TEXTBOX_ICON_SIZE = 24;
-		DmaMgr_SendRequest1(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE), icon_item_24_static_lut[itemId - ITEM_MEDALLION_FOREST], 0x900, "../z_message_PAL.c", 1482);
+		Copy(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE), icon_item_24_static_lut[itemId - ITEM_MEDALLION_FOREST], 0x900);
 		// "Item 24"
 		osSyncPrintf("アイテム24＝%d (%d) {%d}\n", itemId, itemId - ITEM_KOKIRI_EMERALD, 84);
 	}
@@ -1623,10 +1609,8 @@ void Message_Decode(GlobalContext* globalCtx)
 			msgCtx->textboxBackgroundBackColorIdx = font->msgBuf[msgCtx->msgBufPos + 2] & 0xF;
 			msgCtx->textboxBackgroundYOffsetIdx = (font->msgBuf[msgCtx->msgBufPos + 3] & 0xF0) >> 4;
 			msgCtx->textboxBackgroundUnkArg = font->msgBuf[msgCtx->msgBufPos + 3] & 0xF;
-			DmaMgr_SendRequest1(
-				POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE), message_texture_static_lut[msgCtx->textboxBackgroundIdx], 0x900, "../z_message_PAL.c", 1830); // TODO FIX seems out of bounds?  lut only has two elements
-			DmaMgr_SendRequest1(
-				POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE + 0x900), message_texture_static_lut[msgCtx->textboxBackgroundIdx + 1], 0x900, "../z_message_PAL.c", 1834); // TODO FIX seems out of bounds?  lut only has two elements
+			Copy(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE), message_texture_static_lut[msgCtx->textboxBackgroundIdx], 0x900); // TODO FIX seems out of bounds?  lut only has two elements
+			Copy(POINTER_ADD(msgCtx->textboxSegment, MESSAGE_STATIC_TEX_SIZE + 0x900), message_texture_static_lut[msgCtx->textboxBackgroundIdx + 1], 0x900); // TODO FIX seems out of bounds?  lut only has two elements
 			msgCtx->msgBufPos += 3;
 			R_TEXTBOX_BG_YPOS = R_TEXTBOX_Y + 8;
 			numLines = 2;
@@ -1752,13 +1736,13 @@ void Message_OpenText(GlobalContext* globalCtx, u16 textId)
 	{
 		Message_FindCreditsMessage(globalCtx, textId);
 		msgCtx->msgLength = font->msgLength;
-		DmaMgr_SendRequest1(font->msgBuf, font->msgOffset, font->msgLength, "../z_message_PAL.c", 1954);
+		Copy(font->msgBuf, font->msgOffset, font->msgLength);
 	}
 	else
 	{
 		Message_FindMessage(globalCtx, textId);
 		msgCtx->msgLength = font->msgLength;
-		DmaMgr_SendRequest1(font->msgBuf, font->msgOffset, font->msgLength, "../z_message_PAL.c", 1966);
+		Copy(font->msgBuf, font->msgOffset, font->msgLength);
 	}
 	msgCtx->textBoxProperties = font->charTexBuf[0];
 	msgCtx->textBoxType = msgCtx->textBoxProperties >> 4;
@@ -1768,7 +1752,7 @@ void Message_OpenText(GlobalContext* globalCtx, u16 textId)
 	osSyncPrintf("吹き出し種類＝%d\n", msgCtx->textBoxType);
 	if(textBoxType < TEXTBOX_TYPE_NONE_BOTTOM)
 	{
-		DmaMgr_SendRequest1(msgCtx->textboxSegment, message_static_lut[messageStaticIndices[textBoxType]], MESSAGE_STATIC_TEX_SIZE, "../z_message_PAL.c", 2006);
+		Copy(msgCtx->textboxSegment, message_static_lut[messageStaticIndices[textBoxType]], MESSAGE_STATIC_TEX_SIZE);
 		if(textBoxType == TEXTBOX_TYPE_BLACK)
 		{
 			msgCtx->textboxColorRed = 0;
@@ -3690,16 +3674,16 @@ void Message_Update(GlobalContext* globalCtx)
 
 void Message_SetTables(void)
 {
-	sMessageEntryTablePtr = sNesMessageEntryTable;
+	sMessageEntryTablePtr = sEnMessageEntryTable;
 	sStaffMessageEntryTablePtr = sStaffMessageEntryTable;
 
 	switch(gSaveContext.language)
 	{
-		case LANGUAGE_GER:
-			sMessageEntryTablePtr = sGerMessageEntryTable;
+		case LANGUAGE_DE:
+			sMessageEntryTablePtr = sDeMessageEntryTable;
 			break;
-		case LANGUAGE_FRA:
-			sMessageEntryTablePtr = sFraMessageEntryTable;
+		case LANGUAGE_FR:
+			sMessageEntryTablePtr = sFrMessageEntryTable;
 			break;
 		case LANGUAGE_ES:
 			sMessageEntryTablePtr = sEsMessageEntryTable;
@@ -3716,9 +3700,6 @@ void Message_SetTables(void)
 		case LANGUAGE_SV_SE:
 			sMessageEntryTablePtr = sSvSeMessageEntryTable;
 			break;
-		case LANGUAGE_ENG:
-		default:
-			sMessageEntryTablePtr = sNesMessageEntryTable;
 	}
 }
 

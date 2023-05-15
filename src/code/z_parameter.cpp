@@ -203,7 +203,7 @@ void Interface_ChangeAlpha(u16 alphaType)
 }
 
 // test
-static int GetLanguageIndex(int maxLang = LANGUAGE_FRA)
+static int GetLanguageIndex(int maxLang = LANGUAGE_FR)
 {
 	if(gSaveContext.language > maxLang)
 		return 0;
@@ -2709,12 +2709,12 @@ void Interface_LoadActionLabel(InterfaceContext* interfaceCtx, u16 action, s16 l
 		action = DO_ACTION_NONE;
 	}
 
-	if(GetLanguageIndex() != LANGUAGE_ENG)
+	if(GetLanguageIndex() != LANGUAGE_EN)
 	{
 		action += DO_ACTION_MAX;
 	}
 
-	if(GetLanguageIndex() == LANGUAGE_FRA)
+	if(GetLanguageIndex() == LANGUAGE_FR)
 	{
 		action += DO_ACTION_MAX;
 	}
@@ -2796,12 +2796,12 @@ void Interface_LoadActionLabelB(GlobalContext* globalCtx, u16 action)
 {
 	InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 
-	if(GetLanguageIndex() != LANGUAGE_ENG)
+	if(GetLanguageIndex() != LANGUAGE_EN)
 	{
 		action += DO_ACTION_MAX;
 	}
 
-	if(GetLanguageIndex() == LANGUAGE_FRA)
+	if(GetLanguageIndex() == LANGUAGE_FR)
 	{
 		action += DO_ACTION_MAX;
 	}
