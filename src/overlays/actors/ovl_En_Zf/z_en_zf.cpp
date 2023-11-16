@@ -635,7 +635,7 @@ s32 EnZf_CanAttack(GlobalContext* globalCtx, EnZf* pthis)
 
 void func_80B44DC4(EnZf* pthis, GlobalContext* globalCtx)
 {
-	s16 angleDiff = pthis->actor.yawTowardsPlayer - pthis->actor.shape.rot.y;
+	s16 angleDiff = pthis->actor.yawTowardsPlayer - pthis->actor.world.rot.y;
 
 	if(angleDiff < 0)
 	{
@@ -646,7 +646,7 @@ void func_80B44DC4(EnZf* pthis, GlobalContext* globalCtx)
 	{
 		func_80B483E4(pthis, globalCtx);
 	}
-	else if((pthis->actor.xzDistToPlayer <= 100.0f) && ((globalCtx->gameplayFrames % 8) != 0) && EnZf_CanAttack(globalCtx, pthis))
+	else if((pthis->actor.xzDistToPlayer <= 100.0f) && ((globalCtx->gameplayFrames % 24) != 0) && EnZf_CanAttack(globalCtx, pthis))
 	{
 		EnZf_SetupSlash(pthis);
 	}
@@ -807,7 +807,7 @@ void func_80B4543C(EnZf* pthis, GlobalContext* globalCtx)
 {
 	Player* player = GET_PLAYER(globalCtx);
 	s32 pad;
-	s16 angleToPlayer = (pthis->actor.yawTowardsPlayer - pthis->headRot) - pthis->actor.shape.rot.y;
+	s16 angleToPlayer = (pthis->actor.yawTowardsPlayer - pthis->headRot) - pthis->actor.world.rot.y;
 
 	angleToPlayer = ABS(angleToPlayer);
 	SkelAnime_Update(&pthis->skelAnime);
@@ -830,12 +830,12 @@ void func_80B4543C(EnZf* pthis, GlobalContext* globalCtx)
 				return;
 			}
 		}
-		angleToPlayer = player->actor.shape.rot.y - pthis->actor.shape.rot.y;
+		angleToPlayer = player->actor.world.rot.y - pthis->actor.world.rot.y;
 		angleToPlayer = ABS(angleToPlayer);
 
 		if((pthis->actor.xzDistToPlayer < 100.0f) && (player->swordState != 0) && (angleToPlayer >= 0x1F40))
 		{
-			pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
+			pthis->actor.world.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 			func_80B483E4(pthis, globalCtx);
 		}
 		else if(pthis->unk_3F0 != 0)
@@ -850,7 +850,7 @@ void func_80B4543C(EnZf* pthis, GlobalContext* globalCtx)
 				{
 					if(pthis->actor.params == ENZF_TYPE_DINOLFOS)
 					{
-						pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
+						pthis->actor.world.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 						EnZf_SetupJumpForward(pthis);
 					}
 					else
@@ -882,7 +882,7 @@ void func_80B4543C(EnZf* pthis, GlobalContext* globalCtx)
 
 void EnZf_SetupApproachPlayer(EnZf* pthis, GlobalContext* globalCtx)
 {
-	Animation_MorphToLoop(&pthis->skelAnime, &gZfWalkingAnim, -4.0f);
+	Animation_MorphToLoop(&pthis->skelAnime, &gZfWalkingAnim, -12.0f);
 	pthis->action = ENZF_ACTION_APPROACH_PLAYER;
 
 	if(pthis->actor.params >= ENZF_TYPE_LIZALFOS_MINIBOSS_A)
@@ -927,13 +927,13 @@ void EnZf_ApproachPlayer(EnZf* pthis, GlobalContext* globalCtx)
 			if((sp48 < 0) && (pthis->nextPlatform == pthis->curPlatform))
 			{
 				sp48 = pthis->curPlatform;
-				pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
+				pthis->actor.world.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 			}
 			else
 			{
-				pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer = Actor_WorldYawTowardPoint(&pthis->actor, &sPlatformPositions[pthis->nextPlatform]);
+				pthis->actor.world.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer = Actor_WorldYawTowardPoint(&pthis->actor, &sPlatformPositions[pthis->nextPlatform]);
 
-				temp_v1 = pthis->actor.wallYaw - pthis->actor.shape.rot.y;
+				temp_v1 = pthis->actor.wallYaw - pthis->actor.world.rot.y;
 				temp_v1 = ABS(temp_v1);
 
 				if((pthis->unk_3F8 && (pthis->actor.speedXZ > 0.0f)) || ((pthis->actor.bgCheckFlags & BG_STATE_3) && (temp_v1 >= 0x5C19)))
@@ -944,7 +944,7 @@ void EnZf_ApproachPlayer(EnZf* pthis, GlobalContext* globalCtx)
 
 						if(pthis->actor.bgCheckFlags & BG_STATE_3)
 						{
-							pthis->actor.velocity.y = 20.0f;
+							pthis->actor.velocity.y = 60.0f;
 						}
 
 						return;
@@ -985,7 +985,7 @@ void EnZf_ApproachPlayer(EnZf* pthis, GlobalContext* globalCtx)
 		{
 			pthis->actor.shape.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 
-			if(Rand_ZeroOne() > 0.7f)
+			if(Rand_ZeroOne() > 2.1f)
 			{
 				func_80B483E4(pthis, globalCtx);
 				return;
@@ -1012,7 +1012,7 @@ void EnZf_ApproachPlayer(EnZf* pthis, GlobalContext* globalCtx)
 			}
 			else if(pthis->actor.xzDistToPlayer < 100.0f)
 			{
-				if((Rand_ZeroOne() > 0.05f) && EnZf_CanAttack(globalCtx, pthis))
+				if((Rand_ZeroOne() > 0.5f) && EnZf_CanAttack(globalCtx, pthis))
 				{
 					EnZf_SetupSlash(pthis);
 				}
@@ -1051,7 +1051,7 @@ void EnZf_ApproachPlayer(EnZf* pthis, GlobalContext* globalCtx)
 				{
 					if(Rand_ZeroOne() < 0.1f)
 					{
-						pthis->actor.world.rot.y = pthis->actor.shape.rot.y = pthis->actor.yawTowardsPlayer;
+						pthis->actor.world.rot.y = pthis->actor.world.rot.y = pthis->actor.yawTowardsPlayer;
 						EnZf_SetupJumpForward(pthis);
 						return;
 					}
@@ -1830,13 +1830,13 @@ void EnZf_HopAway(EnZf* pthis, GlobalContext* globalCtx)
 			{
 				case 1:
 				case 1 | 2:
-					pthis->actor.velocity.y = 12.0f;
+					pthis->actor.velocity.y = 24.0f;
 					if(pthis->actor.bgCheckFlags & BG_STATE_3)
 					{
-						pthis->actor.velocity.y += 8.0f;
+						pthis->actor.velocity.y += 24.0f;
 					}
 
-					pthis->actor.speedXZ = 8.0f;
+					pthis->actor.speedXZ = 24.0f;
 					break;
 
 				case 2:
@@ -1847,7 +1847,7 @@ void EnZf_HopAway(EnZf* pthis, GlobalContext* globalCtx)
 				default: // 0
 					phi_f20_2 = 107.0f;
 					phi_f20_2 += 10.0f;
-					phi_f0 = 8.0f;
+					phi_f0 = 24.0f;
 					phi_f0 += 1.2f;
 
 					for(phi_v1 = 20; phi_v1 >= 0; phi_v1--, phi_f20_2 += 10.0f, phi_f0 += 1.2f)
@@ -1855,7 +1855,7 @@ void EnZf_HopAway(EnZf* pthis, GlobalContext* globalCtx)
 						if(!EnZf_PrimaryFloorCheck(pthis, globalCtx, phi_f20_2))
 						{
 							pthis->actor.speedXZ = phi_f0;
-							pthis->actor.velocity.y = 12.0f;
+							pthis->actor.velocity.y = 24.0f;
 							break;
 						}
 					}
