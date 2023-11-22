@@ -174,7 +174,6 @@ void EnKarebaba_SetupUpright(EnKarebaba* pthis)
 {
 	if(pthis->actionFunc != EnKarebaba_Spin)
 	{
-		Actor_SetScale(&pthis->actor, 0.01f);
 		pthis->bodyCollider.base.colType = COLTYPE_HIT6;
 		pthis->bodyCollider.base.acFlags &= ~AC_HARD;
 		pthis->bodyCollider.info.bumper.dmgFlags = !LINK_IS_ADULT ? 0x07C00710 : 0x0FC00710;
@@ -293,7 +292,6 @@ void EnKarebaba_Upright(EnKarebaba* pthis, GlobalContext* globalCtx)
 		pthis->actor.params--;
 	}
 
-	if(Animation_OnFrame(&pthis->skelAnime, 0.0f) || Animation_OnFrame(&pthis->skelAnime, 12.0f))
 	{
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DEKU_JR_MOUTH);
 	}
@@ -325,7 +323,6 @@ void EnKarebaba_Spin(EnKarebaba* pthis, GlobalContext* globalCtx)
 
 	SkelAnime_Update(&pthis->skelAnime);
 
-	if(Animation_OnFrame(&pthis->skelAnime, 0.0f) || Animation_OnFrame(&pthis->skelAnime, 12.0f))
 	{
 		if(1)
 		{
@@ -334,20 +331,17 @@ void EnKarebaba_Spin(EnKarebaba* pthis, GlobalContext* globalCtx)
 		Audio_PlayActorSound2(&pthis->actor, NA_SE_EN_DEKU_JR_MOUTH);
 	}
 
-	value = 20 - pthis->actor.params;
-	value = 20 - ABS(value);
 
 	if(value > 10)
 	{
-		value = 10;
+		value = 10; // spin speed!
 	}
 
-	pthis->headCollider.dim.radius = sHeadColliderInit.dim.radius + (value * 2);
 	pthis->actor.shape.rot.x = 0xC000 - (value * 0x100);
 	pthis->actor.shape.rot.y += value * 0x2C0;
-	pthis->actor.world.pos.y = (Math_SinS(pthis->actor.shape.rot.x) * -60.0f) + pthis->actor.home.pos.y;
+	pthis->actor.world.pos.y = (Math_SinS(pthis->actor.shape.rot.x) * -60.0f) + pthis->actor.home.pos.y; // is the Height
 
-	cos60 = Math_CosS(pthis->actor.shape.rot.x) * 60.0f;
+	cos60 = Math_CosS(pthis->actor.shape.rot.x) * 60.0f; // Width of rotation
 
 	pthis->actor.world.pos.x = (Math_SinS(pthis->actor.shape.rot.y) * cos60) + pthis->actor.home.pos.x;
 	pthis->actor.world.pos.z = (Math_CosS(pthis->actor.shape.rot.y) * cos60) + pthis->actor.home.pos.z;
@@ -369,7 +363,6 @@ void EnKarebaba_Dying(EnKarebaba* pthis, GlobalContext* globalCtx)
 	Vec3f position;
 	Vec3f rotation;
 
-	Math_StepToF(&pthis->actor.speedXZ, 0.0f, 0.1f);
 
 	if(pthis->actor.params == 0)
 	{
@@ -461,8 +454,6 @@ void EnKarebaba_Regrow(EnKarebaba* pthis, GlobalContext* globalCtx)
 	f32 scaleFactor;
 
 	pthis->actor.params++;
-	scaleFactor = pthis->actor.params * 0.05f;
-	Actor_SetScale(&pthis->actor, 0.005f * scaleFactor);
 	pthis->actor.world.pos.y = pthis->actor.home.pos.y + (14.0f * scaleFactor);
 
 	if(pthis->actor.params == 20)
@@ -487,7 +478,6 @@ void EnKarebaba_Update(Actor* thisx, GlobalContext* globalCtx)
 		if(pthis->actionFunc == EnKarebaba_Dying)
 		{
 			Actor_MoveForward(&pthis->actor);
-			Actor_UpdateBgCheckInfo(globalCtx, &pthis->actor, 10.0f, 15.0f, 10.0f, 5);
 		}
 		else
 		{
