@@ -2558,7 +2558,7 @@ void EnZf_Update(Actor* thisx, GlobalContext* globalCtx)
 
 		if(pthis->action <= ENZF_ACTION_HOP_AND_TAUNT)
 		{
-			if((pthis->unk_3F4 == 1) && (pthis->actor.bgCheckFlags & BG_STATE_0))
+			if((pthis->unk_3F4 == FRAMERATE_SCALER_INV) && (pthis->actor.bgCheckFlags & BG_STATE_0))
 			{
 				if(pthis->actor.colChkInfo.health > 0)
 				{
@@ -2568,7 +2568,7 @@ void EnZf_Update(Actor* thisx, GlobalContext* globalCtx)
 			}
 		}
 
-		if(pthis->unk_3F4 >= 2)
+		if(pthis->unk_3F4 >= FRAMERATE_SCALER_INV)
 		{
 			pthis->unk_3F4--;
 		}
